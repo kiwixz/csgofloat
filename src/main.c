@@ -17,7 +17,7 @@
  * along with csgofloat. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _POSIX_C_SOURCE 199309L
+#define _POSIX_C_SOURCE 200809L
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -43,10 +43,14 @@ typedef struct
 
 static const int URLBUF = 1024,
                  MINLEN = 5;
-static const char URL[] =
+static const char INVURL[] =
   "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?key="
 #include "../STEAMKEY"
-         "&SteamID=%s",
+         "&steamid=%s",
+                  IDURL[] =
+  "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key="
+#include "../STEAMKEY"
+         "&vanityurl=%s",
                   *QUALITIES[] = {
   "Battle-Scarred",
   "Well-Worn",
@@ -97,7 +101,7 @@ static int get_json_try(CURL *curl, String *s)
   return s->len;
 }
 
-static char *get_json(char *id)
+static char *get_json(char *id, const char *url)
 {
   int    ret;
   char   buf[URLBUF];
@@ -111,7 +115,7 @@ static char *get_json(char *id)
       return NULL;
     }
 
-  snprintf(buf, URLBUF, URL, id);
+  snprintf(buf, URLBUF, url, id);
 
   curl = curl_easy_init();
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_callback);
@@ -131,9 +135,38 @@ static char *get_json(char *id)
   return s.ptr;
 }
 
+static char *parse_id(char *json)
+{
+  json_object *jobj, *jrep, *val;
+
+  jobj = json_tokener_parse(json);
+  if (!json_object_object_get_ex(jobj, "response", &jrep))
+    {
+      ERROR("Failed to decode object 'response'");
+      return NULL;
+    }
+
+  if (!json_object_object_get_ex(jrep, "success", &val))
+    {
+      ERROR("Failed to decode object 'success'");
+      return NULL;
+    }
+
+  if (json_object_get_int(val) != 1)
+    return NULL;
+
+  if (!json_object_object_get_ex(jrep, "steamid", &val))
+    {
+      ERROR("Failed to decode object 'steamid'");
+      return NULL;
+    }
+
+  return strdup(json_object_get_string(val));
+}
+
 int main(int argc, char *argv[])
 {
-  char *json;
+  char *id, *json;
 
   if (argc != 2)
     {
@@ -141,13 +174,32 @@ int main(int argc, char *argv[])
       return EXIT_FAILURE;
     }
 
-  json = get_json(argv[1]);
+  json = get_json(argv[1], IDURL);
+  if (!json)
+    return EXIT_FAILURE;
+
+  id = parse_id(json);
+  if (!id)
+    {
+      id = strdup(argv[1]);
+      if (!id)
+        {
+          ERROR("Failed to decode object 'response'");
+          return EXIT_FAILURE;
+        }
+    }
+
+  printf("ID: '%s'\n", id);
+
+  free(json);
+  json = get_json(id, INVURL);
   if (!json)
     return EXIT_FAILURE;
 
   printf("'%s'\n", json);
 
   free(json);
+  free(id);
 
   return EXIT_SUCCESS;
 }

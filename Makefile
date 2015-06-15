@@ -20,7 +20,7 @@ OPT=-O3 -ffast-math
 OTHER=
 
 CC=c99
-WARN=-Wall -Wextra -Wformat=2 -Winit-self -Wmissing-include-dirs -Wdeclaration-after-statement -Wshadow -Wno-aggressive-loop-optimizations -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wstack-protector -Wno-missing-field-initializers -Wno-switch -Wno-unused-parameter
+WARN=-Wall -Wextra -Wformat=2 -Winit-self -Wmissing-include-dirs -Wdeclaration-after-statement -Wshadow -Wno-aggressive-loop-optimizations -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wstack-protector -Wno-missing-field-initializers -Wno-switch -Wno-unused-parameter -Wno-format-nonliteral
 CFLAGS+=$(OTHER) $(MACRO) $(WARN) $(shell pkg-config --cflags $(PKGLIBS)) $(OPT)
 LDFLAGS=-march=native -pipe -m64 -m128bit-long-double -fdiagnostics-color=always $(OTHER) $(shell pkg-config --libs $(PKGLIBS)) $(LIBS)
 SRC=$(wildcard src/*.c)
