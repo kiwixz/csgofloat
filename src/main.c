@@ -39,19 +39,34 @@ typedef struct
   int  len;
 } String;
 
+typedef struct
+{
+  int  defindex;
+  char *name;
+} Item;
+
 #define MAXTRYPERSEC 4 // API limit is 100000 per day
+#define NAMEWIDTH "36"
 
 static const int URLBUF = 1024,
                  MINLEN = 5,
                  FLOATATTRIB = 8;
+static const double FSTEPS[] = {
+  1.0, 0.44, 0.37, 0.15, 0.07, 0.0
+};
+
 static const char INVURL[] =
-  "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?key="
+  "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?steamid=%s&key="
 #include "../STEAMKEY"
-         "&steamid=%s",
+,
                   IDURL[] =
-  "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key="
+  "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?vanityurl=%s&key="
 #include "../STEAMKEY"
-         "&vanityurl=%s",
+,
+                  SCHEMAURL[] =
+  "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?language=en&key="
+#include "../STEAMKEY"
+,
                   *QUALITIES[] = {
   "Battle-Scarred",
   "Well-Worn",
@@ -166,6 +181,54 @@ static char *parse_id(const char *json)
   return strdup(json_object_get_string(jval));
 }
 
+static int parse_schema(const char *json, Item * *items)
+{
+  int         i, len;
+  json_object *jobj, *jval;
+
+  jobj = json_tokener_parse(json);
+
+  if (!json_object_object_get_ex(jobj, "result", &jval))
+    {
+      ERROR("Failed to decode object 'result'");
+      return NULL;
+    }
+
+  if (!json_object_object_get_ex(jval, "items", &jobj))
+    {
+      ERROR("Failed to decode object 'items'");
+      return NULL;
+    }
+
+  len = json_object_array_length(jobj);
+  *items = malloc(len * sizeof(Item));
+
+  for (i = 0; i < len; ++i)
+    {
+      json_object *jitem;
+
+      jitem = json_object_array_get_idx(jobj, i);
+
+      if (!json_object_object_get_ex(jitem, "defindex", &jval))
+        {
+          ERROR("Failed to decode object 'defindex'");
+          return NULL;
+        }
+
+      (*items)[i].defindex = json_object_get_int(jval);
+
+      if (!json_object_object_get_ex(jitem, "item_name", &jval))
+        {
+          ERROR("Failed to decode object 'item_name'");
+          return NULL;
+        }
+
+      (*items)[i].name = strdup(json_object_get_string(jval));
+    }
+
+  return i;
+}
+
 static double parse_float(json_object *jobj)
 {
   int i, len;
@@ -198,8 +261,29 @@ static double parse_float(json_object *jobj)
   return 0;
 }
 
-static int parse_item(json_object *jobj)
+static void display_item(const char *name, double f)
 {
+  if (f)
+    {
+      int q;
+
+      q = 1;
+      while (f < FSTEPS[q])
+        ++q;
+
+      --q;
+      printf("%-"NAMEWIDTH "s %.16f    \t%.2f%%    \t%.2f%% \t(%s)\n", name, f,
+             100 * (1 - f),
+             100 * (1 - (f - FSTEPS[q + 1]) / (FSTEPS[q] - FSTEPS[q + 1])),
+             QUALITIES[q]);
+    }
+  else
+    printf("%-"NAMEWIDTH "s (no float)\n", name);
+}
+
+static int parse_item(json_object *jobj, const Item *items, int itemslen)
+{
+  int         i, defindex;
   json_object *jval;
 
   if (!json_object_object_get_ex(jobj, "defindex", &jval))
@@ -208,7 +292,7 @@ static int parse_item(json_object *jobj)
       return 0;
     }
 
-  printf("%d: ", json_object_get_int(jval));
+  defindex = json_object_get_int(jval);
 
   if (!json_object_object_get_ex(jobj, "attributes", &jval))
     {
@@ -216,12 +300,18 @@ static int parse_item(json_object *jobj)
       return 0;
     }
 
-  printf("%.16f\n", parse_float(jval));
+  for (i = 0; i < itemslen; ++i)
+    if (items[i].defindex == defindex)
+      {
+        display_item(items[i].name, parse_float(jval));
+        break;
+      }
+
 
   return 1;
 }
 
-static int parse_inv(const char *json)
+static int parse_inv(const char *json, const Item *items, int itemslen)
 {
   int         i, len, status;
   json_object *jobj, *jrep, *jval;
@@ -261,7 +351,7 @@ static int parse_inv(const char *json)
 
   len = json_object_array_length(jval);
   for (i = 0; i < len; ++i)
-    if (!parse_item(json_object_array_get_idx(jval, i)))
+    if (!parse_item(json_object_array_get_idx(jval, i), items, itemslen))
       return 0;
 
 
@@ -270,7 +360,9 @@ static int parse_inv(const char *json)
 
 int main(int argc, char *argv[])
 {
+  int  i, itemslen;
   char *id, *json;
+  Item *items;
 
   if (argc != 2)
     {
@@ -294,14 +386,27 @@ int main(int argc, char *argv[])
     }
 
   free(json);
+  json = get_json(id, SCHEMAURL);
+  if (!json)
+    return EXIT_FAILURE;
+
+  itemslen = parse_schema(json, &items);
+  if (!itemslen)
+    return EXIT_FAILURE;
+
+  free(json);
   json = get_json(id, INVURL);
   if (!json)
     return EXIT_FAILURE;
 
-  parse_inv(json);
+  parse_inv(json, items, itemslen);
 
   free(json);
   free(id);
+  for (i = 0; i < itemslen; ++i)
+    free(items[i].name);
+
+  free(items);
 
   return EXIT_SUCCESS;
 }
