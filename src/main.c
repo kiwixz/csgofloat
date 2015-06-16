@@ -42,7 +42,8 @@ typedef struct
 #define MAXTRYPERSEC 4 // API limit is 100000 per day
 
 static const int URLBUF = 1024,
-                 MINLEN = 5;
+                 MINLEN = 5,
+                 FLOATATTRIB = 8;
 static const char INVURL[] =
   "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?key="
 #include "../STEAMKEY"
@@ -101,7 +102,7 @@ static int get_json_try(CURL *curl, String *s)
   return s->len;
 }
 
-static char *get_json(char *id, const char *url)
+static char *get_json(const char *id, const char *url)
 {
   int    ret;
   char   buf[URLBUF];
@@ -135,33 +136,136 @@ static char *get_json(char *id, const char *url)
   return s.ptr;
 }
 
-static char *parse_id(char *json)
+static char *parse_id(const char *json)
 {
-  json_object *jobj, *jrep, *val;
+  json_object *jobj, *jrep, *jval;
 
   jobj = json_tokener_parse(json);
+
   if (!json_object_object_get_ex(jobj, "response", &jrep))
     {
       ERROR("Failed to decode object 'response'");
       return NULL;
     }
 
-  if (!json_object_object_get_ex(jrep, "success", &val))
+  if (!json_object_object_get_ex(jrep, "success", &jval))
     {
       ERROR("Failed to decode object 'success'");
       return NULL;
     }
 
-  if (json_object_get_int(val) != 1)
+  if (json_object_get_int(jval) != 1)
     return NULL;
 
-  if (!json_object_object_get_ex(jrep, "steamid", &val))
+  if (!json_object_object_get_ex(jrep, "steamid", &jval))
     {
       ERROR("Failed to decode object 'steamid'");
       return NULL;
     }
 
-  return strdup(json_object_get_string(val));
+  return strdup(json_object_get_string(jval));
+}
+
+static double parse_float(json_object *jobj)
+{
+  int i, len;
+
+  len = json_object_array_length(jobj);
+  for (i = 0; i < len; ++i)
+    {
+      json_object *jattrib, *jval;
+
+      jattrib = json_object_array_get_idx(jobj, i);
+
+      if (!json_object_object_get_ex(jattrib, "defindex", &jval))
+        {
+          ERROR("Failed to decode object 'defindex'");
+          return 0;
+        }
+
+      if (json_object_get_int(jval) == FLOATATTRIB)
+        {
+          if (!json_object_object_get_ex(jattrib, "float_value", &jval))
+            {
+              ERROR("Failed to decode object 'float_value'");
+              return 0;
+            }
+
+          return json_object_get_double(jval);
+        }
+    }
+
+  return 0;
+}
+
+static int parse_item(json_object *jobj)
+{
+  json_object *jval;
+
+  if (!json_object_object_get_ex(jobj, "defindex", &jval))
+    {
+      ERROR("Failed to decode object 'defindex'");
+      return 0;
+    }
+
+  printf("%d: ", json_object_get_int(jval));
+
+  if (!json_object_object_get_ex(jobj, "attributes", &jval))
+    {
+      ERROR("Failed to decode object 'attributes'");
+      return 0;
+    }
+
+  printf("%.16f\n", parse_float(jval));
+
+  return 1;
+}
+
+static int parse_inv(const char *json)
+{
+  int         i, len, status;
+  json_object *jobj, *jrep, *jval;
+
+  jobj = json_tokener_parse(json);
+
+  if (!json_object_object_get_ex(jobj, "result", &jrep))
+    {
+      ERROR("Failed to decode object 'result'");
+      return 0;
+    }
+
+  if (!json_object_object_get_ex(jrep, "status", &jval))
+    {
+      ERROR("Failed to decode object 'status'");
+      return 0;
+    }
+
+  status = json_object_get_int(jval);
+
+  if (status == 15)
+    {
+      ERROR("The inventory of this user is private");
+      return 0;
+    }
+  else if (status != 1)
+    {
+      ERROR("Failed to get the inventory");
+      return 0;
+    }
+
+  if (!json_object_object_get_ex(jrep, "items", &jval))
+    {
+      ERROR("Failed to decode object 'items'");
+      return 0;
+    }
+
+  len = json_object_array_length(jval);
+  for (i = 0; i < len; ++i)
+    if (!parse_item(json_object_array_get_idx(jval, i)))
+      return 0;
+
+
+  return i;
 }
 
 int main(int argc, char *argv[])
@@ -189,14 +293,12 @@ int main(int argc, char *argv[])
         }
     }
 
-  printf("ID: '%s'\n", id);
-
   free(json);
   json = get_json(id, INVURL);
   if (!json)
     return EXIT_FAILURE;
 
-  printf("'%s'\n", json);
+  parse_inv(json);
 
   free(json);
   free(id);
