@@ -45,7 +45,7 @@ typedef struct
   char *name;
 } Item;
 
-#define MAXTRYPERSEC 4 // API limit is 100000 per day
+#define MAXTRYPERSEC 16 // API limit is 100000 per day
 #define NAMEWIDTH "36"
 
 static const int URLBUF = 1024,
