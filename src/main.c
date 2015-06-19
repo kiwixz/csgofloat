@@ -45,12 +45,24 @@ typedef struct
   char *name;
 } Item;
 
+typedef struct
+{
+  int    tradable, stattrack;
+  double f;
+} Attributes;
+
+enum
+{
+  ATTRIB_F = 8,
+  ATTRIB_ST = 80,
+  ATTRIB_TRADE = 2
+};
+
 #define MAXTRYPERSEC 16 // API limit is 100000 per day
 #define NAMEWIDTH "36"
 
 static const int URLBUF = 1024,
-                 MINLEN = 5,
-                 FLOATATTRIB = 8;
+                 MINLEN = 5;
 static const double FSTEPS[] = {
   1.0, 0.44, 0.37, 0.15, 0.07, 0.0
 };
@@ -229,13 +241,17 @@ static int parse_schema(const char *json, Item * *items)
   return i;
 }
 
-static double parse_float(json_object *jobj)
+static Attributes parse_attributes(json_object *jobj)
 {
-  int i, len;
+  int        i, len;
+  Attributes a = {0};
+
+  a.tradable = 1;
 
   len = json_object_array_length(jobj);
   for (i = 0; i < len; ++i)
     {
+      int         attrib;
       json_object *jattrib, *jval;
 
       jattrib = json_object_array_get_idx(jobj, i);
@@ -243,42 +259,80 @@ static double parse_float(json_object *jobj)
       if (!json_object_object_get_ex(jattrib, "defindex", &jval))
         {
           ERROR("Failed to decode object 'defindex'");
-          return 0;
+          return a;
         }
 
-      if (json_object_get_int(jval) == FLOATATTRIB)
+      attrib = json_object_get_int(jval);
+      switch (attrib)
         {
-          if (!json_object_object_get_ex(jattrib, "float_value", &jval))
+          case ATTRIB_F:
             {
-              ERROR("Failed to decode object 'float_value'");
-              return 0;
+              if (!json_object_object_get_ex(jattrib, "float_value", &jval))
+                {
+                  ERROR("Failed to decode object 'float_value'");
+                  return a;
+                }
+
+              a.f = json_object_get_double(jval);
+              break;
             }
 
-          return json_object_get_double(jval);
+          case ATTRIB_ST:
+            {
+              a.stattrack = 1;
+              break;
+            }
+
+          case ATTRIB_TRADE:
+            {
+              a.tradable = 0;
+              break;
+            }
         }
     }
 
-  return 0;
+  return a;
 }
 
-static void display_item(const char *name, double f)
+static void display_item(char *rawname, Attributes a)
 {
-  if (f)
+  char *name;
+
+  if (a.stattrack)
     {
-      int q;
+      int len;
+
+      len = strlen(rawname);
+      name = malloc(len + 1 + 10);
+      sprintf(name, "StatTrack %s", rawname);
+    }
+  else
+    name = rawname;
+
+  if (a.f)
+    {
+      int    q;
+      double pf, qpf;
 
       q = 1;
-      while (f < FSTEPS[q])
+      while (a.f < FSTEPS[q])
         ++q;
 
       --q;
-      printf("%-"NAMEWIDTH "s %.16f    \t%.2f%%    \t%.2f%% \t(%s)\n", name, f,
-             100 * (1 - f),
-             100 * (1 - (f - FSTEPS[q + 1]) / (FSTEPS[q] - FSTEPS[q + 1])),
-             QUALITIES[q]);
+      pf = 100 * (1 - a.f);
+      qpf = 100 * (1 - (a.f - FSTEPS[q + 1]) / (FSTEPS[q] - FSTEPS[q + 1]));
+
+      printf("\x1b[38;2;%d;%d;%dm%-"NAMEWIDTH
+             "s    \t%.16f    \t%.2f%%    \t%.2f%% \t(%s)",
+             a.tradable ? 55 : 255,
+             55 + (int)(2 * qpf),
+             55 + (int)(2 * pf),
+             name, a.f, pf, qpf, QUALITIES[q]);
     }
   else
-    printf("%-"NAMEWIDTH "s (no float)\n", name);
+    printf("\x1b[38;2;125;125;125m%-"NAMEWIDTH "s    \t (no float)", name);
+
+  printf("\x1b[0m\n");
 }
 
 static int parse_item(json_object *jobj, const Item *items, int itemslen)
@@ -295,15 +349,12 @@ static int parse_item(json_object *jobj, const Item *items, int itemslen)
   defindex = json_object_get_int(jval);
 
   if (!json_object_object_get_ex(jobj, "attributes", &jval))
-    {
-      ERROR("Failed to decode object 'attributes'");
-      return 0;
-    }
+    return 1;
 
   for (i = 0; i < itemslen; ++i)
     if (items[i].defindex == defindex)
       {
-        display_item(items[i].name, parse_float(jval));
+        display_item(items[i].name, parse_attributes(jval));
         break;
       }
 
