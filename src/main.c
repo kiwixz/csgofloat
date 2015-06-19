@@ -59,7 +59,7 @@ enum
 };
 
 #define MAXTRYPERSEC 16 // API limit is 100000 per day
-#define NAMEWIDTH "36"
+#define NAMEWIDTH "50"
 
 static const int URLBUF = 1024,
                  MINLEN = 5;
