@@ -54,8 +54,7 @@ typedef struct
 enum
 {
   ATTRIB_F = 8,
-  ATTRIB_ST = 80,
-  ATTRIB_TRADE = 2
+  ATTRIB_ST = 80
 };
 
 #define MAXTRYPERSEC 16 // API limit is 100000 per day
@@ -241,12 +240,9 @@ static int parse_schema(const char *json, Item * *items)
   return i;
 }
 
-static Attributes parse_attributes(json_object *jobj)
+static int parse_attributes(json_object *jobj, Attributes *a)
 {
-  int        i, len;
-  Attributes a = {0};
-
-  a.tradable = 1;
+  int i, len;
 
   len = json_object_array_length(jobj);
   for (i = 0; i < len; ++i)
@@ -259,7 +255,7 @@ static Attributes parse_attributes(json_object *jobj)
       if (!json_object_object_get_ex(jattrib, "defindex", &jval))
         {
           ERROR("Failed to decode object 'defindex'");
-          return a;
+          return 0;
         }
 
       attrib = json_object_get_int(jval);
@@ -270,28 +266,22 @@ static Attributes parse_attributes(json_object *jobj)
               if (!json_object_object_get_ex(jattrib, "float_value", &jval))
                 {
                   ERROR("Failed to decode object 'float_value'");
-                  return a;
+                  return 0;
                 }
 
-              a.f = json_object_get_double(jval);
+              a->f = json_object_get_double(jval);
               break;
             }
 
           case ATTRIB_ST:
             {
-              a.stattrack = 1;
-              break;
-            }
-
-          case ATTRIB_TRADE:
-            {
-              a.tradable = 0;
+              a->stattrack = 1;
               break;
             }
         }
     }
 
-  return a;
+  return 1;
 }
 
 static void display_item(char *rawname, Attributes a)
@@ -339,6 +329,7 @@ static int parse_item(json_object *jobj, const Item *items, int itemslen)
 {
   int         i, defindex;
   json_object *jval;
+  Attributes  a = {0};
 
   if (!json_object_object_get_ex(jobj, "defindex", &jval))
     {
@@ -348,13 +339,22 @@ static int parse_item(json_object *jobj, const Item *items, int itemslen)
 
   defindex = json_object_get_int(jval);
 
+  if (json_object_object_get_ex(jobj, "flag_cannot_trade", &jval)
+      && json_object_get_boolean(jval))
+    a.tradable = 0;
+  else
+    a.tradable = 1;
+
   if (!json_object_object_get_ex(jobj, "attributes", &jval))
     return 1;
+
+  if (!parse_attributes(jval, &a))
+    return 0;
 
   for (i = 0; i < itemslen; ++i)
     if (items[i].defindex == defindex)
       {
-        display_item(items[i].name, parse_attributes(jval));
+        display_item(items[i].name, a);
         break;
       }
 
