@@ -57,6 +57,7 @@ enum
   ATTRIB_ST = 80
 };
 
+#define HIDE_WHEN_NO_FLOAT 1
 #define MAXTRYPERSEC 16 // API limit is 100000 per day
 #define NAMEWIDTH "50"
 
@@ -287,6 +288,11 @@ static int parse_attributes(json_object *jobj, Attributes *a)
 static void display_item(char *rawname, Attributes a)
 {
   char *name;
+
+#if HIDE_WHEN_NO_FLOAT
+    if (!a.f)
+      return;
+#endif
 
   if (a.stattrack)
     {
