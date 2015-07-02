@@ -63,7 +63,7 @@ enum
 static const int URLBUF = 1024,
                  MINLEN = 5;
 static const double FSTEPS[] = {
-  1.0, 0.44, 0.37, 0.15, 0.07, 0.0
+  1.0, 0.45, 0.38, 0.15, 0.07, 0.0
 };
 
 static const char INVURL[] =
