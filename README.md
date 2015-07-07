@@ -31,15 +31,15 @@ make all
 *Usage: csgofloat _SteamID_*
 
 The program will display the inventory of the SteamID, one item by line.
-The columns are:
-- the item name (without skin name, yet)
-- the presence of stickers
-- the wear float value
-- the condition
-- the condition in the range of the exterior quality
+Columns are:
+- Item name (without skin name, yet)
+- Presence of stickers
+- Wear float value
+- Condition
+- Condition in the range of the exterior quality
 
 The program gives the date at which items will become tradable; it should be in local timezone.
-The output is colored:
+Output is colored:
 - Only grey mean that the item has no float
 - With red means not tradable
 - More blue means better condition
