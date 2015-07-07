@@ -47,7 +47,7 @@ typedef struct
 
 typedef struct
 {
-  int    tradable, stattrack;
+  int    tradable, stattrack, stickers[6];
   double f;
   time_t tdate;
 } Attributes;
@@ -56,7 +56,13 @@ enum
 {
   ATTRIB_F = 8,
   ATTRIB_TDATE = 75,
-  ATTRIB_ST = 80
+  ATTRIB_ST = 80,
+  ATTRIB_STICK0 = 113,
+  ATTRIB_STICK1 = 117,
+  ATTRIB_STICK2 = 121,
+  ATTRIB_STICK3 = 125,
+  ATTRIB_STICK4 = 129,
+  ATTRIB_STICK5 = 133
 };
 
 #define HIDE_WHEN_NO_FLOAT 1
@@ -298,6 +304,42 @@ static int parse_attributes(json_object *jobj, Attributes *a)
               a->stattrack = 1;
               break;
             }
+
+          case ATTRIB_STICK0:
+            {
+              a->stickers[0] = 1;
+              break;
+            }
+
+          case ATTRIB_STICK1:
+            {
+              a->stickers[1] = 1;
+              break;
+            }
+
+          case ATTRIB_STICK2:
+            {
+              a->stickers[2] = 1;
+              break;
+            }
+
+          case ATTRIB_STICK3:
+            {
+              a->stickers[3] = 1;
+              break;
+            }
+
+          case ATTRIB_STICK4:
+            {
+              a->stickers[4] = 1;
+              break;
+            }
+
+          case ATTRIB_STICK5:
+            {
+              a->stickers[5] = 1;
+              break;
+            }
         }
     }
 
@@ -346,12 +388,16 @@ static void display_item(char *rawname, Attributes a)
       pf = 100 * (1 - a.f);
       qpf = 100 * (1 - (a.f - FSTEPS[q + 1]) / (FSTEPS[q] - FSTEPS[q + 1]));
 
+#define STICK(i) a.stickers[i] ? '|' : '_'
       printf("\x1b[38;2;%d;%d;%dm%-"NAMEWIDTH
-             "s    \t%.16f    \t%.2f%%    \t%.2f%% \t(%s)",
+             "s    %c%c%c%c%c%c    %.16f    \t%.2f%%    \t%.2f%% \t(%s)",
              a.tradable ? 55 : 255,
              55 + (int)(2 * qpf),
              55 + (int)(2 * pf),
-             name, a.f, pf, qpf, QUALITIES[q]);
+             name,
+             STICK(0), STICK(1), STICK(2), STICK(3), STICK(4), STICK(5),
+             a.f, pf, qpf, QUALITIES[q]);
+#undef STICK
     }
   else
     printf("\x1b[38;2;125;125;125m%-"NAMEWIDTH "s    \t (no float)", name);

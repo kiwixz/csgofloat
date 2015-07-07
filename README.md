@@ -4,7 +4,7 @@
 
 ## Description
 
-This is a simple software to check float of CSGO items.
+This is a simple software to check wear float of CS:GO items.
 
 ## What do I need ?
 
@@ -31,7 +31,13 @@ make all
 *Usage: csgofloat _SteamID_*
 
 The program will display the inventory of the SteamID, one item by line.
-The fist column is the item name, the second column is the float, the third column is the condition and the fourth column is the condition in the range of the exterior quality.
+The columns are:
+- the item name (without skin name, yet)
+- the presence of stickers
+- the wear float value
+- the condition
+- the condition in the range of the exterior quality
+
 The program gives the date at which items will become tradable; it should be in local timezone.
 The output is colored:
 - Only grey mean that the item has no float
