@@ -20,7 +20,7 @@ You also need a [Steam Web API key](http://steamcommunity.com/dev/apikey). Write
 
 ### Compile
 
-There is a Makefile so you can also compile it with only one command:
+There is a Makefile so you can compile it with only one command:
 
 ```
 make all
@@ -29,6 +29,11 @@ make all
 ### Run it
 
 *Usage: csgofloat _SteamID_*
+
+As 'SteamID', you should use:
+- SteamID64
+- Custom name as in profile URL
+- Profile URL
 
 The program will display the inventory of the SteamID, one item by line.
 Columns are:

@@ -121,6 +121,35 @@ static size_t curl_callback(void *ptr, size_t size, size_t nmemb, void *svoid)
   return new;
 }
 
+static int extract_id(char * *id)
+{
+  int  len;
+  char *nid, *start, *end;
+
+  start = strstr(*id, "/id/");
+  if (!start)
+    {
+      ERROR("Failed to find ID in custom URL");
+      return 0;
+    }
+
+  start += 4;
+  end = strchr(start, '/');
+  if (end)
+    len = end - start;
+  else
+    len = strlen(start);
+
+  nid = malloc(len + 1);
+  memcpy(nid, start, len);
+  nid[len] = '\0';
+
+  free(*id);
+  *id = nid;
+
+  return 1;
+}
+
 static int get_json_try(CURL *curl, String *s)
 {
   int ret;
@@ -492,7 +521,7 @@ static int parse_inv(const char *json, const Item *items, int itemslen)
 int main(int argc, char *argv[])
 {
   int  i, itemslen;
-  char *id, *json;
+  char *nid, *id, *json;
   Item *items;
 
   if (argc != 2)
@@ -501,20 +530,20 @@ int main(int argc, char *argv[])
       return EXIT_FAILURE;
     }
 
-  json = get_json(argv[1], IDURL);
+  id = strdup(argv[1]);
+
+  if (!strncmp(argv[1], "http://", 7) || !strncmp(argv[1], "https://", 8))
+    if (!extract_id(&id))
+      return EXIT_FAILURE;
+
+
+  json = get_json(id, IDURL);
   if (!json)
     return EXIT_FAILURE;
 
-  id = parse_id(json);
-  if (!id)
-    {
-      id = strdup(argv[1]);
-      if (!id)
-        {
-          ERROR("Failed to decode object 'response'");
-          return EXIT_FAILURE;
-        }
-    }
+  nid = parse_id(json);
+  if (nid)
+    id = nid;
 
   free(json);
   json = get_json(id, SCHEMAURL);
