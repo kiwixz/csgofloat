@@ -32,6 +32,7 @@ make all
 
 The program will display the inventory of the SteamID, one item by line.
 The fist column is the item name, the second column is the float, the third column is the condition and the fourth column is the condition in the range of the exterior quality.
+The program gives the date at which items will become tradable; it should be in local timezone.
 The output is colored:
 - Only grey mean that the item has no float
 - With red means not tradable

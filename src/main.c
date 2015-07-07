@@ -49,19 +49,23 @@ typedef struct
 {
   int    tradable, stattrack;
   double f;
+  time_t tdate;
 } Attributes;
 
 enum
 {
   ATTRIB_F = 8,
+  ATTRIB_TDATE = 75,
   ATTRIB_ST = 80
 };
 
 #define HIDE_WHEN_NO_FLOAT 1
 #define MAXTRYPERSEC 16 // API limit is 100000 per day
-#define NAMEWIDTH "50"
+#define NAMEWIDTH "50" // string
+#define DATEFORMAT "%d/%m %H:%M"
 
 static const int URLBUF = 1024,
+                 DATEBUF = 32,
                  MINLEN = 5;
 static const double FSTEPS[] = {
   1.0, 0.45, 0.38, 0.15, 0.07, 0.0
@@ -274,6 +278,21 @@ static int parse_attributes(json_object *jobj, Attributes *a)
               break;
             }
 
+          case ATTRIB_TDATE:
+            {
+              if (a->tradable) // old dates are still here
+                break;
+
+              if (!json_object_object_get_ex(jattrib, "value", &jval))
+                {
+                  ERROR("Failed to decode object 'value'");
+                  return 0;
+                }
+
+              a->tdate = json_object_get_int(jval);
+              break;
+            }
+
           case ATTRIB_ST:
             {
               a->stattrack = 1;
@@ -296,14 +315,23 @@ static void display_item(char *rawname, Attributes a)
 
   if (a.stattrack)
     {
-      int len;
-
-      len = strlen(rawname);
-      name = malloc(len + 1 + 10);
+      name = malloc(strlen(rawname) + 1 + 10);
       sprintf(name, "StatTrack %s", rawname);
     }
   else
     name = rawname;
+
+  if (a.tdate)
+    {
+      char date[DATEBUF], *nname;
+
+      strftime(date, DATEBUF, DATEFORMAT, localtime(&a.tdate));
+      nname = malloc(strlen(rawname) + 1 + 3 + DATEBUF);
+      sprintf(nname, "%s (%s)", name, date);
+
+      free(name);
+      name = nname;
+    }
 
   if (a.f)
     {
