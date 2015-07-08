@@ -67,7 +67,7 @@ enum
 
 #define HIDE_WHEN_NO_FLOAT 1
 #define MAXTRYPERSEC 8 // API limit is 100000 per day
-#define NAMEWIDTH "45" // string
+#define NAMEWIDTH "55" // string
 #define DATEFORMAT "%d/%m %H:%M"
 
 static const int URLBUF = 1024,
@@ -536,7 +536,7 @@ static void display_item(char *rawname, Attributes a)
 
 #define STICK(i) a.stickers[i] ? '|' : '_'
       printf("\x1b[38;2;%d;%d;%dm%-"NAMEWIDTH
-             "s    %c%c%c%c%c%c    %.16f    \t%.2f%%    \t%.2f%% \t(%s)",
+             "s %c%c%c%c%c%c   %.16f \t%.2f%% \t%.2f%% \t(%s)",
              a.tradable ? 55 : 255,
              55 + (int)(2 * qpf),
              55 + (int)(2 * pf),
