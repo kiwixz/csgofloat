@@ -67,7 +67,7 @@ enum
 
 #define HIDE_WHEN_NO_FLOAT 1
 #define MAXTRYPERSEC 8 // API limit is 100000 per day
-#define NAMEWIDTH "50" // string
+#define NAMEWIDTH "45" // string
 #define DATEFORMAT "%d/%m %H:%M"
 
 static const int URLBUF = 1024,
