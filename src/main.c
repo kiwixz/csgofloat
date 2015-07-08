@@ -66,13 +66,15 @@ enum
 };
 
 #define HIDE_WHEN_NO_FLOAT 1
-#define MAXTRYPERSEC 16 // API limit is 100000 per day
+#define MAXTRYPERSEC 8 // API limit is 100000 per day
 #define NAMEWIDTH "50" // string
 #define DATEFORMAT "%d/%m %H:%M"
 
 static const int URLBUF = 1024,
                  DATEBUF = 32,
-                 MINLEN = 5;
+                 MINLEN = 5,
+                 COLOR_OFF[] = {137, 137, 137},
+                 COLOR_ON[] = {87, 203, 222};
 static const double FSTEPS[] = {
   1.0, 0.45, 0.38, 0.15, 0.07, 0.0
 };
@@ -85,6 +87,10 @@ static const char INVURL[] =
   "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?vanityurl=%s&key="
 #include "../STEAMKEY"
 ,
+                  PLAYERURL[] =
+  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?steamids=%s&key="
+#include "../STEAMKEY"
+,
                   SCHEMAURL[] =
   "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?language=en&key="
 #include "../STEAMKEY"
@@ -95,8 +101,17 @@ static const char INVURL[] =
   "Field-Tested",
   "Minimal Wear",
   "Factory New"
+},
+                  *STATES[] = {
+  "Offline",
+  "Online",
+  "Busy",
+  "Away",
+  "Snooze",
+  "Looking to Trade",
+  "Looking to Play"
 };
-static const struct timespec DELAY = {.tv_nsec = 1000000000L / MAXTRYPERSEC};
+static const struct timespec DELAY = {.tv_nsec = 1000000000LL / MAXTRYPERSEC};
 
 static size_t curl_callback(void *ptr, size_t size, size_t nmemb, void *svoid)
 {
@@ -232,6 +247,110 @@ static char *parse_id(const char *json)
   return strdup(json_object_get_string(jval));
 }
 
+static void display_player(int state, int offtime, const char *name, int age)
+{
+  const int *col;
+
+  if (state)
+    col = COLOR_ON;
+  else
+    col = COLOR_OFF;
+
+  printf("\x1b[38;2;%d;%d;%dm%s (%s",
+         col[0], col[1], col[2], name, STATES[state]);
+
+  if (!state)
+    {
+      int offtimeh, offtimem;
+
+      offtimeh = offtime / 60 / 60;
+      offtime -= offtimeh * 60 * 60;
+      offtimem = offtime / 60;
+      offtime -= offtimem * 60;
+
+      printf(" for %dh %dmin %ds", offtimeh, offtimem, offtime);
+    }
+
+  printf(")\x1b[0m\n");
+}
+
+static int parse_player(const char *json)
+{
+  int         len, state, offtime, age;
+  const char  *name;
+  json_object *jobj, *jrep, *jlist, *jval;
+
+  jobj = json_tokener_parse(json);
+
+  if (!json_object_object_get_ex(jobj, "response", &jrep))
+    {
+      ERROR("Failed to decode object 'response'");
+      return 0;
+    }
+
+  if (!json_object_object_get_ex(jrep, "players", &jlist))
+    {
+      ERROR("Failed to decode object 'players'");
+      return 0;
+    }
+
+  len = json_object_array_length(jlist);
+  if (!len)
+    {
+      ERROR("Invalid SteamID");
+      return 0;
+    }
+
+  jobj = json_object_array_get_idx(jlist, 0);
+
+  if (!json_object_object_get_ex(jobj, "communityvisibilitystate", &jval))
+    {
+      ERROR("Failed to decode object 'communityvisibilitystate'");
+      return 0;
+    }
+  if (json_object_get_int(jval) == 1) // 1 - private / 3 - public
+    {
+      ERROR("Private profile");
+      return 0;
+    }
+
+  if (!json_object_object_get_ex(jobj, "personastate", &jval))
+    {
+      ERROR("Failed to decode object 'personastate'");
+      return 0;
+    }
+  state = json_object_get_int(jval);
+
+  if (!state)
+    {
+      if (!json_object_object_get_ex(jobj, "lastlogoff", &jval))
+        {
+          ERROR("Failed to decode object 'lastlogoff'");
+          return 0;
+        }
+      offtime = time(NULL) - json_object_get_int(jval);
+    }
+  else
+    offtime = 0;
+
+  if (!json_object_object_get_ex(jobj, "personaname", &jval))
+    {
+      ERROR("Failed to decode object 'personaname'");
+      return 0;
+    }
+  name = json_object_get_string(jval);
+
+  if (!json_object_object_get_ex(jobj, "timecreated", &jval))
+    {
+      ERROR("Failed to decode object 'timecreated'");
+      return 0;
+    }
+  age = time(NULL) - json_object_get_int(jval);
+
+  display_player(state, offtime, name, age);
+  return 1;
+}
+
 static int parse_schema(const char *json, Item * *items)
 {
   int         i, len;
@@ -265,7 +384,6 @@ static int parse_schema(const char *json, Item * *items)
           ERROR("Failed to decode object 'defindex'");
           return NULL;
         }
-
       (*items)[i].defindex = json_object_get_int(jval);
 
       if (!json_object_object_get_ex(jitem, "item_name", &jval))
@@ -273,7 +391,6 @@ static int parse_schema(const char *json, Item * *items)
           ERROR("Failed to decode object 'item_name'");
           return NULL;
         }
-
       (*items)[i].name = strdup(json_object_get_string(jval));
     }
 
@@ -434,7 +551,8 @@ static void display_item(char *rawname, Attributes a)
   printf("\x1b[0m\n");
 }
 
-static int parse_item(json_object *jobj, const Item *items, int itemslen)
+static int parse_item(json_object *jobj, const Item *items,
+                      int itemslen)
 {
   int         i, defindex;
   json_object *jval;
@@ -471,7 +589,8 @@ static int parse_item(json_object *jobj, const Item *items, int itemslen)
   return 1;
 }
 
-static int parse_inv(const char *json, const Item *items, int itemslen)
+static int parse_inv(const char *json, const Item *items,
+                     int itemslen)
 {
   int         i, len, status;
   json_object *jobj, *jrep, *jval;
@@ -494,7 +613,7 @@ static int parse_inv(const char *json, const Item *items, int itemslen)
 
   if (status == 15)
     {
-      ERROR("The inventory of this user is private");
+      ERROR("Private inventory");
       return 0;
     }
   else if (status != 1)
@@ -545,20 +664,22 @@ int main(int argc, char *argv[])
   if (nid)
     id = nid;
 
-  free(json);
-  json = get_json(id, SCHEMAURL);
-  if (!json)
+#define JSON(url)           \
+  free(json);               \
+  json = get_json(id, url); \
+  if (!json)                \
+    return EXIT_FAILURE
+
+  JSON(PLAYERURL);
+  if (!parse_player(json))
     return EXIT_FAILURE;
 
+  JSON(SCHEMAURL);
   itemslen = parse_schema(json, &items);
   if (!itemslen)
     return EXIT_FAILURE;
 
-  free(json);
-  json = get_json(id, INVURL);
-  if (!json)
-    return EXIT_FAILURE;
-
+  JSON(INVURL);
   parse_inv(json, items, itemslen);
 
   free(json);
