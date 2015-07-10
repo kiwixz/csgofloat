@@ -79,12 +79,16 @@ static const double FSTEPS[] = {
   1.0, 0.45, 0.38, 0.15, 0.07, 0.0
 };
 
-static const char INVURL[] =
-  "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?steamid=%s&key="
+static const char BANSURL[] =
+  "http://api.steampowered.com/ISteamUser/GetPlayerBans/v0001/?steamids=%s&key="
 #include "../STEAMKEY"
 ,
                   IDURL[] =
   "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?vanityurl=%s&key="
+#include "../STEAMKEY"
+,
+                  INVURL[] =
+  "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?steamid=%s&key="
 #include "../STEAMKEY"
 ,
                   PLAYERURL[] =
@@ -247,6 +251,25 @@ static char *parse_id(const char *json)
   return strdup(json_object_get_string(jval));
 }
 
+static json_object *extract_first_player(json_object *jobj)
+{
+  json_object *jlist;
+
+  if (!json_object_object_get_ex(jobj, "players", &jlist))
+    {
+      ERROR("Failed to decode object 'players'");
+      return NULL;
+    }
+
+  if (!json_object_array_length(jlist))
+    {
+      ERROR("Invalid SteamID");
+      return NULL;
+    }
+
+  return json_object_array_get_idx(jlist, 0);
+}
+
 static void display_player(int state, int offtime, const char *name, int age)
 {
   const int *col;
@@ -277,32 +300,21 @@ static void display_player(int state, int offtime, const char *name, int age)
 
 static int parse_player(const char *json)
 {
-  int         len, state, offtime, age;
+  int         state, offtime, age;
   const char  *name;
-  json_object *jobj, *jrep, *jlist, *jval;
+  json_object *jobj, *jval;
 
   jobj = json_tokener_parse(json);
 
-  if (!json_object_object_get_ex(jobj, "response", &jrep))
+  if (!json_object_object_get_ex(jobj, "response", &jval))
     {
       ERROR("Failed to decode object 'response'");
       return 0;
     }
 
-  if (!json_object_object_get_ex(jrep, "players", &jlist))
-    {
-      ERROR("Failed to decode object 'players'");
-      return 0;
-    }
-
-  len = json_object_array_length(jlist);
-  if (!len)
-    {
-      ERROR("Invalid SteamID");
-      return 0;
-    }
-
-  jobj = json_object_array_get_idx(jlist, 0);
+  jobj = extract_first_player(jval);
+  if (!jobj)
+    return 0;
 
   if (!json_object_object_get_ex(jobj, "communityvisibilitystate", &jval))
     {
@@ -349,6 +361,79 @@ static int parse_player(const char *json)
   age = time(NULL) - json_object_get_int(jval);
 
   display_player(state, offtime, name, age);
+  return 1;
+}
+
+static void display_bans(int communityban, int vacbans, int lastvacban,
+                         int gamebans, int economyban)
+{
+  printf("\x1b[38;2;255;0;0m");
+
+  if (communityban)
+    printf("Community banned\n");
+
+  if (vacbans)
+    printf("VAC banned %d time%s%d days ago)\n",
+           vacbans, vacbans > 1 ? "s (last was " : " (", lastvacban);
+
+  if (gamebans)
+    printf("Game banned %d time%s\n",
+           gamebans, gamebans > 1 ? "s" : "");
+
+  if (economyban)
+    printf("Trade banned\n");
+}
+
+static int parse_bans(const char *json)
+{
+  int         communityban, vacbans, lastvacban, gamebans, economyban;
+  json_object *jobj, *jval;
+
+  jobj = extract_first_player(json_tokener_parse(json));
+  if (!jobj)
+    return 0;
+
+  if (!json_object_object_get_ex(jobj, "CommunityBanned", &jval))
+    {
+      ERROR("Failed to decode object 'CommunityBanned'");
+      return 0;
+    }
+  communityban = json_object_get_boolean(jval);
+
+  if (!json_object_object_get_ex(jobj, "NumberOfVACBans", &jval))
+    {
+      ERROR("Failed to decode object 'NumberOfVACBans'");
+      return 0;
+    }
+  vacbans = json_object_get_int(jval);
+
+  if (vacbans)
+    {
+      if (!json_object_object_get_ex(jobj, "DaysSinceLastBan", &jval))
+        {
+          ERROR("Failed to decode object 'DaysSinceLastBan'");
+          return 0;
+        }
+      lastvacban = json_object_get_int(jval);
+    }
+  else
+    lastvacban = 0;
+
+  if (!json_object_object_get_ex(jobj, "NumberOfGameBans", &jval))
+    {
+      ERROR("Failed to decode object 'NumberOfGameBans'");
+      return 0;
+    }
+  gamebans = json_object_get_int(jval);
+
+  if (!json_object_object_get_ex(jobj, "EconomyBan", &jval))
+    {
+      ERROR("Failed to decode object 'EconomyBan'");
+      return 0;
+    }
+  economyban = strcmp(json_object_get_string(jval), "none");
+
+  display_bans(communityban, vacbans, lastvacban, gamebans, economyban);
   return 1;
 }
 
@@ -549,7 +634,7 @@ static void display_item(char *rawname, Attributes a)
   else
     printf("\x1b[38;2;125;125;125m%-"NAMEWIDTH "s    \t (no float)", name);
 
-  printf("\x1b[0m\n");
+  printf("\n");
   free(name);
 }
 
@@ -676,6 +761,10 @@ int main(int argc, char *argv[])
   if (!parse_player(json))
     return EXIT_FAILURE;
 
+  JSON(BANSURL);
+  if (!parse_bans(json))
+    return EXIT_FAILURE;
+
   JSON(SCHEMAURL);
   itemslen = parse_schema(json, &items);
   if (!itemslen)
@@ -683,6 +772,8 @@ int main(int argc, char *argv[])
 
   JSON(INVURL);
   parse_inv(json, items, itemslen);
+
+  printf("\x1b[0m");
 
   free(json);
   free(id);
