@@ -507,7 +507,7 @@ static void display_item(char *rawname, Attributes a)
       sprintf(name, "StatTrack %s", rawname);
     }
   else
-    name = rawname;
+    name = strdup(rawname);
 
   if (a.tdate)
     {
@@ -549,6 +549,7 @@ static void display_item(char *rawname, Attributes a)
     printf("\x1b[38;2;125;125;125m%-"NAMEWIDTH "s    \t (no float)", name);
 
   printf("\x1b[0m\n");
+  free(name);
 }
 
 static int parse_item(json_object *jobj, const Item *items,
