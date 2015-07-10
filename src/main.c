@@ -271,7 +271,8 @@ static void display_player(int state, int offtime, const char *name, int age)
       printf(" for %dh %dmin %ds", offtimeh, offtimem, offtime);
     }
 
-  printf(")\x1b[0m\n");
+  printf(") \x1b[38;2;%d;%d;%dmis on Steam for \x1b[0m%d days\n",
+         COLOR_OFF[0], COLOR_OFF[1], COLOR_OFF[2], age / 60 / 60 / 24);
 }
 
 static int parse_player(const char *json)
