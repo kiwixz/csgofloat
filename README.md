@@ -14,7 +14,7 @@ This program need some libraries:
 - libcurl
 - json-c
 
-You also need a [Steam Web API key](http://steamcommunity.com/dev/apikey). Write it in a file named _STEAMKEY_ in root folder of this repository once cloned.
+Finally, you also need a [Steam Web API key](http://steamcommunity.com/dev/apikey). Write it, surrounded by quotation marks _"_, in a file named _STEAMKEY_ in root folder of this repository once cloned.
 
 ## How to test ?
 
