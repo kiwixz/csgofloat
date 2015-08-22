@@ -27,7 +27,7 @@
 #include <json-c/json.h>
 
 #define INFO(s, ...) \
-  fprintf(stderr, " \x1b[32m"s "\x1b[0m\n", ## __VA_ARGS__)
+  fprintf(stderr, " \x1b[32m"s "\x1b[0m\r", ## __VA_ARGS__)
 
 #define ERROR(s, ...)                                      \
   fprintf(stderr, __FILE__ ":%d: \x1b[31;1m"s "\x1b[0m\n", \
@@ -736,6 +736,8 @@ int main(int argc, char *argv[])
       return EXIT_FAILURE;
     }
 
+  INFO("Loading SteamID...");
+
   id = strdup(argv[1]);
 
   if (!strncmp(argv[1], "http://", 7) || !strncmp(argv[1], "https://", 8))
@@ -757,19 +759,23 @@ int main(int argc, char *argv[])
   if (!json)                \
     return EXIT_FAILURE
 
+  INFO("Loading profile...");
   JSON(PLAYERURL);
   if (!parse_player(json))
     return EXIT_FAILURE;
 
+  INFO("Loading bans...");
   JSON(BANSURL);
   if (!parse_bans(json))
     return EXIT_FAILURE;
 
+  INFO("Loading schema...");
   JSON(SCHEMAURL);
   itemslen = parse_schema(json, &items);
   if (!itemslen)
     return EXIT_FAILURE;
 
+  INFO("Loading inventory...");
   JSON(INVURL);
   parse_inv(json, items, itemslen);
 
