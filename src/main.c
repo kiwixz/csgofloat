@@ -622,7 +622,7 @@ static void display_item(char *rawname, Attributes a)
 
 #define STICK(i) a.stickers[i] ? '|' : '_'
       printf("\x1b[38;2;%d;%d;%dm%-"NAMEWIDTH
-             "s %c%c%c%c%c%c   %.16f \t%.2f%% \t%.2f%% \t(%s)",
+             "s %c%c%c%c%c%c   %.16f\t%.2f%%\t%.2f%%\t(%s)",
              a.tradable ? 55 : 255,
              55 + (int)(2 * qpf),
              55 + (int)(2 * pf),
