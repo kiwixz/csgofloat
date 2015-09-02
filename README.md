@@ -26,26 +26,35 @@ There is a Makefile so you can compile it with only one command:
 make all
 ```
 
+_NOTE: If you have a CS:GO installation under hand, you might want to set __CSGOPATH__ variable in the Makefile._
+
 ### Run it
 
-*Usage: csgofloat _SteamID_*
+*Usage: csgofloat [-fu] _SteamID_*
 
 As 'SteamID', you should use:
 - SteamID64
 - Custom name as in profile URL
-- Profile URL
+- Any url containing _steamcommunity.com/_ and _/id/..._
 
-The program will display the inventory of the SteamID, one item by line.
-Columns are:
-- Item name (without skin name, yet)
-- Presence of stickers
+This program need two files
+
+#### Columns
+- Item name
+- Skin name
+- Date when item will be tradable (local time)
+- Name of item
+- Stickers, denoted by a pipe when present
 - Wear float value
 - Condition
 - Condition in the range of the exterior quality
 
-The program gives the date at which items will become tradable; it should be in local timezone.
-Output is colored:
-- Only grey mean that the item has no float
-- With red means not tradable
+#### Colors
+- Only grey if the item has no float
+- With red if the item is not tradable
 - More blue means better condition
 - More green means better condition in the range of the exterior quality
+
+#### Options
+- _f_ will hide items without float
+- _u_ will update _schema.txt_
