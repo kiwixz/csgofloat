@@ -115,6 +115,7 @@ int main(int argc, char *argv[])
   if (!invlen)
     return EXIT_FAILURE;
 
+  printf("                     \r");
   if (!display_inventory(inv, invlen, onlyfloat, filter))
     return EXIT_FAILURE;
 
