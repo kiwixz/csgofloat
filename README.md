@@ -37,7 +37,7 @@ As 'SteamID', you should use:
 - Custom name as in profile URL
 - Any url containing _steamcommunity.com/_ and _/id/..._
 
-This program need two files
+This program need two files from CS:GO, you will need a copy of the game if you want to update them before I recommit.
 
 #### Columns
 - Item name
