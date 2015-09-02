@@ -19,6 +19,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include <time.h>
 #include "display.h"
@@ -39,7 +40,7 @@ static const int DATEBUF = 32,
                  COLOR_OFF[] = {137, 137, 137},
                  COLOR_ONLINE[] = {87, 203, 222};
 
-void display_account(Account *acc)
+void display_account(const Account *acc)
 {
   const int *col;
 
@@ -53,16 +54,16 @@ void display_account(Account *acc)
 
   if (!acc->state)
     {
-      int offtimes, offtimem, offtimeh;
+      int offtimes, offtimem, offtimeh, offtimed;
 
       offtimes = acc->offtime % 60;
-      acc->offtime /= 60;
-      offtimem = acc->offtime % 60;
-      acc->offtime /= 60;
-      offtimeh = acc->offtime % 24;
-      acc->offtime /= 24;
+      offtimed = acc->offtime / 60;
+      offtimem = offtimed % 60;
+      offtimed /= 60;
+      offtimeh = offtimed % 24;
+      offtimed /= 24;
 
-      printf(" for %d%s%d%s%d%s%ds", acc->offtime, acc->offtime ? "d " : "",
+      printf(" for %d%s%d%s%d%s%ds", offtimed, offtimed ? "d " : "",
              offtimeh, offtimeh ? "h " : "",
              offtimem, offtimem ? "min " : "", offtimes);
     }
@@ -88,7 +89,8 @@ void display_account(Account *acc)
   printf("\x1b[0m");
 }
 
-int display_inventory(Item *inv, int len, int onlyfloat)
+int display_inventory(const Item *inv, int len,
+                      int onlyfloat, const char *filter)
 {
   int i;
 
@@ -102,6 +104,29 @@ int display_inventory(Item *inv, int len, int onlyfloat)
       name = schema_name(inv + i);
       if (!name)
         return 0;
+
+      if (filter)
+        {
+          int  j, namelen;
+          char *lname;
+
+          namelen = strlen(name);
+          SMALLOC(lname, namelen + 1, 0);
+
+          for (j = 0; j < namelen; ++j)
+            lname[j] = tolower(name[j]);
+
+          lname[namelen] = '\0';
+          if (!strstr(lname, filter))
+            {
+              free(name);
+              free(lname);
+
+              continue;
+            }
+
+          free(lname);
+        }
 
       if (inv[i].tdate)
         {
@@ -120,9 +145,10 @@ int display_inventory(Item *inv, int len, int onlyfloat)
           strcat(name, date);
         }
 
-      if (inv[i].skin && inv[i].f >= 0.0)
+      if (inv[i].skin && (inv[i].f >= 0.0))
         {
-          double pf, qpf, j;
+          int j;
+          double pf, qpf;
 
           pf = 100 * (1 - inv[i].f);
           qpf = 100 * (1 - (inv[i].f - FSTEPS[inv[i].quality + 1])

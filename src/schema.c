@@ -234,7 +234,7 @@ int schema_update()
   return 1;
 }
 
-char *schema_name(Item *item)
+char *schema_name(const Item *item)
 {
   int  i, len, qlen;
   char *name, *ptr;

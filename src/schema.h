@@ -28,6 +28,6 @@ int  schema_get();
 void schema_clean();
 int  schema_update();
 
-char *schema_name(Item *item);
+char *schema_name(const Item *item);
 
 #endif

@@ -30,7 +30,7 @@ _NOTE: If you have a CS:GO installation under hand, you might want to set **CSGO
 
 ### Run it
 
-*Usage: csgofloat [-fu] _SteamID_*
+*Usage: csgofloat [-fsu] _SteamID_*
 
 As 'SteamID', you should use:
 - SteamID64
@@ -56,5 +56,6 @@ This program need two files from CS:GO, you will need a copy of the game if you 
 - More green means better condition in the range of the exterior quality
 
 #### Options
-- _f_  - hide items without float
-- _u_  - update _schema.txt_
+- _-f_  - hide items without float
+- _-s_ string - search for items whose names contain the string (case insensitive)
+- _-u_  - update _schema.txt_

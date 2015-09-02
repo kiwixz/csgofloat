@@ -19,6 +19,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "account.h"
 #include "display.h"
 #include "ezcurl.h"
@@ -28,7 +29,11 @@
 
 static int usage()
 {
-  printf("\x1b[31mUsage: csgofloat [-fu] \x1b[3mSteamID\x1b[0m\n");
+  printf("\x1b[31mUsage: csgofloat [-fsu] \x1b[3mSteamID\x1b[0m\n");
+  printf(" -f\t\thide items without float\n");
+  printf(" -s string\tsearch for items (case insensitive)\n");
+  printf(" -u\t\tupdate 'schema.txt'\n");
+
   return EXIT_FAILURE;
 }
 
@@ -37,10 +42,12 @@ int main(int argc, char *argv[])
   char    c;
   int     invlen, onlyfloat, update;
   Item    *inv;
+  char    *filter;
   Account acc = {0};
 
   onlyfloat = update = 0;
-  while ((c = getopt(argc, argv, "fu")) != -1)
+  filter = NULL;
+  while ((c = getopt(argc, argv, "fs:u")) != -1)
     switch (c)
       {
         case 'f':
@@ -55,10 +62,28 @@ int main(int argc, char *argv[])
             break;
           }
 
+        case 's':
+          {
+            filter = optarg;
+            break;
+          }
+
         default:
           return usage();
       }
 
+
+  if (filter)
+    {
+      int i;
+
+      i = 0;
+      while (filter[i] != '\0')
+        {
+          filter[i] = tolower(filter[i]);
+          ++i;
+        }
+    }
 
   if (argc == optind) // all arguments were consumed by getopt()
     return usage();
@@ -84,7 +109,7 @@ int main(int argc, char *argv[])
   if (!invlen)
     return EXIT_FAILURE;
 
-  if (!display_inventory(inv, invlen, onlyfloat))
+  if (!display_inventory(inv, invlen, onlyfloat, filter))
     return EXIT_FAILURE;
 
   ezcurl_clean();

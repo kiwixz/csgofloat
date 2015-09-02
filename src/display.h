@@ -23,7 +23,8 @@
 #include "account.h"
 #include "inventory.h"
 
-void display_account(Account *acc);
-int display_inventory(Item *inv, int len, int onlyfloat);
+void display_account(const Account *acc);
+int display_inventory(const Item *inv, int len,
+                      int onlyfloat, const char* filter);
 
 #endif
