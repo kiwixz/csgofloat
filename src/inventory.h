@@ -27,6 +27,7 @@ typedef struct
   int    defindex, quality, skin, stattrack, stickers[6];
   double f;
   long   tdate;
+  char   *name;
 } Item;
 
 int inventory_get(const char *id, Item * *items);

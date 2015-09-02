@@ -240,7 +240,7 @@ int schema_update()
 
 char *schema_name(const Item *item)
 {
-  int  i, len, qlen;
+  int  i, len;
   char *name, *ptr;
 
   SMALLOC(name, NAMEBUF, NULL);
@@ -266,6 +266,13 @@ char *schema_name(const Item *item)
       else
         name[len - 3] = '\0';
 
+      if (item->name)
+        {
+          strcat(name, " \"");
+          strcat(name, item->name);
+          strcat(name, "\"");
+        }
+
       return name;
     }
 
@@ -278,15 +285,19 @@ char *schema_name(const Item *item)
   for ( ; ptr[1] != '"'; ++len)
     name[len] = *(++ptr);
 
-  name[len] = ' ';
-  name[++len] = '(';
+  name[len] = '\0';
 
-  qlen = strlen(QUALITIES[item->quality]);
-  memcpy(name + ++len, QUALITIES[item->quality], qlen);
+  strcat(name, " (");
+  strcat(name, QUALITIES[item->quality]);
 
-  len += qlen;
-  name[len] = ')';
-  name[++len] = '\0';
+  if (item->name)
+    {
+      strcat(name, ") \"");
+      strcat(name, item->name);
+      strcat(name, "\"");
+    }
+  else
+    strcat(name, ")");
 
   return name;
 }

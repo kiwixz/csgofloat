@@ -40,7 +40,7 @@ static int usage()
 int main(int argc, char *argv[])
 {
   char    c;
-  int     invlen, onlyfloat, update;
+  int     i, invlen, onlyfloat, update;
   Item    *inv;
   char    *filter;
   Account acc = {0};
@@ -75,8 +75,6 @@ int main(int argc, char *argv[])
 
   if (filter)
     {
-      int i;
-
       i = 0;
       while (filter[i] != '\0')
         {
@@ -114,6 +112,12 @@ int main(int argc, char *argv[])
 
   ezcurl_clean();
   schema_clean();
+
+  for (i = 0; i < invlen; ++i)
+    if (inv[i].name)
+      free(inv[i].name);
+
+
   free(inv);
   free(acc.id);
   free(acc.name);

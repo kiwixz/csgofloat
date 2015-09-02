@@ -132,8 +132,6 @@ int display_inventory(const Item *inv, int len,
         {
           char date[DATEBUF];
 
-          printf("%d %ld\n", i, inv[i].tdate);
-
           strftime(date, DATEBUF, DATEFORMAT, localtime(&inv[i].tdate));
           name = realloc(name, strlen(name) + DATEBUF + 1);
           if (!name)

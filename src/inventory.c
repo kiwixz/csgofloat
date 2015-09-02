@@ -36,6 +36,7 @@ enum
   ATTRIB_F = 8,
   ATTRIB_TDATE = 75,
   ATTRIB_ST = 80,
+  ATTRIB_NAME = 111,
   ATTRIB_STICK0 = 113,
   ATTRIB_STICK1 = 117,
   ATTRIB_STICK2 = 121,
@@ -106,6 +107,19 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
                 }
 
               item->tdate = json_object_get_int(jval);
+
+              break;
+            }
+
+          case ATTRIB_NAME:
+            {
+              if (!json_object_object_get_ex(jattrib, "value", &jval))
+                {
+                  ERROR("Failed to decode object 'value'");
+                  return 0;
+                }
+
+              item->name = strdup(json_object_get_string(jval));
 
               break;
             }
@@ -204,7 +218,12 @@ int inventory_get(const char *id, Item * *items)
     }
 
   len = json_object_array_length(jobj);
-  SMALLOC(*items, len * sizeof(Item), 0);
+  *items = calloc(len, sizeof(Item));
+  if (!*items)
+    {
+      ERROR("Failed to calloc");
+      return 0;
+    }
 
   for (i = 0, j = 0; i < len; ++i)
     {
@@ -212,10 +231,6 @@ int inventory_get(const char *id, Item * *items)
       json_object *jitem;
 
       (*items)[j].f = -1.0;
-      (*items)[j].skin = (*items)[j].stattrack = (*items)[j].tdate
-            = (*items)[j].stickers[0] = (*items)[j].stickers[1]
-                  = (*items)[j].stickers[2] = (*items)[j].stickers[3]
-                        = (*items)[j].stickers[4] = (*items)[j].stickers[5] = 0;
 
       jitem = json_object_array_get_idx(jobj, i);
 
