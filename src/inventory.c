@@ -35,14 +35,15 @@ enum
   ATTRIB_SKIN = 6,
   ATTRIB_F = 8,
   ATTRIB_TDATE = 75,
-  ATTRIB_ST = 80,
+  ATTRIB_STATTRACK = 80,
   ATTRIB_NAME = 111,
   ATTRIB_STICK0 = 113,
   ATTRIB_STICK1 = 117,
   ATTRIB_STICK2 = 121,
   ATTRIB_STICK3 = 125,
   ATTRIB_STICK4 = 129,
-  ATTRIB_STICK5 = 133
+  ATTRIB_STICK5 = 133,
+  ATTRIB_SOUVENIR = 137
 };
 
 static const char URL[] =
@@ -124,7 +125,7 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
               break;
             }
 
-          case ATTRIB_ST:
+          case ATTRIB_STATTRACK:
             {
               item->stattrack = 1;
               break;
@@ -163,6 +164,12 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
           case ATTRIB_STICK5:
             {
               item->stickers[5] = 1;
+              break;
+            }
+
+          case ATTRIB_SOUVENIR:
+            {
+              item->souvenir = 1;
               break;
             }
         }

@@ -175,7 +175,7 @@ int display_inventory(const Item *inv, int len,
           for ( ; j > 0; --j)
             printf(" ");
 
-#define STICK(i) inv[i].stickers[i] ? '|' : '_'
+#define STICK(s) inv[i].stickers[s] ? '|' : '_'
 
           printf("%c%c%c%c%c%c %." MSTRINGIFY(FLOATDEC) "f %6.2f%% %6.2f%%\n",
                  STICK(0), STICK(1), STICK(2), STICK(3), STICK(4), STICK(5),

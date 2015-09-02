@@ -40,11 +40,22 @@ typedef struct
   char *name;
 } MapItem;
 
-static const int  NAMEBUF = 256;
+static const int DOFFSET = 415,
+                 DPHASESLEN = 7,
+                 NAMEBUF = 256;
 static const char URL[] =
   "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?language=en&key="
 #include "../STEAMKEY"
-;
+,
+                  *DPHASES[] = {
+  "Ruby",
+  "Sapphire",
+  "Black Pearl",
+  "Phase 1",
+  "Phase 2",
+  "Phase 3",
+  "Phase 4"
+};
 
 static MapItem *map, *skinmap;
 static int     maplen, skinmaplen;
@@ -251,7 +262,8 @@ char *schema_name(const Item *item)
 
 
   snprintf(name, NAMEBUF, "%s%s | ",
-           item->stattrack ? "StatTrack " : "", map[i].name);
+           item->stattrack ? "StatTrack " : (item->souvenir ? "Souvenir " : ""),
+           map[i].name);
 
   for (i = 0; i < skinmaplen; ++i)
     if (skinmap[i].index == item->skin)
@@ -286,6 +298,12 @@ char *schema_name(const Item *item)
     name[len] = *(++ptr);
 
   name[len] = '\0';
+
+  if ((item->skin >= DOFFSET) && (item->skin < DOFFSET + DPHASESLEN))
+    {
+      strcat(name, " ");
+      strcat(name, DPHASES[item->skin - DOFFSET]);
+    }
 
   strcat(name, " (");
   strcat(name, QUALITIES[item->quality]);
