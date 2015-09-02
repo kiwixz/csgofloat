@@ -26,7 +26,7 @@ There is a Makefile so you can compile it with only one command:
 make all
 ```
 
-_NOTE: If you have a CS:GO installation under hand, you might want to set __CSGOPATH__ variable in the Makefile._
+_NOTE: If you have a CS:GO installation under hand, you might want to set **CSGOPATH** variable in the Makefile._
 
 ### Run it
 
