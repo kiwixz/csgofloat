@@ -87,6 +87,8 @@ static int parse_skins()
   char *strfile, *str, *ptr;
 
   strfile = read_file("items_game.txt");
+  if (!strfile)
+    return 0;
 
   str = strstr(strfile, "\n\t\"paint_kits\"");
   str = strstr(str, "\n\t\t\"2\"") - 1; // skip defaults
@@ -132,6 +134,8 @@ int schema_get()
   char        *json;
 
   json = read_file("schema.txt");
+  if (!json)
+    return 0;
 
   jobj = json_tokener_parse(json);
   free(json);
