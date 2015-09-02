@@ -56,5 +56,5 @@ This program need two files
 - More green means better condition in the range of the exterior quality
 
 #### Options
-- _f_ will hide items without float
-- _u_ will update _schema.txt_
+- _f_  - hide items without float
+- _u_  - update _schema.txt_
