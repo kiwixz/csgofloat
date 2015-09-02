@@ -35,7 +35,7 @@
 
 static const int DATEBUF = 32,
                  NAMELEN = TERMINALWIDTH
-  - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC - 5) * 2 - 1,
+  - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC + 5) * 2,
                  COLOR_NOF[] = {125, 125, 125},
                  COLOR_OFF[] = {137, 137, 137},
                  COLOR_ONLINE[] = {87, 203, 222};
