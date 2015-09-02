@@ -49,8 +49,11 @@ void display_account(const Account *acc)
   else
     col = COLOR_OFF;
 
-  printf("\x1b[38;2;%d;%d;%dm%s (%s",
-         col[0], col[1], col[2], acc->name, STATES[acc->state]);
+  if (ansiec)
+    printf("\x1b[38;2;%d;%d;%dm",
+           col[0], col[1], col[2]);
+
+  printf("%s (%s", acc->name, STATES[acc->state]);
 
   if (!acc->state)
     {
@@ -68,9 +71,12 @@ void display_account(const Account *acc)
              offtimem, offtimem ? "min " : "", offtimes);
     }
 
-  printf(
-    ") \x1b[38;2;%d;%d;%dmis on Steam for \x1b[0m%d days\n\x1b[38;2;255;0;0m",
-    COLOR_OFF[0], COLOR_OFF[1], COLOR_OFF[2], acc->age / 60 / 60 / 24);
+  if (ansiec)
+    printf(
+      ") \x1b[38;2;%d;%d;%dmis on Steam for \x1b[0m%d days\n\x1b[38;2;255;0;0m",
+      COLOR_OFF[0], COLOR_OFF[1], COLOR_OFF[2], acc->age / 60 / 60 / 24);
+  else
+    printf(") is on Steam for %d days\n", acc->age / 60 / 60 / 24);
 
   if (acc->communityban)
     printf("Community banned\n");
@@ -86,7 +92,8 @@ void display_account(const Account *acc)
   if (acc->economyban)
     printf("Trade banned\n");
 
-  printf("\x1b[0m");
+  if (ansiec)
+    printf("\x1b[0m");
 }
 
 int display_inventory(const Item *inv, int len,
@@ -152,8 +159,11 @@ int display_inventory(const Item *inv, int len,
           qpf = 100 * (1 - (inv[i].f - FSTEPS[inv[i].quality + 1])
                        / (FSTEPS[inv[i].quality] - FSTEPS[inv[i].quality + 1]));
 
-          printf("\x1b[38;2;%d;%d;%dm%s", inv[i].tdate ? 255 : 55,
-                 55 + (int)(2 * qpf), 55 + (int)(2 * pf), name);
+          if (ansiec)
+            printf("\x1b[38;2;%d;%d;%dm", inv[i].tdate ? 255 : 55,
+                   55 + (int)(2 * qpf), 55 + (int)(2 * pf));
+
+          printf("%s", name);
 
           j = NAMELEN - strlen(name);
           if (j < 0)
@@ -174,12 +184,19 @@ int display_inventory(const Item *inv, int len,
 #undef STICK
         }
       else
-        printf("\x1b[38;2;%d;%d;%dm%s\n", COLOR_NOF[0],
-               COLOR_NOF[1], COLOR_NOF[2], name);
+        {
+          if (ansiec)
+            printf("\x1b[38;2;%d;%d;%dm", COLOR_NOF[0],
+                   COLOR_NOF[1], COLOR_NOF[2]);
+
+          printf("%s\n", name);
+        }
 
       free(name);
     }
 
-  printf("\x1b[0m");
+  if (ansiec)
+    printf("\x1b[0m");
+
   return i;
 }

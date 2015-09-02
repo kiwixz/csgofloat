@@ -29,7 +29,8 @@
 
 static int usage()
 {
-  printf("\x1b[31mUsage: csgofloat [-fsu] \x1b[3mSteamID\x1b[0m\n");
+  printf("Usage: csgofloat [-fsu] SteamID\n");
+  printf(" -a\t\tuse ANSI escape codes (mainly to colorize)\n");
   printf(" -f\t\thide items without float\n");
   printf(" -s string\tsearch for items (case insensitive)\n");
   printf(" -u\t\tupdate 'schema.txt'\n");
@@ -45,11 +46,17 @@ int main(int argc, char *argv[])
   char    *filter;
   Account acc = {0};
 
-  onlyfloat = update = 0;
+  ansiec = onlyfloat = update = 0;
   filter = NULL;
-  while ((c = getopt(argc, argv, "fs:u")) != -1)
+  while ((c = getopt(argc, argv, "afs:u")) != -1)
     switch (c)
       {
+        case 'a':
+          {
+            ansiec = 1;
+            break;
+          }
+
         case 'f':
           {
             onlyfloat = 1;
@@ -88,6 +95,7 @@ int main(int argc, char *argv[])
 
   ezcurl_init();
 
+  INFO("Updating...");
   if (update)
     schema_update();
 

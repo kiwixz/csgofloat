@@ -29,17 +29,29 @@
   #error This POSIX version is not supported.
 #endif
 
-#define INFO(s, ...) \
-  fprintf(stderr, " \x1b[32m"s "\x1b[0m\r", ## __VA_ARGS__);
-#define WARNING(s, ...)                                    \
-  fprintf(stderr, __FILE__ ":%d: \x1b[33;1m"s "\x1b[0m\n", \
-          __LINE__, ## __VA_ARGS__);
-#define ERROR(s, ...)                                      \
-  fprintf(stderr, __FILE__ ":%d: \x1b[31;1m"s "\x1b[0m\n", \
-          __LINE__, ## __VA_ARGS__);
+#define INFO(s, ...)                                           \
+  if (ansiec)                                                  \
+    fprintf(stderr, " \x1b[32m"s "\x1b[0m\r", ## __VA_ARGS__); \
+  else                                                         \
+    fprintf(stderr, " "s "\r", ## __VA_ARGS__);
+#define WARNING(s, ...)                                      \
+  if (ansiec)                                                \
+    fprintf(stderr, __FILE__ ":%d: \x1b[33;1m"s "\x1b[0m\n", \
+            __LINE__, ## __VA_ARGS__);                       \
+  else                                                       \
+    fprintf(stderr, __FILE__ ":%d: "s "\n",                  \
+            __LINE__, ## __VA_ARGS__);
+#define ERROR(s, ...)                                        \
+  if (ansiec)                                                \
+                                                             \
+    fprintf(stderr, __FILE__ ":%d: \x1b[31;1m"s "\x1b[0m\n", \
+            __LINE__, ## __VA_ARGS__);                       \
+  else                                                       \
+    fprintf(stderr, __FILE__ ":%d: "s "\n",                  \
+            __LINE__, ## __VA_ARGS__);
 
-#define MSTRINGIFY(s) STRINGIFY(s)
 #define STRINGIFY(s) #s
+#define MSTRINGIFY(s) STRINGIFY(s)
 
 #define SMALLOC(ptr, size, ret)  \
   ptr = malloc(size);            \
@@ -50,5 +62,7 @@
     }                            \
 
 #define URLBUF 1024
+
+int ansiec;
 
 #endif

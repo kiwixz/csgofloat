@@ -50,12 +50,14 @@ This program need two files from CS:GO, you will need a copy of the game if you 
 - Condition in the range of the exterior quality
 
 #### Colors
+If you enable ANSI escape codes with _-a_ option and it is supported, output will be colored:
 - Only grey if the item has no float
 - With red if the item is not tradable
 - More blue means better condition
 - More green means better condition in the range of the exterior quality
 
 #### Options
-- _-f_  - hide items without float
+- _-a_ - enable ANSI escape codes (mainly to colorize)
+- _-f_ - hide items without float
 - _-s_ string - search for items whose names contain the string (case insensitive)
-- _-u_  - update _schema.txt_
+- _-u_ - update _schema.txt_
