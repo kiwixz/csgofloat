@@ -147,7 +147,7 @@ int display_inventory(const Item *inv, int len,
 
       if (inv[i].skin && (inv[i].f >= 0.0))
         {
-          int j;
+          int    j;
           double pf, qpf;
 
           pf = 100 * (1 - inv[i].f);
@@ -157,12 +157,19 @@ int display_inventory(const Item *inv, int len,
           printf("\x1b[38;2;%d;%d;%dm%s", inv[i].tdate ? 255 : 55,
                  55 + (int)(2 * qpf), 55 + (int)(2 * pf), name);
 
-          for (j = NAMELEN - strlen(name); j > 0; --j)
+          j = NAMELEN - strlen(name);
+          if (j < 0)
+            {
+              printf("\n");
+              j = NAMELEN;
+            }
+
+          for ( ; j > 0; --j)
             printf(" ");
 
 #define STICK(i) inv[i].stickers[i] ? '|' : '_'
 
-          printf(" %c%c%c%c%c%c %." MSTRINGIFY(FLOATDEC) "f %6.2f%% %6.2f%%\n",
+          printf("%c%c%c%c%c%c %." MSTRINGIFY(FLOATDEC) "f %6.2f%% %6.2f%%\n",
                  STICK(0), STICK(1), STICK(2), STICK(3), STICK(4), STICK(5),
                  inv[i].f, pf, qpf);
 
