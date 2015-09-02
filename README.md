@@ -6,6 +6,8 @@
 
 This is a simple software to check wear float of CS:GO items.
 
+![](https://raw.githubusercontent.com/kiwixz/csgofloat/master/screenshot.png "Screenshot with options -af")
+
 ## What do I need ?
 
 You need an usual development environnement (a C compiler, GNU Make, etc). The Makefile use `c99` as an alias for the compiler.
