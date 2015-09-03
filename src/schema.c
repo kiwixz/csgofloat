@@ -44,9 +44,7 @@ static const int DOFFSET = 415,
                  DPHASESLEN = 7,
                  NAMEBUF = 256;
 static const char URL[] =
-  "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?language=en&key="
-#include "../STEAMKEY"
-,
+  "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?key=%s&language=en",
                   *DPHASES[] = {
   "Ruby",
   "Sapphire",
@@ -60,37 +58,6 @@ static const char URL[] =
 static MapItem *map, *skinmap;
 static int     maplen, skinmaplen;
 static char    *skinnamesfile, *skinnames;
-
-static char *read_file(const char *name)
-{
-  long len;
-  FILE *fp;
-  char *str;
-
-  fp = fopen(name, "r");
-  if (!fp)
-    {
-      ERROR("Failed to open file '%s'", name);
-      return NULL;
-    }
-
-  fseek(fp, 0, SEEK_END);
-  len = ftell(fp);
-  rewind(fp);
-
-  SMALLOC(str, len + 1, NULL);
-
-  if (fread(str, 1, len, fp) < (size_t)len)
-    {
-      ERROR("Failed to read file '%s'", name);
-      return NULL;
-    }
-
-  fclose(fp);
-  str[len] = '\0';
-
-  return str;
-}
 
 static int parse_skins()
 {
@@ -138,7 +105,7 @@ static int parse_skins()
   return 1;
 }
 
-int schema_get()
+int schema_parse()
 {
   int         i;
   json_object *jobj, *jval;
@@ -220,13 +187,13 @@ void schema_clean()
   free(skinnamesfile);
 }
 
-int schema_update()
+int schema_update(const char *key)
 {
   int  len;
   char *str;
   FILE *fp;
 
-  str = ezcurl_get(URL);
+  str = ezcurl_get(URL, key);
   if (!str)
     return 0;
 

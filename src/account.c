@@ -37,19 +37,13 @@ const char *STATES[] = {
 };
 
 static const char BANSURL[] =
-  "http://api.steampowered.com/ISteamUser/GetPlayerBans/v0001/?steamids=%s&key="
-#include "../STEAMKEY"
-,
+  "http://api.steampowered.com/ISteamUser/GetPlayerBans/v0001/?key=%s&steamids=%s",
                   IDURL[] =
-  "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?vanityurl=%s&key="
-#include "../STEAMKEY"
-,
+  "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=%s&vanityurl=%s",
                   PROFILEURL[] =
-  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?steamids=%s&key="
-#include "../STEAMKEY"
-;
+  "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s";
 
-static char *get_id(const char *oldid)
+static char *get_id(const char *key, const char *oldid)
 {
   char        *id, *json;
   json_object *jobj, *jrep, *jval;
@@ -81,7 +75,7 @@ static char *get_id(const char *oldid)
   else
     id = strdup(oldid);
 
-  json = ezcurl_get(IDURL, id);
+  json = ezcurl_get(IDURL, key, id);
   if (!json)
     return NULL;
 
@@ -113,12 +107,12 @@ static char *get_id(const char *oldid)
   return strdup(json_object_get_string(jval));
 }
 
-static int get_profile(Account *acc)
+static int get_profile(const char *key, Account *acc)
 {
   char        *json;
   json_object *jobj, *jval, *jrep, *jlist;
 
-  json = ezcurl_get(PROFILEURL, acc->id);
+  json = ezcurl_get(PROFILEURL, key, acc->id);
   if (!json)
     return 0;
 
@@ -192,12 +186,12 @@ static int get_profile(Account *acc)
   return 1;
 }
 
-static int get_bans(Account *acc)
+static int get_bans(const char *key, Account *acc)
 {
   char        *json;
   json_object *jobj, *jval, *jlist;
 
-  json = ezcurl_get(BANSURL, acc->id);
+  json = ezcurl_get(BANSURL, key, acc->id);
   if (!json)
     return 0;
 
@@ -261,16 +255,16 @@ static int get_bans(Account *acc)
   return 1;
 }
 
-int account_get(const char *id, Account *acc)
+int account_get(const char *key, const char *id, Account *acc)
 {
-  (acc)->id = get_id(id);
+  (acc)->id = get_id(key, id);
   if (!(acc)->id)
     return 0;
 
-  if (!get_profile(acc))
+  if (!get_profile(key, acc))
     return 0;
 
-  if (!get_bans(acc))
+  if (!get_bans(key, acc))
     return 0;
 
   return 1;

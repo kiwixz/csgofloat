@@ -17,17 +17,37 @@
  * along with csgofloat. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SCHEMA_H
-#define SCHEMA_H
+#include <stdlib.h>
+#include <stdio.h>
+#include "shared.h"
 
-#include "inventory.h"
+char *read_file(const char *name)
+{
+  long len;
+  FILE *fp;
+  char *str;
 
-const char *QUALITIES[5];
+  fp = fopen(name, "r");
+  if (!fp)
+    {
+      ERROR("Failed to open file '%s'", name);
+      return NULL;
+    }
 
-int  schema_parse();
-void schema_clean();
-int  schema_update(const char *key);
+  fseek(fp, 0, SEEK_END);
+  len = ftell(fp);
+  rewind(fp);
 
-char *schema_name(const Item *item);
+  SMALLOC(str, len + 1, NULL);
 
-#endif
+  if (fread(str, 1, len, fp) < (size_t)len)
+    {
+      ERROR("Failed to read file '%s'", name);
+      return NULL;
+    }
+
+  fclose(fp);
+  str[len] = '\0';
+
+  return str;
+}

@@ -30,6 +30,6 @@ typedef struct
   char   *name;
 } Item;
 
-int inventory_get(const char *id, Item * *items);
+int inventory_get(const char *key, const char *id, Item * *items);
 
 #endif

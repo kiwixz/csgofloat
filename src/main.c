@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include "account.h"
 #include "display.h"
 #include "ezcurl.h"
@@ -27,15 +28,39 @@
 #include "schema.h"
 #include "shared.h"
 
+static const int KEYLEN = 32;
+
 static int usage()
 {
-  printf("Usage: csgofloat [-fsu] SteamID\n");
-  printf(" -a\t\tuse ANSI escape codes (mainly to colorize)\n");
-  printf(" -f\t\thide items without float\n");
-  printf(" -s string\tsearch for items (case insensitive)\n");
-  printf(" -u\t\tupdate 'schema.txt'\n");
+  printf("Usage: csgofloat [options] SteamID\n");
+  printf("  -a          Enable ANSI escape codes (mainly to colorize)\n");
+  printf("  -f          Hide items without float\n");
+  printf("  -k key      Use a specific Steam WebAPI key\n");
+  printf("  -s string   Search for items (case insensitive)\n");
+  printf("  -u          Update downloadable files\n");
 
   return EXIT_FAILURE;
+}
+
+static int check_key(const char *key)
+{
+  int i;
+
+  if ((int)strlen(key) != KEYLEN)
+    {
+      WARNING("Key must be %d characters long", KEYLEN);
+      return 0;
+    }
+
+  for (i = 0; i < KEYLEN; ++i)
+    if (!isalnum(key[i]))
+      {
+        WARNING("Key must contain only alphanumeric characters");
+        return 0;
+      }
+
+
+  return 1;
 }
 
 int main(int argc, char *argv[])
@@ -43,12 +68,13 @@ int main(int argc, char *argv[])
   char    c;
   int     i, invlen, onlyfloat, update;
   Item    *inv;
-  char    *filter;
+  char    *filter, key[KEYLEN + 1];
   Account acc = {0};
 
   ansiec = onlyfloat = update = 0;
   filter = NULL;
-  while ((c = getopt(argc, argv, "afs:u")) != -1)
+  key[0] = '\0';
+  while ((c = getopt(argc, argv, "afk:s:u")) != -1)
     switch (c)
       {
         case 'a':
@@ -63,9 +89,11 @@ int main(int argc, char *argv[])
             break;
           }
 
-        case 'u':
+        case 'k':
           {
-            update = 1;
+            if (check_key(optarg))
+              memcpy(key, optarg, KEYLEN + 1);
+
             break;
           }
 
@@ -75,10 +103,32 @@ int main(int argc, char *argv[])
             break;
           }
 
+        case 'u':
+          {
+            update = 1;
+            break;
+          }
+
         default:
           return usage();
       }
 
+
+  if (!key[0])
+    {
+      char *fkey;
+
+      fkey = read_file("STEAMKEY");
+      if (fkey && check_key(fkey))
+        memcpy(key, fkey, KEYLEN + 1);
+      else
+        {
+          ERROR("Failed to find a valid key");
+          return EXIT_FAILURE;
+        }
+
+      free(fkey);
+    }
 
   if (filter)
     {
@@ -98,22 +148,22 @@ int main(int argc, char *argv[])
   if (update)
     {
       INFO("Updating...");
-      schema_update();
+      schema_update(key);
     }
 
   INFO("Loading profile...");
-  if (!account_get(argv[optind], &acc))
+  if (!account_get(key, argv[optind], &acc))
     return EXIT_FAILURE;
 
   display_account(&acc);
   printf("\n");
 
   INFO("Loading schema...");
-  if (!schema_get())
+  if (!schema_parse())
     return EXIT_FAILURE;
 
   INFO("Loading inventory...");
-  invlen = inventory_get(acc.id, &inv);
+  invlen = inventory_get(key, acc.id, &inv);
   if (!invlen)
     return EXIT_FAILURE;
 

@@ -47,9 +47,7 @@ enum
 };
 
 static const char URL[] =
-  "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?steamid=%s&key="
-#include "../STEAMKEY"
-;
+  "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?key=%s&steamid=%s";
 
 static int parse_attributes(json_object *jobj, Item *item, int tradable)
 {
@@ -178,13 +176,13 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
   return 1;
 }
 
-int inventory_get(const char *id, Item * *items)
+int inventory_get(const char *key, const char *id, Item * *items)
 {
   int         i, j, len, status;
   json_object *jobj, *jrep, *jval;
   char        *json;
 
-  json = ezcurl_get(URL, id);
+  json = ezcurl_get(URL, key, id);
   if (!json)
     return 0;
 

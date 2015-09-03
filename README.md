@@ -16,7 +16,7 @@ This program need some libraries:
 - libcurl
 - json-c
 
-Finally, you also need a [Steam Web API key](http://steamcommunity.com/dev/apikey). Write it, surrounded by quotation marks ("), in a file named _STEAMKEY_ in root folder of this repository once cloned.
+Finally, you also need a [Steam WebAPI key](http://steamcommunity.com/dev/apikey). Write it, surrounded by quotation marks ("), in a file named _STEAMKEY_ in root folder of this repository once cloned.
 
 ## How to test ?
 
@@ -32,7 +32,7 @@ _NOTE: If you have a CS:GO installation under hand, you might want to set **CSGO
 
 ### Run it
 
-*Usage: csgofloat [-afsu] _SteamID_*
+*Usage: csgofloat [options] _SteamID_*
 
 As 'SteamID', you should use:
 - SteamID64
@@ -63,5 +63,6 @@ Letter     | Description
 -----------|-----------
 a          | Enable ANSI escape codes (mainly to colorize)
 f          | Hide items without float
+k key      | Use a specific Steam WebAPI key
 s _string_ | Search for items whose names contain the string (case insensitive)
 u          | Update downloadable files (_schema.txt_)
