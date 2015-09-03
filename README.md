@@ -16,7 +16,7 @@ This program need some libraries:
 - libcurl
 - json-c
 
-Finally, you also need a [Steam WebAPI key](http://steamcommunity.com/dev/apikey). Write it in a file named _STEAMKEY_ along other required files (like *items_game.txt*). Those files need to be in the current directory, when executing this program.
+Finally, you also need a [Steam WebAPI key](http://steamcommunity.com/dev/apikey). You can either write it in a file named _STEAMKEY_ along other required files (like *items_game.txt*) or pass it using _k_ option. The required files need to be in the current directory, when executing this program.
 
 ## How to test ?
 
