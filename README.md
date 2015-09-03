@@ -32,7 +32,7 @@ _NOTE: If you have a CS:GO installation under hand, you might want to set **CSGO
 
 ### Run it
 
-*Usage: csgofloat [-fsu] _SteamID_*
+*Usage: csgofloat [-afsu] _SteamID_*
 
 As 'SteamID', you should use:
 - SteamID64
@@ -52,14 +52,16 @@ This program need two files from CS:GO, you will need a copy of the game if you 
 - Condition in the range of the exterior quality
 
 #### Colors
-If you enable ANSI escape codes with _-a_ option and it is supported, output will be colored:
+If you enable ANSI escape codes with _a_ option and it is supported, output will be colored:
 - Only grey if the item has no float
 - With red if the item is not tradable
 - More blue means better condition
 - More green means better condition in the range of the exterior quality
 
 #### Options
-- _-a_ - enable ANSI escape codes (mainly to colorize)
-- _-f_ - hide items without float
-- _-s_ string - search for items whose names contain the string (case insensitive)
-- _-u_ - update _schema.txt_
+Option     | Description
+-----------|-----------
+_a_        | Enable ANSI escape codes (mainly to colorize)
+_f_        | Hide items without float
+_s_ string | Search for items whose names contain the string (case insensitive)
+_u_        | Update downloadable files (_schema.txt_)
