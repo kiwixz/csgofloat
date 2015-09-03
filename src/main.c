@@ -95,9 +95,11 @@ int main(int argc, char *argv[])
 
   ezcurl_init();
 
-  INFO("Updating...");
   if (update)
-    schema_update();
+    {
+      INFO("Updating...");
+      schema_update();
+    }
 
   INFO("Loading profile...");
   if (!account_get(argv[optind], &acc))

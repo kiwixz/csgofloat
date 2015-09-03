@@ -51,7 +51,7 @@ static const char BANSURL[] =
 
 static char *get_id(const char *oldid)
 {
-  char        *id, buf[URLBUF], *json;
+  char        *id, *json;
   json_object *jobj, *jrep, *jval;
 
   if (strstr(oldid, "steamcommunity.com/"))
@@ -81,9 +81,7 @@ static char *get_id(const char *oldid)
   else
     id = strdup(oldid);
 
-  snprintf(buf, URLBUF, IDURL, id);
-
-  json = ezcurl_get(buf);
+  json = ezcurl_get(IDURL, id);
   if (!json)
     return NULL;
 
@@ -117,12 +115,10 @@ static char *get_id(const char *oldid)
 
 static int get_profile(Account *acc)
 {
-  char        buf[URLBUF], *json;
+  char        *json;
   json_object *jobj, *jval, *jrep, *jlist;
 
-  snprintf(buf, URLBUF, PROFILEURL, acc->id);
-
-  json = ezcurl_get(buf);
+  json = ezcurl_get(PROFILEURL, acc->id);
   if (!json)
     return 0;
 
@@ -198,12 +194,10 @@ static int get_profile(Account *acc)
 
 static int get_bans(Account *acc)
 {
-  char        buf[URLBUF], *json;
+  char        *json;
   json_object *jobj, *jval, *jlist;
 
-  snprintf(buf, URLBUF, BANSURL, acc->id);
-
-  json = ezcurl_get(buf);
+  json = ezcurl_get(BANSURL, acc->id);
   if (!json)
     return 0;
 

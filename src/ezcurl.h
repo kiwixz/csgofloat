@@ -22,6 +22,6 @@
 
 void ezcurl_init();
 void ezcurl_clean();
-char *ezcurl_get(const char *url);
+char *ezcurl_get(const char *url, ...);
 
 #endif

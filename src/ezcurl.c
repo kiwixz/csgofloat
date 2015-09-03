@@ -19,6 +19,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <string.h>
 #include <time.h>
 #include <curl/curl.h>
@@ -26,6 +27,7 @@
 #include "shared.h"
 
 #define MAXTRYPERSEC 8 // API limit is 100000 per day
+#define URLBUF 1024
 
 typedef struct
 {
@@ -90,14 +92,20 @@ static int get_try(String *s)
   return s->len;
 }
 
-char *ezcurl_get(const char *url)
+char *ezcurl_get(const char *url, ...)
 {
-  int    ret;
-  String s = {0};
+  int     ret;
+  va_list args;
+  char    buf[URLBUF];
+  String  s = {0};
+
+  va_start(args, url);
+  vsnprintf(buf, URLBUF, url, args);
+  va_end(args);
 
   SMALLOC(s.ptr, 1, NULL);
 
-  curl_easy_setopt(curl, CURLOPT_URL, url);
+  curl_easy_setopt(curl, CURLOPT_URL, buf);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
 
   do

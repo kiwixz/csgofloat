@@ -182,11 +182,9 @@ int inventory_get(const char *id, Item * *items)
 {
   int         i, j, len, status;
   json_object *jobj, *jrep, *jval;
-  char        buf[URLBUF], *json;
+  char        *json;
 
-  snprintf(buf, URLBUF, URL, id);
-
-  json = ezcurl_get(buf);
+  json = ezcurl_get(URL, id);
   if (!json)
     return 0;
 

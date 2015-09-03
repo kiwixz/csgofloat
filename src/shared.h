@@ -61,8 +61,6 @@
       return ret;                \
     }                            \
 
-#define URLBUF 1024
-
 int ansiec;
 
 #endif
