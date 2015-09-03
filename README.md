@@ -61,7 +61,7 @@ If you enable ANSI escape codes with _a_ option and it is supported, output will
 #### Options
 Option     | Description
 -----------|-----------
-_a_        | Enable ANSI escape codes (mainly to colorize)
-_f_        | Hide items without float
-_s_ string | Search for items whose names contain the string (case insensitive)
-_u_        | Update downloadable files (_schema.txt_)
+a          | Enable ANSI escape codes (mainly to colorize)
+f          | Hide items without float
+s _string_ | Search for items whose names contain the string (case insensitive)
+u          | Update downloadable files (_schema.txt_)
