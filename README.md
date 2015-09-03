@@ -59,7 +59,7 @@ If you enable ANSI escape codes with _a_ option and it is supported, output will
 - More green means better condition in the range of the exterior quality
 
 #### Options
-Option     | Description
+Letter     | Description
 -----------|-----------
 a          | Enable ANSI escape codes (mainly to colorize)
 f          | Hide items without float
