@@ -229,7 +229,8 @@ char *schema_name(const Item *item)
 
 
   snprintf(name, NAMEBUF, "%s%s | ",
-           item->stattrack ? "StatTrack " : (item->souvenir ? "Souvenir " : ""),
+           item->stattrack ? "StatTrack "
+           : (item->souvenir && item->skin ? "Souvenir " : ""),
            map[i].name);
 
   for (i = 0; i < skinmaplen; ++i)
