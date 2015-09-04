@@ -41,24 +41,26 @@ As 'SteamID', you should use:
 
 This program need two files from CS:GO, you will need a copy of the game if you want to update them before I recommit.
 
-#### Columns
-- Item name
-- Skin name
-- Date when item will be tradable (local time)
+## What is the output ?
+
+### Columns
+- Item name (StatTrack and Souvenir skins will be specified as such)
+- Skin name (if Doppler, phase will be given)
+- If not, date when item will be tradable (local time)
 - Name of item
 - Stickers, denoted by a pipe when present
 - Wear float value
-- Condition
-- Condition in the range of the exterior quality
+- Wear condition
+- Wear condition against exterior quality
 
-#### Colors
+### Colors
 If you enable ANSI escape codes with _a_ option and it is supported, output will be colored:
 - Only grey if the item has no float
 - With red if the item is not tradable
 - More blue means better condition
-- More green means better condition in the range of the exterior quality
+- More green means better condition against exterior quality
 
-#### Options
+### Options
 Letter     | Description
 -----------|-----------
 a          | Enable ANSI escape codes (mainly to colorize)
