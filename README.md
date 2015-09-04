@@ -41,6 +41,15 @@ As 'SteamID', you should use:
 
 This program need two files from CS:GO, you will need a copy of the game if you want to update them before I recommit.
 
+### Options
+Letter     | Description
+-----------|-----------
+a          | Enable ANSI escape codes (mainly to colorize)
+f          | Hide items without float
+k key      | Use a specific Steam WebAPI key
+s _string_ | Search for items whose names contain the string (case insensitive)
+u          | Update downloadable files (_schema.txt_)
+
 ## What is the output ?
 
 ### Columns
@@ -60,11 +69,5 @@ If you enable ANSI escape codes with _a_ option and it is supported, output will
 - More blue means better condition
 - More green means better condition against exterior quality
 
-### Options
-Letter     | Description
------------|-----------
-a          | Enable ANSI escape codes (mainly to colorize)
-f          | Hide items without float
-k key      | Use a specific Steam WebAPI key
-s _string_ | Search for items whose names contain the string (case insensitive)
-u          | Update downloadable files (_schema.txt_)
+## License
+This program is protected by the **GNU GENERAL PUBLIC LICENSE**. This repositery should contain a file named _LICENSE_.
