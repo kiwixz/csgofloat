@@ -1,6 +1,6 @@
 # csgofloat
 
-[Feel free to contact me by email.](mailto:kiwixz@users.noreply.github.com)
+Feel free to contact me by email.
 
 ## Description
 
