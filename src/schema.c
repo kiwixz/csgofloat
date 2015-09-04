@@ -59,6 +59,27 @@ static MapItem *map, *skinmap;
 static int     maplen, skinmaplen;
 static char    *skinnamesfile, *skinnames;
 
+static char *find_limits(char *strfile) // not verbose !
+{
+  char *str, *ptr;
+
+  str = strstr(strfile, "\n\t\"paint_kits\"");
+  if (!str)
+    return NULL;
+
+  str = strstr(str, "\n\t\t\"2\"") - 1; // skip defaults
+  if (!str)
+    return NULL;
+
+  ptr = strstr(str, "\n\t\"paint_kits_rarity\"");
+  if (!ptr)
+    return NULL;
+
+  *ptr = '\0';
+
+  return str;
+}
+
 static int parse_skins()
 {
   int  i;
@@ -68,9 +89,12 @@ static int parse_skins()
   if (!strfile)
     return 0;
 
-  str = strstr(strfile, "\n\t\"paint_kits\"");
-  str = strstr(str, "\n\t\t\"2\"") - 1; // skip defaults
-  *strstr(str, "\n\t\"paint_kits_rarity\"") = '\0';
+  str = find_limits(strfile);
+  if (!str)
+    {
+      ERROR("Failed to parse skins");
+      return 0;
+    }
 
   ptr = str;
   for (skinmaplen = -1; ptr; ++skinmaplen)
@@ -88,6 +112,12 @@ static int parse_skins()
       skinmap[i].index = atoi(ptr);
 
       ptr = strstr(ptr, "\n\t\t\t\"description_tag\"") + 21;
+      if (!ptr)
+        {
+          ERROR("Failed to parse skins names");
+          return 0;
+        }
+
       while (*ptr != 'P')
         ++ptr;
 
@@ -168,6 +198,11 @@ int schema_parse()
     return 0;
 
   skinnames = strstr(skinnamesfile, "PaintKit_Default_Tag");
+  if (!skinnames)
+    {
+      ERROR("Failed to parse skins names");
+      return 0;
+    }
 
   return maplen;
 }
@@ -257,15 +292,23 @@ char *schema_name(const Item *item)
     }
 
   ptr = strstr(skinnames, skinmap[i].name);
-  for (i = 0; i < 2; ++i)
-    do
-      ++ptr;
-    while (*ptr != '"');
+  if (ptr)
+    {
+      for (i = 0; i < 2; ++i)
+        do
+          ++ptr;
+        while (*ptr != '"');
 
-  for ( ; ptr[1] != '"'; ++len)
-    name[len] = *(++ptr);
+      for ( ; ptr[1] != '"'; ++len)
+        name[len] = *(++ptr);
 
-  name[len] = '\0';
+      name[len] = '\0';
+    }
+  else
+    {
+      strcat(name, "#");
+      strcat(name, skinmap[i].name);
+    }
 
   if ((item->skin >= DOFFSET) && (item->skin < DOFFSET + DPHASESLEN))
     {
