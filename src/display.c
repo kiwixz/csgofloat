@@ -25,6 +25,7 @@
 #include "display.h"
 #include "account.h"
 #include "inventory.h"
+#include "market.h"
 #include "schema.h"
 #include "shared.h"
 
@@ -35,7 +36,7 @@
 
 static const int DATEBUF = 32,
                  NAMELEN = TERMINALWIDTH
-  - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC + 5) * 2,
+  - 1 - 7 - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC + 5) * 2,
                  COLOR_NOF[] = {125, 125, 125},
                  COLOR_OFF[] = {137, 137, 137},
                  COLOR_ONLINE[] = {87, 203, 222};
@@ -96,14 +97,49 @@ void display_account(const Account *acc)
     printf("\x1b[0m");
 }
 
-int display_inventory(const Item *inv, int len,
-                      int onlyfloat, const char *filter)
+static void print_base(const char *name, const char *price, const Item *item)
+{
+  int len;
+
+  printf("%s", name);
+
+  if (item->stattrak)
+    len = NAMELEN + 2 - strlen(name); // +2 because of UTF-8 (TM)
+  else
+    len = NAMELEN - strlen(name);
+
+  if (item->unusual)
+    len += 2;
+
+  if (item->name)
+    {
+      printf(" \"%s\"", item->name);
+      len -= 2 + strlen(item->name) + 1;
+    }
+
+  if (len < 0)
+    {
+      printf("\n");
+      len = NAMELEN;
+    }
+
+  for ( ; len > 0; --len)
+    printf(" ");
+
+  if (price)
+    printf("%7s", price);
+  else
+    printf("       ");
+}
+
+int display_inventory(const Item *inv, int len, int onlyfloat,
+                      int dispprice, const char *filter)
 {
   int i;
 
   for (i = 0; i < len; ++i)
     {
-      char *name;
+      char *name, *price;
 
       if (onlyfloat && (inv[i].f < 0.0))
         continue;
@@ -135,6 +171,15 @@ int display_inventory(const Item *inv, int len,
           free(lname);
         }
 
+      if (dispprice)
+        {
+          price = market_get(name, inv + i);
+          if (!price)
+            return 0;
+        }
+      else
+        price = NULL;
+
       if (inv[i].tdate)
         {
           char date[DATEBUF];
@@ -152,7 +197,6 @@ int display_inventory(const Item *inv, int len,
 
       if (inv[i].skin && (inv[i].f >= 0.0))
         {
-          int    j;
           double pf, qpf;
 
           pf = 100 * (1 - inv[i].f);
@@ -163,21 +207,11 @@ int display_inventory(const Item *inv, int len,
             printf("\x1b[38;2;%d;%d;%dm", inv[i].tdate ? 255 : 55,
                    55 + (int)(2 * qpf), 55 + (int)(2 * pf));
 
-          printf("%s", name);
-
-          j = NAMELEN - strlen(name);
-          if (j < 0)
-            {
-              printf("\n");
-              j = NAMELEN;
-            }
-
-          for ( ; j > 0; --j)
-            printf(" ");
+          print_base(name, price, inv + i);
 
 #define STICK(s) inv[i].stickers[s] ? '|' : '_'
 
-          printf("%c%c%c%c%c%c %." MSTRINGIFY(FLOATDEC) "f %6.2f%% %6.2f%%\n",
+          printf(" %c%c%c%c%c%c %." MSTRINGIFY(FLOATDEC) "f %6.2f%% %6.2f%%\n",
                  STICK(0), STICK(1), STICK(2), STICK(3), STICK(4), STICK(5),
                  inv[i].f, pf, qpf);
 
@@ -189,10 +223,14 @@ int display_inventory(const Item *inv, int len,
             printf("\x1b[38;2;%d;%d;%dm", COLOR_NOF[0],
                    COLOR_NOF[1], COLOR_NOF[2]);
 
-          printf("%s\n", name);
+          print_base(name, price, inv + i);
+          printf("\n");
         }
 
       free(name);
+
+      if (dispprice)
+        free(price);
     }
 
   if (ansiec)

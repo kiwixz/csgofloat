@@ -17,12 +17,11 @@
  * along with csgofloat. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EZCURL_H
-#define EZCURL_H
+#ifndef MARKET_H
+#define MARKET_H
 
-void ezcurl_init();
-void ezcurl_clean();
-char *ezcurl_escape(const char *str, int len);
-char *ezcurl_get(const char *url, ...);
+#include "inventory.h"
+
+char *market_get(const char *id, const Item *item);
 
 #endif

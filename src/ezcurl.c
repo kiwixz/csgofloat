@@ -35,10 +35,11 @@ typedef struct
   int  len;
 } String;
 
-static const int             MINLEN = 5;
+static const int             MINLEN = 8;
 static const struct timespec DELAY = {.tv_nsec = 1000000000LL / MAXTRYPERSEC};
 
-static CURL *curl;
+static struct timespec lasttime = {0};
+static CURL            *curl;
 
 static size_t curl_callback(void *ptr, size_t size, size_t nmemb, void *svoid)
 {
@@ -67,6 +68,10 @@ void ezcurl_init()
 {
   curl = curl_easy_init();
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_callback);
+
+#if DEBUG
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+#endif
 }
 
 void ezcurl_clean()
@@ -74,27 +79,38 @@ void ezcurl_clean()
   curl_easy_cleanup(curl);
 }
 
-static int get_try(String *s)
+static void timespec_subtract(struct timespec *x, struct timespec *y,
+                              struct timespec *result)
 {
-  int ret;
-
-  s->len = 0;
-  if (nanosleep(&DELAY, NULL))
-    return 0;
-
-  ret = curl_easy_perform(curl);
-  if (ret != CURLE_OK)
+  if (x->tv_nsec < y->tv_nsec)
     {
-      ERROR("cURL failed: %s", curl_easy_strerror(ret));
-      return 0;
+      int sec;
+
+      sec = (y->tv_nsec - x->tv_nsec) / 1000000000L + 1;
+      y->tv_nsec -= 1000000000L * sec;
+      y->tv_sec += sec;
     }
 
-  return s->len;
+  if (x->tv_nsec - y->tv_nsec > 1000000000L)
+    {
+      int sec;
+
+      sec = (x->tv_nsec - y->tv_nsec) / 1000000000L;
+      y->tv_nsec += 1000000000L * sec;
+      y->tv_sec -= sec;
+    }
+
+  result->tv_sec = x->tv_sec - y->tv_sec;
+  result->tv_nsec = x->tv_nsec - y->tv_nsec;
+}
+
+char *ezcurl_escape(const char *str, int len)
+{
+  return curl_easy_escape(curl, str, len);
 }
 
 char *ezcurl_get(const char *url, ...)
 {
-  int     ret;
   va_list args;
   char    buf[URLBUF];
   String  s = {0};
@@ -110,11 +126,37 @@ char *ezcurl_get(const char *url, ...)
 
   do
     {
-      ret = get_try(&s);
-      if (!ret)
-        return NULL;
+      int             ret;
+      struct timespec now, diff;
+
+      if (clock_gettime(CLOCK_MONOTONIC, &now))
+        {
+          ERROR("Failed to get time");
+          return 0;
+        }
+
+      timespec_subtract(&now, &lasttime, &diff);
+
+      if ((((diff.tv_sec == DELAY.tv_sec) && (diff.tv_nsec < DELAY.tv_nsec))
+           || (diff.tv_sec < DELAY.tv_sec))
+          && nanosleep(&DELAY, NULL))
+        {
+          ERROR("Failed to sleep");
+          return 0;
+        }
+
+      lasttime.tv_sec = now.tv_sec;
+      lasttime.tv_nsec = now.tv_nsec;
+      s.len = 0;
+
+      ret = curl_easy_perform(curl);
+      if (ret != CURLE_OK)
+        {
+          ERROR("cURL failed: %s", curl_easy_strerror(ret));
+          return 0;
+        }
     }
-  while (ret < MINLEN);
+  while (s.len < MINLEN);
 
   return s.ptr;
 }

@@ -36,6 +36,7 @@ static int usage()
   printf("  -a          Enable ANSI escape codes (mainly to colorize)\n");
   printf("  -f          Hide items without float\n");
   printf("  -k key      Use a specific Steam WebAPI key\n");
+  printf("  -p          Display price of item on market (if possible)\n");
   printf("  -s string   Search for items (case insensitive)\n");
   printf("  -u          Update downloadable files\n");
 
@@ -66,15 +67,15 @@ static int check_key(const char *key)
 int main(int argc, char *argv[])
 {
   char    c;
-  int     i, invlen, onlyfloat, update;
+  int     i, invlen, onlyfloat, price, update;
   Item    *inv;
   char    *filter, key[KEYLEN + 1];
   Account acc = {0};
 
-  ansiec = onlyfloat = update = 0;
+  ansiec = onlyfloat = price = update = 0;
   filter = NULL;
   key[0] = '\0';
-  while ((c = getopt(argc, argv, "afk:s:u")) != -1)
+  while ((c = getopt(argc, argv, "afk:ps:u")) != -1)
     switch (c)
       {
         case 'a':
@@ -94,6 +95,12 @@ int main(int argc, char *argv[])
             if (check_key(optarg))
               memcpy(key, optarg, KEYLEN + 1);
 
+            break;
+          }
+
+        case 'p':
+          {
+            price = 1;
             break;
           }
 
@@ -168,7 +175,7 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
 
   printf("                     \r");
-  if (!display_inventory(inv, invlen, onlyfloat, filter))
+  if (!display_inventory(inv, invlen, onlyfloat, price, filter))
     return EXIT_FAILURE;
 
   ezcurl_clean();

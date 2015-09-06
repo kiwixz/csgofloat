@@ -24,7 +24,7 @@
 #include "inventory.h"
 
 void display_account(const Account *acc);
-int display_inventory(const Item *inv, int len,
-                      int onlyfloat, const char* filter);
+int  display_inventory(const Item *inv, int len, int onlyfloat,
+                       int dispprice, const char *filter);
 
 #endif

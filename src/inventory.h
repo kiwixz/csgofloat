@@ -24,7 +24,7 @@ const double FSTEPS[6];
 
 typedef struct
 {
-  int    defindex, quality, skin, souvenir, stattrack, stickers[6];
+  int    defindex, quality, skin, souvenir, stattrak, unusual, stickers[6];
   double f;
   long   tdate;
   char   *name;

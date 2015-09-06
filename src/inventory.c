@@ -35,7 +35,7 @@ enum
   ATTRIB_SKIN = 6,
   ATTRIB_F = 8,
   ATTRIB_TDATE = 75,
-  ATTRIB_STATTRACK = 80,
+  ATTRIB_STATTRAK = 80,
   ATTRIB_NAME = 111,
   ATTRIB_STICK0 = 113,
   ATTRIB_STICK1 = 117,
@@ -45,6 +45,8 @@ enum
   ATTRIB_STICK5 = 133,
   ATTRIB_SOUVENIR = 137
 };
+
+static const int UNUSUALQ = 3;
 
 static const char URL[] =
   "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/?key=%s&steamid=%s";
@@ -123,9 +125,9 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
               break;
             }
 
-          case ATTRIB_STATTRACK:
+          case ATTRIB_STATTRAK:
             {
-              item->stattrack = 1;
+              item->stattrak = 1;
               break;
             }
 
@@ -244,6 +246,15 @@ int inventory_get(const char *key, const char *id, Item * *items)
         }
 
       (*items)[j].defindex = json_object_get_int(jval);
+
+      if (!json_object_object_get_ex(jitem, "quality", &jval))
+        {
+          ERROR("Failed to decode object 'quality'");
+          return 0;
+        }
+
+      if (json_object_get_int(jval) == UNUSUALQ)
+        (*items)[j].unusual = 1;
 
       if (json_object_object_get_ex(jobj, "flag_cannot_trade", &jval)
           && json_object_get_boolean(jval))

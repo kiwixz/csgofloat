@@ -262,11 +262,18 @@ char *schema_name(const Item *item)
     if (map[i].index == item->defindex)
       break;
 
+  name[0] = '\0';
 
-  snprintf(name, NAMEBUF, "%s%s | ",
-           item->stattrack ? "StatTrack "
-           : (item->souvenir && item->skin ? "Souvenir " : ""),
-           map[i].name);
+  if(item->unusual)
+    strcat(name, "\xE2\x98\x85 ");
+
+  if(item->stattrak)
+    strcat(name, "StatTrak\xE2\x84\xA2 ");
+  else if (item->souvenir && item->skin)
+    strcat(name, "Souvenir ");
+
+  strcat(name, map[i].name);
+  strcat(name, " | ");
 
   for (i = 0; i < skinmaplen; ++i)
     if (skinmap[i].index == item->skin)
@@ -318,15 +325,7 @@ char *schema_name(const Item *item)
 
   strcat(name, " (");
   strcat(name, QUALITIES[item->quality]);
-
-  if (item->name)
-    {
-      strcat(name, ") \"");
-      strcat(name, item->name);
-      strcat(name, "\"");
-    }
-  else
-    strcat(name, ")");
+  strcat(name, ")");
 
   return name;
 }

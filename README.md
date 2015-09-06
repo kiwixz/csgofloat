@@ -47,6 +47,7 @@ Letter     | Description
 a          | Enable ANSI escape codes (mainly to colorize)
 f          | Hide items without float
 k key      | Use a specific Steam WebAPI key
+p          | Display price of item on market (if possible)
 s _string_ | Search for items whose names contain the string (case insensitive)
 u          | Update downloadable files (_schema.txt_)
 
@@ -57,6 +58,7 @@ u          | Update downloadable files (_schema.txt_)
 - Skin name (if Doppler, phase will be given)
 - If not, date when item will be tradable (local time)
 - Name of item
+- Price on market (if option _p_ is given)
 - Stickers, denoted by a pipe when present
 - Wear float value
 - Wear condition
