@@ -35,6 +35,9 @@
 #define PERCENTDEC 2
 #define TERMINALWIDTH 120
 
+static const int DRAGONKING = 400, // skins and weapons
+                 MFAF = 16;
+
 static const int DATEBUF = 32,
                  MAXTDATE = 7 * 24 * 60 * 60,
                  NAMELEN = TERMINALWIDTH - 1 - 7 - 1 - 6 - 1 - CONDITIONS,
@@ -138,7 +141,7 @@ static void print_base(const char *name, const char *price, const Item *item)
   else
     len = NAMELEN - strlen(name);
 
-  if (item->unusual)
+  if (item->unusual || ((item->defindex == MFAF) && (item->skin == DRAGONKING)))
     len += 2;
 
   if (item->name)
