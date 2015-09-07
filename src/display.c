@@ -29,6 +29,7 @@
 #include "schema.h"
 #include "shared.h"
 
+#define CONDITIONS (FLOATDEC + 2 + 1 + (PERCENTDEC + 5) * 2)
 #define DATEFORMAT "%d/%m %H:%M"
 #define FLOATDEC 8
 #define PERCENTDEC 2
@@ -36,8 +37,7 @@
 
 static const int DATEBUF = 32,
                  MAXTDATE = 7 * 24 * 60 * 60,
-                 NAMELEN = TERMINALWIDTH
-  - 1 - 7 - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC + 5) * 2,
+                 NAMELEN = TERMINALWIDTH - 1 - 7 - 1 - 6 - 1 - CONDITIONS,
                  SWAPDEF = 1324,
                  COLOR_NOF[] = {125, 125, 125},
                  COLOR_OFF[] = {137, 137, 137},
@@ -136,7 +136,7 @@ static void print_base(const char *name, const char *price, const Item *item)
       int l;
 
       if (ansiec)
-        printf("\x1b[0m");
+        printf("\x1b[39m");
 
       printf(" \"%s\"%n", item->name, &l);
       len -= l;
@@ -202,8 +202,10 @@ static void print_base(const char *name, const char *price, const Item *item)
 int display_inventory(const Item *inv, int len, int detailed,
                       int onlyfloat, int dispprice, const char *filter)
 {
+  int alt;
   int i;
 
+  alt = 0;
   for (i = 0; i < len; ++i)
     {
       char *name, *price;
@@ -248,6 +250,14 @@ int display_inventory(const Item *inv, int len, int detailed,
       else
         price = NULL;
 
+      if (ansiec)
+        {
+          if (alt)
+            printf("\x1b[48;2;8;8;8m");
+          else
+            printf("\x1b[49m");
+        }
+
       if (inv[i].skin && (inv[i].f >= 0.0))
         {
           double pf, qpf;
@@ -270,14 +280,11 @@ int display_inventory(const Item *inv, int len, int detailed,
           if (ansiec)
             print_color(qpf);
 
-          printf(" %6.2f%%\n", qpf);
+          printf(" %6.2f%%\x1b[0m\n", qpf);
 
           if (detailed)
             {
               int j, follow;
-
-              if (ansiec)
-                printf("\x1b[38;2;255;0;255m");
 
               follow = 0;
               for (j = 0; j < 6; ++j)
@@ -287,6 +294,8 @@ int display_inventory(const Item *inv, int len, int detailed,
 
                     if (follow)
                       printf(", ");
+                    else if (ansiec)
+                      printf("\x1b[38;2;255;0;255m");
 
                     sname = schema_name_sticker(inv[i].stickers[j]);
                     if (!sname)
@@ -300,27 +309,35 @@ int display_inventory(const Item *inv, int len, int detailed,
 
 
               if (follow)
-                printf("\n");
+                printf("\x1b[0m\n");
             }
         }
       else
         {
+          int j;
+
           if (ansiec)
             printf("\x1b[38;2;%d;%d;%dm", COLOR_NOF[0],
                    COLOR_NOF[1], COLOR_NOF[2]);
 
           print_base(name, price, inv + i);
-          printf("\n");
+
+          for (j = 0; j < CONDITIONS; ++j)
+            printf(" ");
+
+          printf("  \x1b[0m\n");
         }
 
       free(name);
 
       if (dispprice)
         free(price);
+
+      alt = !alt;
     }
 
-  if (ansiec)
-    printf("\x1b[0m");
+  // if (ansiec)
+  // printf("\x1b[0m");
 
   return i;
 }
