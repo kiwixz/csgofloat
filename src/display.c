@@ -29,12 +29,13 @@
 #include "schema.h"
 #include "shared.h"
 
-#define DATEFORMAT " [%d/%m %H:%M]"
+#define DATEFORMAT "%d/%m %H:%M"
 #define FLOATDEC 8
 #define PERCENTDEC 2
 #define TERMINALWIDTH 120
 
 static const int DATEBUF = 32,
+                 MAXTDATE = 7 * 24 * 60 * 60,
                  NAMELEN = TERMINALWIDTH
   - 1 - 7 - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC + 5) * 2,
                  COLOR_NOF[] = {125, 125, 125},
@@ -131,8 +132,33 @@ static void print_base(const char *name, const char *price, const Item *item)
 
   if (item->name)
     {
-      printf(" \"%s\"", item->name);
-      len -= 2 + strlen(item->name) + 1;
+      int l;
+
+      if (ansiec)
+        printf("\x1b[0m");
+
+      printf(" \"%s\"%n", item->name, &l);
+      len -= l;
+    }
+
+  if (item->tdate)
+    {
+      int  l;
+      long col;
+      char buf[DATEBUF];
+
+      if (ansiec)
+        {
+          col = (item->tdate - time(NULL)) * 255 / MAXTDATE;
+          if (col > 255)
+            col = 255;
+
+          printf("\x1b[38;2;255;%d;0m", 255 - col);
+        }
+
+      strftime(buf, DATEBUF, DATEFORMAT, localtime(&item->tdate));
+      printf(" [%s]%n", buf, &l);
+      len -= l;
     }
 
   if (len < 0)
@@ -201,21 +227,6 @@ int display_inventory(const Item *inv, int len, int onlyfloat,
         }
       else
         price = NULL;
-
-      if (inv[i].tdate)
-        {
-          char date[DATEBUF];
-
-          strftime(date, DATEBUF, DATEFORMAT, localtime(&inv[i].tdate));
-          name = realloc(name, strlen(name) + DATEBUF + 1);
-          if (!name)
-            {
-              ERROR("Failed to realloc");
-              return 0;
-            }
-
-          strcat(name, date);
-        }
 
       if (inv[i].skin && (inv[i].f >= 0.0))
         {

@@ -56,8 +56,8 @@ u          | Update downloadable files (_schema.txt_)
 ### Columns
 - Item name (StatTrack and Souvenir skins will be specified as such)
 - Skin name (if Doppler, phase will be given)
+- Custom name of item
 - If not, date when item will be tradable (local time)
-- Name of item
 - Price on market (if option _p_ is given)
 - Stickers, denoted by a pipe when present
 - Wear float value
@@ -67,9 +67,9 @@ u          | Update downloadable files (_schema.txt_)
 ### Colors
 If you enable ANSI escape codes with _a_ option and it is supported, output will be colored.
 
-All figures will be colored from red to green.
+Almost all figures will be colored from red to green. The custom name of item will be white. The custom nameThe date when item will be tradable is colored from yellow (soon) to red.
 
-The item's name will be colored differently:
+The item's name will be colored much differently:
 - Only grey if the item has no float
 - With red if the item is not tradable
 - More blue means better condition

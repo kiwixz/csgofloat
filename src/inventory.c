@@ -255,7 +255,7 @@ int inventory_get(const char *key, const char *id, Item * *items)
       if (json_object_get_int(jval) == UNUSUALQ)
         (*items)[j].unusual = 1;
 
-      if (json_object_object_get_ex(jobj, "flag_cannot_trade", &jval)
+      if (json_object_object_get_ex(jitem, "flag_cannot_trade", &jval)
           && json_object_get_boolean(jval))
         tradable = 0;
       else
