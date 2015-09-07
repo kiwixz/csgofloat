@@ -97,7 +97,7 @@ void display_account(const Account *acc)
     printf("\x1b[0m");
 }
 
-static void print_color(float f) // from 0.0f to 100.0f
+static void print_color_raw(float f) // linear from 0.0f to 100.0f
 {
   int i;
 
@@ -109,13 +109,19 @@ static void print_color(float f) // from 0.0f to 100.0f
     printf("\x1b[38;2;%d;255;0m", 511 - i);
 }
 
+static void print_color(float f) // from 0.0f to 100.0f
+{
+  f -= 50;
+  print_color_raw(f * f * f / 2500 + 50);
+}
+
 static void print_base(const char *name, const char *price, const Item *item)
 {
   int len;
 
   printf("%s", name);
 
-  if (item->stattrak || item->defindex == 1324) // 1324 is StatTrak Swap Tool
+  if (item->stattrak || (item->defindex == 1324)) // 1324 is StatTrak Swap Tool
     len = NAMELEN + 2 - strlen(name); // +2 because of UTF-8 (TM)
   else
     len = NAMELEN - strlen(name);
@@ -140,7 +146,7 @@ static void print_base(const char *name, const char *price, const Item *item)
 
   if (price && price[0])
     {
-      print_color(-4000 / (atof(price + 1) + 37) + 109); // not linear
+      print_color_raw(-4000 / (atof(price + 1) + 37) + 109); // not linear
       printf("%7s", price);
     }
   else
