@@ -69,14 +69,24 @@ void display_account(const Account *acc)
       offtimeh = offtimed % 24;
       offtimed /= 24;
 
-      printf(" for %d%s%d%s%d%s%ds", offtimed, offtimed ? "d " : "",
-             offtimeh, offtimeh ? "h " : "",
-             offtimem, offtimem ? "min " : "", offtimes);
+      printf(" for");
+
+      if (offtimed)
+        printf(" \x1b[39m%dd", offtimed);
+
+      if (offtimeh)
+        printf(" \x1b[39m%dh", offtimeh);
+
+      if (offtimem)
+        printf(" \x1b[39m%dmin", offtimem);
+
+      printf(" \x1b[39m%ds\x1b[38;2;%d;%d;%dm", offtimes,
+             COLOR_OFF[0], COLOR_OFF[1], COLOR_OFF[2]);
     }
 
   if (ansiec)
     printf(
-      ") \x1b[38;2;%d;%d;%dmis on Steam for \x1b[0m%d days\n\x1b[38;2;255;0;0m",
+      ") \x1b[38;2;%d;%d;%dmis on Steam for \x1b[39m%d days\n\x1b[38;2;255;0;0m",
       COLOR_OFF[0], COLOR_OFF[1], COLOR_OFF[2], acc->age / 60 / 60 / 24);
   else
     printf(") is on Steam for %d days\n", acc->age / 60 / 60 / 24);
