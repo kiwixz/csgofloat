@@ -43,6 +43,30 @@ static const char BANSURL[] =
                   PROFILEURL[] =
   "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s";
 
+static char *extract_id(const char *oldid, const char *mark)
+{
+  int  len;
+  char *id, *start, *end;
+
+  start = strstr(oldid, mark);
+  if (!start)
+    return NULL;
+
+  start += strlen(mark);
+  end = strchr(start, '/');
+  if (end)
+    len = end - start;
+  else
+    len = strlen(start);
+
+  SMALLOC(id, len + 1, NULL);
+
+  memcpy(id, start, len);
+  id[len] = '\0';
+
+  return id;
+}
+
 static char *get_id(const char *key, const char *oldid)
 {
   char        *id, *json;
@@ -50,27 +74,16 @@ static char *get_id(const char *key, const char *oldid)
 
   if (strstr(oldid, "steamcommunity.com/"))
     {
-      int  len;
-      char *start, *end;
+      id = extract_id(oldid, "/profiles/");
+      if (id)
+        return id;
 
-      start = strstr(oldid, "/id/");
-      if (!start)
+      id = extract_id(oldid, "/id/");
+      if(!id)
         {
-          ERROR("Failed to find SteamID in URL");
-          return 0;
+          ERROR("Failed to extract SteamID from URL");
+          return NULL;
         }
-
-      start += 4;
-      end = strchr(start, '/');
-      if (end)
-        len = end - start;
-      else
-        len = strlen(start);
-
-      SMALLOC(id, len + 1, NULL);
-
-      memcpy(id, start, len);
-      id[len] = '\0';
     }
   else
     id = strdup(oldid);
