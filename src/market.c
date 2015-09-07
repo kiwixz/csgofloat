@@ -53,7 +53,7 @@ char *market_get(const char *id, const Item *item) // "" if not on market
   if (!json_object_object_get_ex(jobj, "success", &jval))
     {
 #if DEBUG
-        WARNING("Failed to decode object 'success', could not find price");
+        WARNING("Failed to decode object 'success', item not sellable ?");
         // for some reasons, curl doesn't receive {"success": false}
 #endif
       return strdup("");
@@ -64,8 +64,11 @@ char *market_get(const char *id, const Item *item) // "" if not on market
 
   if (!json_object_object_get_ex(jobj, "lowest_price", &jval))
     {
-      ERROR("Failed to decode object 'lowest_price'");
-      return NULL;
+#if DEBUG
+        WARNING("Failed to decode object 'lowest_price', item not on market ?");
+        // maximum market price is $400, some items are not listed on it
+#endif
+      return strdup("");
     }
 
   return strdup(json_object_get_string(jval));
