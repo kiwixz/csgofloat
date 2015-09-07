@@ -97,13 +97,25 @@ void display_account(const Account *acc)
     printf("\x1b[0m");
 }
 
+static void print_color(float f) // from 0.0f to 100.0f
+{
+  int i;
+
+  i = (int)(f * 5.11);
+
+  if (i < 256)
+    printf("\x1b[38;2;255;%d;0m", i);
+  else
+    printf("\x1b[38;2;%d;255;0m", 511 - i);
+}
+
 static void print_base(const char *name, const char *price, const Item *item)
 {
   int len;
 
   printf("%s", name);
 
-  if (item->stattrak)
+  if (item->stattrak || item->defindex == 1324) // 1324 is StatTrak Swap Tool
     len = NAMELEN + 2 - strlen(name); // +2 because of UTF-8 (TM)
   else
     len = NAMELEN - strlen(name);
@@ -126,8 +138,11 @@ static void print_base(const char *name, const char *price, const Item *item)
   for ( ; len > 0; --len)
     printf(" ");
 
-  if (price)
-    printf("%7s", price);
+  if (price && price[0])
+    {
+      print_color(-4000 / (atof(price + 1) + 37) + 109); // not linear
+      printf("%7s", price);
+    }
   else
     printf("       ");
 }
@@ -209,13 +224,36 @@ int display_inventory(const Item *inv, int len, int onlyfloat,
 
           print_base(name, price, inv + i);
 
-#define STICK(s) inv[i].stickers[s] ? '|' : '_'
+          if (ansiec)
+            {
+#define STICK(s)                             \
+  inv[i].stickers[s] ? "\x1b[38;2;0;0;255m|" \
+  : "\x1b[38;2;55;0;0m_"
 
-          printf(" %c%c%c%c%c%c %." MSTRINGIFY(FLOATDEC) "f %6.2f%% %6.2f%%\n",
-                 STICK(0), STICK(1), STICK(2), STICK(3), STICK(4), STICK(5),
-                 inv[i].f, pf, qpf);
+              printf(" %s%s%s%s%s%s", STICK(0), STICK(1),
+                     STICK(2), STICK(3), STICK(4), STICK(5));
 
 #undef STICK
+            }
+          else
+            {
+#define STICK(s) inv[i].stickers[s] ? '|' : '_'
+
+              printf(" %c%c%c%c%c%c", STICK(0), STICK(1),
+                     STICK(2), STICK(3), STICK(4), STICK(5));
+
+#undef STICK
+            }
+
+          if (ansiec)
+            print_color(pf);
+
+          printf(" %." MSTRINGIFY(FLOATDEC) "f %6.2f%%", inv[i].f, pf);
+
+          if (ansiec)
+            print_color(qpf);
+
+          printf(" %6.2f%%\n", qpf);
         }
       else
         {

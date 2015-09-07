@@ -65,7 +65,11 @@ u          | Update downloadable files (_schema.txt_)
 - Wear condition against exterior quality
 
 ### Colors
-If you enable ANSI escape codes with _a_ option and it is supported, output will be colored:
+If you enable ANSI escape codes with _a_ option and it is supported, output will be colored.
+
+All figures will be colored from red to green.
+
+The item's name will be colored differently:
 - Only grey if the item has no float
 - With red if the item is not tradable
 - More blue means better condition

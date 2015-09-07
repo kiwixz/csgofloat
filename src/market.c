@@ -39,21 +39,24 @@ char *market_get(const char *id, const Item *item) // "" if not on market
   if (!escaped)
     {
       ERROR("Failed to escape item name");
-      return 0;
+      return NULL;
     }
 
   json = ezcurl_get(URL, escaped);
   curl_free(escaped);
   if (!json)
-    return 0;
+    return NULL;
 
   jobj = json_tokener_parse(json);
   free(json);
 
   if (!json_object_object_get_ex(jobj, "success", &jval))
     {
-      ERROR("Failed to decode object 'success'");
-      return NULL;
+#if DEBUG
+        WARNING("Failed to decode object 'success', could not find price");
+        // for some reasons, curl doesn't receive {"success": false}
+#endif
+      return strdup("");
     }
 
   if (!json_object_get_boolean(jval))

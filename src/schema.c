@@ -288,13 +288,6 @@ char *schema_name(const Item *item)
       else
         name[len - 3] = '\0';
 
-      if (item->name)
-        {
-          strcat(name, " \"");
-          strcat(name, item->name);
-          strcat(name, "\"");
-        }
-
       return name;
     }
 
