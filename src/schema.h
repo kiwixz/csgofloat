@@ -28,6 +28,7 @@ int  schema_parse();
 void schema_clean();
 int  schema_update(const char *key);
 
+char *schema_name_sticker(int index);
 char *schema_name(const Item *item);
 
 #endif

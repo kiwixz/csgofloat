@@ -177,10 +177,30 @@ static void print_base(const char *name, const char *price, const Item *item)
     }
   else
     printf("       ");
+
+  if (ansiec)
+    {
+#define STICK(s) \
+  item->stickers[s] ? "\x1b[38;2;0;0;255m|" : "\x1b[38;2;55;0;0m_"
+
+      printf(" %s%s%s%s%s%s", STICK(0), STICK(1),
+             STICK(2), STICK(3), STICK(4), STICK(5));
+
+#undef STICK
+    }
+  else
+    {
+#define STICK(s) item->stickers[s] ? '|' : '_'
+
+      printf(" %c%c%c%c%c%c", STICK(0), STICK(1),
+             STICK(2), STICK(3), STICK(4), STICK(5));
+
+#undef STICK
+    }
 }
 
-int display_inventory(const Item *inv, int len, int onlyfloat,
-                      int dispprice, const char *filter)
+int display_inventory(const Item *inv, int len, int detailed,
+                      int onlyfloat, int dispprice, const char *filter)
 {
   int i;
 
@@ -237,31 +257,10 @@ int display_inventory(const Item *inv, int len, int onlyfloat,
                        / (FSTEPS[inv[i].quality] - FSTEPS[inv[i].quality + 1]));
 
           if (ansiec)
-            printf("\x1b[38;2;%d;%d;%dm", inv[i].tdate ? 255 : 55,
+            printf("\x1b[38;2;0;%d;%dm",
                    55 + (int)(2 * qpf), 55 + (int)(2 * pf));
 
           print_base(name, price, inv + i);
-
-          if (ansiec)
-            {
-#define STICK(s)                             \
-  inv[i].stickers[s] ? "\x1b[38;2;0;0;255m|" \
-  : "\x1b[38;2;55;0;0m_"
-
-              printf(" %s%s%s%s%s%s", STICK(0), STICK(1),
-                     STICK(2), STICK(3), STICK(4), STICK(5));
-
-#undef STICK
-            }
-          else
-            {
-#define STICK(s) inv[i].stickers[s] ? '|' : '_'
-
-              printf(" %c%c%c%c%c%c", STICK(0), STICK(1),
-                     STICK(2), STICK(3), STICK(4), STICK(5));
-
-#undef STICK
-            }
 
           if (ansiec)
             print_color(pf);
@@ -272,6 +271,37 @@ int display_inventory(const Item *inv, int len, int onlyfloat,
             print_color(qpf);
 
           printf(" %6.2f%%\n", qpf);
+
+          if (detailed)
+            {
+              int j, follow;
+
+              if (ansiec)
+                printf("\x1b[38;2;255;0;255m");
+
+              follow = 0;
+              for (j = 0; j < 6; ++j)
+                if (inv[i].stickers[j])
+                  {
+                    char *sname;
+
+                    if (follow)
+                      printf(", ");
+
+                    sname = schema_name_sticker(inv[i].stickers[j]);
+                    if (!sname)
+                      return 0;
+
+                    printf("%d: %s", j, sname);
+
+                    free(sname);
+                    follow = 1;
+                  }
+
+
+              if (follow)
+                printf("\n");
+            }
         }
       else
         {

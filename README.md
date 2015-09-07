@@ -45,6 +45,7 @@ This program need two files from CS:GO, you will need a copy of the game if you 
 Letter     | Description
 -----------|-----------
 a          | Enable ANSI escape codes (mainly to colorize)
+d          | Show names of sticked stickers
 f          | Hide items without float
 k key      | Use a specific Steam WebAPI key
 p          | Display price of item on market (if possible)
@@ -64,14 +65,15 @@ u          | Update downloadable files (_schema.txt_)
 - Wear condition
 - Wear condition against exterior quality
 
+If option _d_ is given, the line below will give name of stickers.
+
 ### Colors
 If you enable ANSI escape codes with _a_ option and it is supported, output will be colored.
 
 Almost all figures will be colored from red to green. The custom name of item will be white. The custom nameThe date when item will be tradable is colored from yellow (soon) to red.
 
-The item's name will be colored much differently:
+The item's name color depend of condition:
 - Only grey if the item has no float
-- With red if the item is not tradable
 - More blue means better condition
 - More green means better condition against exterior quality
 
