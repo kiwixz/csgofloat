@@ -108,7 +108,6 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
                 }
 
               item->tdate = json_object_get_int(jval);
-
               break;
             }
 
@@ -121,7 +120,6 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
                 }
 
               item->name = strdup(json_object_get_string(jval));
-
               break;
             }
 
@@ -131,41 +129,27 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
               break;
             }
 
-          case ATTRIB_STICK0:
-            {
-              item->stickers[0] = 1;
-              break;
-            }
+#define STICK(e, i)                                            \
+  case e:                                                      \
+    {                                                          \
+      if (!json_object_object_get_ex(jattrib, "value", &jval)) \
+        {                                                      \
+          ERROR("Failed to decode object 'value'");            \
+          return 0;                                            \
+        }                                                      \
+                                                               \
+      item->stickers[i] = json_object_get_int(jval);           \
+      break;                                                   \
+    }
 
-          case ATTRIB_STICK1:
-            {
-              item->stickers[1] = 1;
-              break;
-            }
+            STICK(ATTRIB_STICK0, 0);
+            STICK(ATTRIB_STICK1, 1);
+            STICK(ATTRIB_STICK2, 2);
+            STICK(ATTRIB_STICK3, 3);
+            STICK(ATTRIB_STICK4, 4);
+            STICK(ATTRIB_STICK5, 5);
 
-          case ATTRIB_STICK2:
-            {
-              item->stickers[2] = 1;
-              break;
-            }
-
-          case ATTRIB_STICK3:
-            {
-              item->stickers[3] = 1;
-              break;
-            }
-
-          case ATTRIB_STICK4:
-            {
-              item->stickers[4] = 1;
-              break;
-            }
-
-          case ATTRIB_STICK5:
-            {
-              item->stickers[5] = 1;
-              break;
-            }
+#undef STICK
 
           case ATTRIB_SOUVENIR:
             {
@@ -180,8 +164,8 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
 
 int inventory_get(const char *key, const char *id, Item * *items)
 {
-  const char  *json;
-  int         i, j, len, status;
+  const char *json;
+  int i, j, len, status;
   json_object *jobj, *jrep, *jval;
 
   json = ezcurl_get(URL, key, id);
@@ -231,7 +215,7 @@ int inventory_get(const char *key, const char *id, Item * *items)
 
   for (i = 0, j = 0; i < len; ++i)
     {
-      int         tradable;
+      int tradable;
       json_object *jitem;
 
       (*items)[j].f = -1.0;

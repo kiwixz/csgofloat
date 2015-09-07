@@ -38,6 +38,7 @@ static const int DATEBUF = 32,
                  MAXTDATE = 7 * 24 * 60 * 60,
                  NAMELEN = TERMINALWIDTH
   - 1 - 7 - 1 - 6 - 1 - FLOATDEC - 2 - 1 - (PERCENTDEC + 5) * 2,
+                 SWAPDEF = 1324,
                  COLOR_NOF[] = {125, 125, 125},
                  COLOR_OFF[] = {137, 137, 137},
                  COLOR_ONLINE[] = {87, 203, 222};
@@ -122,7 +123,7 @@ static void print_base(const char *name, const char *price, const Item *item)
 
   printf("%s", name);
 
-  if (item->stattrak || (item->defindex == 1324)) // 1324 is StatTrak Swap Tool
+  if (item->stattrak || (item->defindex == SWAPDEF)) // StatTrak Swap Tool
     len = NAMELEN + 2 - strlen(name); // +2 because of UTF-8 (TM)
   else
     len = NAMELEN - strlen(name);
@@ -143,8 +144,7 @@ static void print_base(const char *name, const char *price, const Item *item)
 
   if (item->tdate)
     {
-      int  l;
-      long col;
+      int  l, col;
       char buf[DATEBUF];
 
       if (ansiec)

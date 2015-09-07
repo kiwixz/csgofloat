@@ -42,7 +42,8 @@ typedef struct
 
 static const int DOFFSET = 415,
                  DPHASESLEN = 7,
-                 NAMEBUF = 256;
+                 NAMEBUF = 512,
+                 STICKERDEF = 1209;
 static const char URL[] =
   "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?key=%s&language=en",
                   *DPHASES[] = {
@@ -55,23 +56,24 @@ static const char URL[] =
   "Phase 4"
 };
 
-static MapItem *map, *skinmap;
-static int     maplen, skinmaplen;
-static char    *skinnamesfile, *skinnames;
+static MapItem *defmap, *skinmap, *stickermap;
+static int     defmaplen, skinmaplen, stickermaplen;
+static char    *namesfile, *skinnames, *stickernames;
 
-static char *find_limits(char *strfile) // not verbose !
+static char *find_limits(char *strfile, const char *start,
+                         const char *first, const char *end) // not verbose !
 {
   char *str, *ptr;
 
-  str = strstr(strfile, "\n\t\"paint_kits\"");
+  str = strstr(strfile, start);
   if (!str)
     return NULL;
 
-  str = strstr(str, "\n\t\t\"2\"") - 1; // skip defaults
+  str = strstr(str, first) - 1; // skip defaults
   if (!str)
     return NULL;
 
-  ptr = strstr(str, "\n\t\"paint_kits_rarity\"");
+  ptr = strstr(str, end);
   if (!ptr)
     return NULL;
 
@@ -80,55 +82,59 @@ static char *find_limits(char *strfile) // not verbose !
   return str;
 }
 
-static int parse_skins()
+static int parse_names(MapItem * *map, int *maplen, char letter,
+                       const char *start, const char *first,
+                       const char *end, const char *namec)
 {
-  int  i;
+  int  i, nameclen;
   char *strfile, *str, *ptr;
+
+  nameclen = strlen(namec);
 
   strfile = read_file("items_game.txt");
   if (!strfile)
     return 0;
 
-  str = find_limits(strfile);
+  str = find_limits(strfile, start, first, end);
   if (!str)
     {
-      ERROR("Failed to parse skins");
+      ERROR("Failed to parse names of skins");
       return 0;
     }
 
   ptr = str;
-  for (skinmaplen = -1; ptr; ++skinmaplen)
+  for (*maplen = -1; ptr; ++*maplen)
     ptr = strstr(ptr + 1, "\n\t\t\"");
 
-  SMALLOC(skinmap, skinmaplen * sizeof(MapItem), 0);
+  SMALLOC(*map, *maplen * sizeof(MapItem), 0);
 
   ptr = str;
-  for (i = 0; i < skinmaplen; ++i)
+  for (i = 0; i < *maplen; ++i)
     {
       int  len;
       char *c;
 
       ptr = strstr(ptr + 1, "\n\t\t\"") + 4;
-      skinmap[i].index = atoi(ptr);
+      (*map)[i].index = atoi(ptr);
 
-      ptr = strstr(ptr, "\n\t\t\t\"description_tag\"") + 21;
+      ptr = strstr(ptr, namec) + nameclen;
       if (!ptr)
         {
-          ERROR("Failed to parse skins names");
+          ERROR("Failed to parse skin name");
           return 0;
         }
 
-      while (*ptr != 'P')
+      while (*ptr != letter)
         ++ptr;
 
       c = ptr + 1;
       for (len = 1; *c != '"'; ++len)
         ++c;
 
-      SMALLOC(skinmap[i].name, len + 1, 0);
+      SMALLOC((*map)[i].name, len + 1, 0);
 
-      memcpy(skinmap[i].name, ptr, len);
-      skinmap[i].name[len] = '\0';
+      memcpy((*map)[i].name, ptr, len);
+      (*map)[i].name[len] = '\0';
     }
 
   free(strfile);
@@ -160,10 +166,10 @@ int schema_parse()
       return 0;
     }
 
-  maplen = json_object_array_length(jobj);
-  SMALLOC(map, maplen * sizeof(MapItem), 0);
+  defmaplen = json_object_array_length(jobj);
+  SMALLOC(defmap, defmaplen * sizeof(MapItem), 0);
 
-  for (i = 0; i < maplen; ++i)
+  for (i = 0; i < defmaplen; ++i)
     {
       json_object *jitem;
 
@@ -174,7 +180,7 @@ int schema_parse()
           ERROR("Failed to decode object 'defindex'");
           return 0;
         }
-      map[i].index = json_object_get_int(jval);
+      defmap[i].index = json_object_get_int(jval);
 
       if (!json_object_object_get_ex(jitem, "item_name", &jval))
         {
@@ -182,44 +188,48 @@ int schema_parse()
           return 0;
         }
 
-      map[i].name = strdup(json_object_get_string(jval));
-      if (!map[i].name)
+      defmap[i].name = strdup(json_object_get_string(jval));
+      if (!defmap[i].name)
         {
           ERROR("Failed to duplicate string");
           return 0;
         }
     }
 
-  if (!parse_skins())
+  if (!parse_names(&skinmap, &skinmaplen, 'P', "\n\t\"paint_kits\"",
+                   "\n\t\t\"2\"", "\n\t}", "\n\t\t\t\"description_tag\"")
+      || !parse_names(&stickermap, &stickermaplen, 'S', "\n\t\"sticker_kits\"",
+                      "\n\t\t\"1\"", "\n\t}", "\n\t\t\t\"item_name\""))
     return 0;
 
-  skinnamesfile = read_file("csgo_english.txt");
-  if (!skinnamesfile)
+  namesfile = read_file("csgo_english.txt");
+  if (!namesfile)
     return 0;
 
-  skinnames = strstr(skinnamesfile, "PaintKit_Default_Tag");
-  if (!skinnames)
+  skinnames = strstr(namesfile, "PaintKit_Default_Tag");
+  stickernames = strstr(namesfile, "StickerKit_Default");
+  if (!skinnames || !stickernames)
     {
       ERROR("Failed to parse skins names");
       return 0;
     }
 
-  return maplen;
+  return defmaplen;
 }
 
 void schema_clean()
 {
   int i;
 
-  for (i = 0; i < maplen; ++i)
-    free(map[i].name);
+  for (i = 0; i < defmaplen; ++i)
+    free(defmap[i].name);
 
   for (i = 0; i < skinmaplen; ++i)
     free(skinmap[i].name);
 
-  free(map);
+  free(defmap);
   free(skinmap);
-  free(skinnamesfile);
+  free(namesfile);
 }
 
 int schema_update(const char *key)
@@ -251,18 +261,66 @@ int schema_update(const char *key)
   return 1;
 }
 
-char *schema_name(const Item *item)
+static void extract_name(const char *namec, const char *list,
+                         char *name, int *len)
+{
+  char *ptr;
+
+  ptr = strstr(list, namec);
+  if (ptr)
+    {
+      int i;
+
+      for (i = 0; i < 2; ++i)
+        do
+          ++ptr;
+        while (*ptr != '"');
+
+      for ( ; ptr[1] != '"'; ++*len)
+        name[*len] = *(++ptr);
+
+      name[*len] = '\0';
+    }
+  else
+    {
+      strcat(name, "#");
+      strcat(name, namec);
+    }
+}
+
+char *schema_name_sticker(int index)
 {
   int  i, len;
-  char *name, *ptr;
+  char *name;
+
+  if (!index)
+    return strdup("");
 
   SMALLOC(name, NAMEBUF, NULL);
+  len = 0;
 
-  for (i = 0; i < maplen; ++i)
-    if (map[i].index == item->defindex)
+  for (i = 0; i < stickermaplen; ++i)
+    if (stickermap[i].index == index)
       break;
 
 
+  if (i == stickermaplen)
+    {
+      ERROR("Failed to find sticker with index %d", index);
+      return NULL;
+    }
+
+  extract_name(stickermap[i].name, stickernames, name, &len);
+
+  return name;
+}
+
+char *schema_name(const Item *item)
+{
+  int  i, len;
+  char *name;
+
+  SMALLOC(name, NAMEBUF, NULL);
   name[0] = '\0';
 
   if (item->unusual)
@@ -273,18 +331,29 @@ char *schema_name(const Item *item)
   else if (item->souvenir && item->skin)
     strcat(name, "Souvenir ");
 
-  strcat(name, map[i].name);
-  strcat(name, " | ");
-
-  for (i = 0; i < skinmaplen; ++i)
-    if (skinmap[i].index == item->skin)
+  for (i = 0; i < defmaplen; ++i)
+    if (defmap[i].index == item->defindex)
       break;
 
 
+  strcat(name, defmap[i].name);
+  strcat(name, " | ");
+
   len = strlen(name);
-  if (!item->skin || (i == skinmaplen))
+  if (!item->skin)
     {
-      if (item->f >= 0.0)
+      if (item->defindex == STICKERDEF)
+        {
+          char *sname;
+
+          sname = schema_name_sticker(item->stickers[0]);
+          if (!sname)
+            return NULL;
+
+          strcat(name, sname);
+          free(sname);
+        }
+      else if (item->f >= 0.0)
         strcat(name, "Vanilla");
       else
         name[len - 3] = '\0';
@@ -292,26 +361,21 @@ char *schema_name(const Item *item)
       return name;
     }
 
-  ptr = strstr(skinnames, skinmap[i].name);
-  if (ptr)
-    {
-      for (i = 0; i < 2; ++i)
-        do
-          ++ptr;
-        while (*ptr != '"');
+  for (i = 0; i < skinmaplen; ++i)
+    if (skinmap[i].index == item->skin)
+      break;
 
-      for ( ; ptr[1] != '"'; ++len)
-        name[len] = *(++ptr);
 
-      name[len] = '\0';
-    }
-  else
+  if (i == skinmaplen)
     {
-      strcat(name, "#");
-      strcat(name, skinmap[i].name);
+      ERROR("Failed to find skin with index %d", item->skin);
+      return NULL;
     }
 
-  if ((item->skin >= DOFFSET) && (item->skin < DOFFSET + DPHASESLEN))
+  extract_name(skinmap[i].name, skinnames, name, &len);
+
+  if ((item->skin >= DOFFSET) &&
+      (item->skin < DOFFSET + DPHASESLEN))
     {
       strcat(name, " ");
       strcat(name, DPHASES[item->skin - DOFFSET]);
