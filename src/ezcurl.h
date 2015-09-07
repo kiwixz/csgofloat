@@ -23,6 +23,6 @@
 void ezcurl_init();
 void ezcurl_clean();
 char *ezcurl_escape(const char *str, int len);
-char *ezcurl_get(const char *url, ...);
+const char *ezcurl_get(const char *url, ...);
 
 #endif

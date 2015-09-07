@@ -69,7 +69,8 @@ static char *extract_id(const char *oldid, const char *mark)
 
 static char *get_id(const char *key, const char *oldid)
 {
-  char        *id, *json;
+  const char  *json;
+  char        *id;
   json_object *jobj, *jrep, *jval;
 
   if (strstr(oldid, "steamcommunity.com/"))
@@ -79,7 +80,7 @@ static char *get_id(const char *key, const char *oldid)
         return id;
 
       id = extract_id(oldid, "/id/");
-      if(!id)
+      if (!id)
         {
           ERROR("Failed to extract SteamID from URL");
           return NULL;
@@ -93,7 +94,6 @@ static char *get_id(const char *key, const char *oldid)
     return NULL;
 
   jobj = json_tokener_parse(json);
-  free(json);
 
   if (!json_object_object_get_ex(jobj, "response", &jrep))
     {
@@ -122,7 +122,7 @@ static char *get_id(const char *key, const char *oldid)
 
 static int get_profile(const char *key, Account *acc)
 {
-  char        *json;
+  const char  *json;
   json_object *jobj, *jval, *jrep, *jlist;
 
   json = ezcurl_get(PROFILEURL, key, acc->id);
@@ -130,7 +130,6 @@ static int get_profile(const char *key, Account *acc)
     return 0;
 
   jobj = json_tokener_parse(json);
-  free(json);
 
   if (!json_object_object_get_ex(jobj, "response", &jrep))
     {
@@ -201,7 +200,7 @@ static int get_profile(const char *key, Account *acc)
 
 static int get_bans(const char *key, Account *acc)
 {
-  char        *json;
+  const char  *json;
   json_object *jobj, *jval, *jlist;
 
   json = ezcurl_get(BANSURL, key, acc->id);
@@ -209,7 +208,6 @@ static int get_bans(const char *key, Account *acc)
     return 0;
 
   jobj = json_tokener_parse(json);
-  free(json);
 
   if (!json_object_object_get_ex(jobj, "players", &jlist))
     {

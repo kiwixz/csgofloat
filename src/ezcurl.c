@@ -27,39 +27,45 @@
 #include "shared.h"
 
 #define MAXTRYPERSEC 8 // API limit is 100000 per day
+#define STRINGLENSTEP 8092
 #define URLBUF 1024
 
 typedef struct
 {
   char *ptr;
-  int  len;
+  int  len, alloclen;
 } String;
 
-static const int             MINLEN = 8;
+static const int MINLEN = 8;
 static const struct timespec DELAY = {.tv_nsec = 1000000000LL / MAXTRYPERSEC};
 
 static struct timespec lasttime = {0};
 static CURL            *curl;
+static String          s = {.alloclen = STRINGLENSTEP};
 
-static size_t curl_callback(void *ptr, size_t size, size_t nmemb, void *svoid)
+static size_t curl_callback(void *ptr, size_t size, size_t nmemb, void *nil)
 {
-  int    new, len;
-  String *s;
+  int new, len;
 
-  s = (String *)svoid;
   new = size * nmemb;
-  len = s->len + new;
+  len = s.len + new;
 
-  s->ptr = realloc(s->ptr, len + 1);
-  if (!s->ptr)
+  if (s.alloclen < len)
     {
-      ERROR("Failed to realloc download string");
-      return 0;
+      while (s.alloclen < len)
+        s.alloclen += STRINGLENSTEP;
+
+      s.ptr = realloc(s.ptr, s.alloclen);
+      if (!s.ptr)
+        {
+          ERROR("Failed to realloc download string");
+          return 0;
+        }
     }
 
-  memcpy(s->ptr + s->len, ptr, new);
-  s->ptr[len] = '\0';
-  s->len = len;
+  memcpy(s.ptr + s.len, ptr, new);
+  s.ptr[len] = '\0';
+  s.len = len;
 
   return new;
 }
@@ -72,36 +78,14 @@ void ezcurl_init()
 #if DEBUG
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 #endif
+
+  SMALLOC(s.ptr, STRINGLENSTEP, NULL);
 }
 
 void ezcurl_clean()
 {
+  free(s.ptr);
   curl_easy_cleanup(curl);
-}
-
-static void timespec_subtract(struct timespec *x, struct timespec *y,
-                              struct timespec *result)
-{
-  if (x->tv_nsec < y->tv_nsec)
-    {
-      int sec;
-
-      sec = (y->tv_nsec - x->tv_nsec) / 1000000000L + 1;
-      y->tv_nsec -= 1000000000L * sec;
-      y->tv_sec += sec;
-    }
-
-  if (x->tv_nsec - y->tv_nsec > 1000000000L)
-    {
-      int sec;
-
-      sec = (x->tv_nsec - y->tv_nsec) / 1000000000L;
-      y->tv_nsec += 1000000000L * sec;
-      y->tv_sec -= sec;
-    }
-
-  result->tv_sec = x->tv_sec - y->tv_sec;
-  result->tv_nsec = x->tv_nsec - y->tv_nsec;
 }
 
 char *ezcurl_escape(const char *str, int len)
@@ -109,20 +93,41 @@ char *ezcurl_escape(const char *str, int len)
   return curl_easy_escape(curl, str, len);
 }
 
-char *ezcurl_get(const char *url, ...)
+static void timespec_subtract(const struct timespec *x, struct timespec y,
+                              struct timespec *result)
+{
+  if (x->tv_nsec < y.tv_nsec)
+    {
+      int sec;
+
+      sec = (y.tv_nsec - x->tv_nsec) / 1000000000L + 1;
+      y.tv_nsec -= 1000000000L * sec;
+      y.tv_sec += sec;
+    }
+
+  if (x->tv_nsec - y.tv_nsec > 1000000000L)
+    {
+      int sec;
+
+      sec = (x->tv_nsec - y.tv_nsec) / 1000000000L;
+      y.tv_nsec += 1000000000L * sec;
+      y.tv_sec -= sec;
+    }
+
+  result->tv_sec = x->tv_sec - y.tv_sec;
+  result->tv_nsec = x->tv_nsec - y.tv_nsec;
+}
+
+const char *ezcurl_get(const char *url, ...)
 {
   va_list args;
   char    buf[URLBUF];
-  String  s = {0};
 
   va_start(args, url);
   vsnprintf(buf, URLBUF, url, args);
   va_end(args);
 
-  SMALLOC(s.ptr, 1, NULL);
-
   curl_easy_setopt(curl, CURLOPT_URL, buf);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
 
   do
     {
@@ -135,14 +140,17 @@ char *ezcurl_get(const char *url, ...)
           return 0;
         }
 
-      timespec_subtract(&now, &lasttime, &diff);
+      timespec_subtract(&now, lasttime, &diff);
 
-      if ((((diff.tv_sec == DELAY.tv_sec) && (diff.tv_nsec < DELAY.tv_nsec))
-           || (diff.tv_sec < DELAY.tv_sec))
-          && nanosleep(&DELAY, NULL))
+      if (((diff.tv_sec == DELAY.tv_sec) && (diff.tv_nsec < DELAY.tv_nsec))
+          || (diff.tv_sec < DELAY.tv_sec))
         {
-          ERROR("Failed to sleep");
-          return 0;
+          timespec_subtract(&DELAY, diff, &diff);
+          if (nanosleep(&diff, NULL))
+            {
+              ERROR("Failed to sleep");
+              return 0;
+            }
         }
 
       lasttime.tv_sec = now.tv_sec;
@@ -157,6 +165,8 @@ char *ezcurl_get(const char *url, ...)
         }
     }
   while (s.len < MINLEN);
+
+  s.len = 0;
 
   return s.ptr;
 }

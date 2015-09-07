@@ -32,7 +32,8 @@ static const char URL[] =
 
 char *market_get(const char *id, const Item *item) // "" if not on market
 {
-  char        *escaped, *json;
+  const char  *json;
+  char        *escaped;
   json_object *jobj, *jval;
 
   escaped = ezcurl_escape(id, 0);
@@ -48,7 +49,6 @@ char *market_get(const char *id, const Item *item) // "" if not on market
     return NULL;
 
   jobj = json_tokener_parse(json);
-  free(json);
 
   if (!json_object_object_get_ex(jobj, "success", &jval))
     {

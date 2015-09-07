@@ -195,6 +195,7 @@ int display_inventory(const Item *inv, int len, int onlyfloat,
       if (dispprice)
         {
           price = market_get(name, inv + i);
+
           if (!price)
             return 0;
         }

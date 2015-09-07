@@ -224,9 +224,9 @@ void schema_clean()
 
 int schema_update(const char *key)
 {
-  int  len;
-  char *str;
-  FILE *fp;
+  const char *str;
+  int        len;
+  FILE       *fp;
 
   str = ezcurl_get(URL, key);
   if (!str)
@@ -262,12 +262,13 @@ char *schema_name(const Item *item)
     if (map[i].index == item->defindex)
       break;
 
+
   name[0] = '\0';
 
-  if(item->unusual)
+  if (item->unusual)
     strcat(name, "\xE2\x98\x85 ");
 
-  if(item->stattrak)
+  if (item->stattrak)
     strcat(name, "StatTrak\xE2\x84\xA2 ");
   else if (item->souvenir && item->skin)
     strcat(name, "Souvenir ");

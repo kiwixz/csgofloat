@@ -180,16 +180,15 @@ static int parse_attributes(json_object *jobj, Item *item, int tradable)
 
 int inventory_get(const char *key, const char *id, Item * *items)
 {
+  const char  *json;
   int         i, j, len, status;
   json_object *jobj, *jrep, *jval;
-  char        *json;
 
   json = ezcurl_get(URL, key, id);
   if (!json)
     return 0;
 
   jobj = json_tokener_parse(json);
-  free(json);
 
   if (!json_object_object_get_ex(jobj, "result", &jrep))
     {
