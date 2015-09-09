@@ -33,7 +33,7 @@
 #define DATEFORMAT "%d/%m %H:%M"
 #define FLOATDEC 8
 #define PERCENTDEC 2
-#define TERMINALWIDTH 120
+#define TERMINALWIDTH 160
 
 static const int DRAGONKING = 400, // skins and weapons
                  MFAF = 16;
