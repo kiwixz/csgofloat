@@ -65,12 +65,12 @@ u          | Update downloadable files (_schema.txt_)
 - Wear condition
 - Wear condition against exterior quality
 
-If option _d_ is given, the line below will give name of stickers.
+If option _d_ is given, a second line will give name of stickers.
 
 ### Colors
 If you enable ANSI escape codes with _a_ option and it is supported, output will be colored.
 
-Almost all figures will be colored from red to green. The custom name of item will be white. The custom nameThe date when item will be tradable is colored from yellow (soon) to red.
+Almost all figures will be colored from red to green. The custom name of item will be white and the date when item will be tradable will be colored from yellow (if soon) to red.
 
 The item's name color depend of condition:
 - Only grey if the item has no float
