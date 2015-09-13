@@ -372,6 +372,9 @@ char *schema_name(const Item *item)
       return NULL;
     }
 
+  if(skinmap[i].name[5] == 'k') // "Paintkit" to "PaintKit"
+    skinmap[i].name[5] = 'K';
+
   extract_name(skinmap[i].name, skinnames, name, &len);
 
   if ((item->skin >= DOFFSET) &&
