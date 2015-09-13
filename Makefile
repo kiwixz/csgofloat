@@ -36,7 +36,7 @@ all: copy $(NAME)
 
 copy:
 	@-cp -f "$(CSGOPATH)/scripts/items/items_game.txt" ./ || echo -e "\x1b[31;1mFailed to update required CS:GO files\x1b[0m"
-	@-[ -f "$(CSGOPATH)/resource/csgo_english.txt" ] && iconv -f UTF16LE -t UTF8 "$(CSGOPATH)/resource/csgo_english.txt" > csgo_english.txt
+	@-[ -f "$(CSGOPATH)/resource/csgo_english.txt" ] && iconv -f UTF16LE -t UTF8 "$(CSGOPATH)/resource/csgo_english.txt" | sed s/Paintkit/PaintKit/g > csgo_english.txt
 
 run: all
 	@echo -e "\x1b[33;1mLaunching...\x1b[0m"

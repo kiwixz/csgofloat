@@ -5299,8 +5299,8 @@
 
 		"PaintKit_hy_arctic"						"It has been painted using an arctic camo hydrographic."
 		"PaintKit_hy_arctic_Tag"					"Arctic Camo"
-		"Paintkit_hy_arctic_contrast_Tag"			"Polar Camo"
-		"Paintkit_hy_arctic_glacier_Tag"			"Arctic Glacier Camo"
+		"PaintKit_hy_arctic_contrast_Tag"			"Polar Camo"
+		"PaintKit_hy_arctic_glacier_Tag"			"Arctic Glacier Camo"
 		
 		"PaintKit_hy_dive"							"It has been painted using a blue camo hydrographic.\n\n<i>Ours is a world of intrigue...but sometimes camouflage is meant to be seen - Booth, Arms Dealer</i>"
 		"PaintKit_hy_dive_Tag"						"Dive Camo"
@@ -5357,7 +5357,7 @@
 		"PaintKit_sp_spray_jungle_Tag"				"Jungle Spray"
 		"PaintKit_sp_spray_sand_Tag"				"Sand Spray"
 		"PaintKit_sp_spray_waves_Tag"				"Wave Spray"
-		"Paintkit_sp_spray_army_Tag"				"Army Recon"
+		"PaintKit_sp_spray_army_Tag"				"Army Recon"
 
 
 		"PaintKit_sp_tape_dots"						"It has been spray-painted using ripped tape strips and perforated metal as stencils."
@@ -5473,8 +5473,8 @@
 		"PaintKit_hy_feathers_aug"					"It has been decorated with dry-transfer decals of eagle feathers.\n\n<i>An eagle looks majestic until it's clawing your eyes out</i>"
 		"PaintKit_hy_feathers_aug_Tag"				"Wings"
 
-		"Paintkit_sp_palm"							"It has been spray-painted using cardboard cutouts, fine mesh, and palm leaves as stencils."
-		"Paintkit_sp_palm_Tag"						"Palm"
+		"PaintKit_sp_palm"							"It has been spray-painted using cardboard cutouts, fine mesh, and palm leaves as stencils."
+		"PaintKit_sp_palm_Tag"						"Palm"
 		"PaintKit_sp_palm_shadow_Tag"				"Tropical Storm"
 
 		"PaintKit_cu_walnut_nova"					"It has a figured walnut stock."
@@ -5565,7 +5565,7 @@
 		"PaintKit_hy_mayan_dreams_bravo"			"This memento from Ruins has been painted using a Mayan cloud motif hydrographic.\n\n<i>Sometimes a sacrifice is called for</i>"
 		"PaintKit_hy_mayan_dreams_bravo_Tag"		"Mayan Dreams"
 
-		"Paintkit_sp_palm_bravo"					"This memento from Gwalior been spray-painted using cardboard cutouts, fine mesh, and palm leaves as stencils.\n\n<i>Beautiful today...ashes tomorrow</i>"
+		"PaintKit_sp_palm_bravo"					"This memento from Gwalior been spray-painted using cardboard cutouts, fine mesh, and palm leaves as stencils.\n\n<i>Beautiful today...ashes tomorrow</i>"
 
 		"PaintKit_hy_ddpat_bravo"					"This memento from Ruins has been painted using a Digital Disruptive Pattern (DDPAT) hydrographic.\n\n<i>Even if you can't see it, you'll definitely hear it</i>"
 
@@ -5973,7 +5973,7 @@
 		"PaintKit_am_nuclear_skulls3_mac10"                     "It has been chromed then overlayed with a semi transparent hydrographic pattern of nuclear skulls and bones."
 		"PaintKit_am_nuclear_skulls3_mac10_Tag"                 "Nuclear Garden"
 
-		"Paintkit_hy_nuclear_skulls4_p2500"                     "It has been painted with a hydrographic pattern of nuclear skulls and bones."
+		"PaintKit_hy_nuclear_skulls4_p2500"                     "It has been painted with a hydrographic pattern of nuclear skulls and bones."
 		"PaintKit_hy_nuclear_skulls4_p250_Tag"          	 "Contamination"
 
 		"PaintKit_hy_nuclear_skulls5_tec9"                      "It has been painted with a garish hydrographic pattern of nuclear skulls and bones."
