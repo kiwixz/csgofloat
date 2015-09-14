@@ -91,7 +91,7 @@ AK-47 | Wasteland Rebel (Minimal Wear);28.34
 AK-47 | Wasteland Rebel (Well-Worn);22.84
 AK-47 | Wasteland Rebel (Field-Tested);20.47
 AK-47 | Wasteland Rebel (Battle-Scarred);18.32
-Audience Participation Parcel |  ();15.36
+Audience Participation Parcel;15.36
 AUG | Akihabara Accept (Minimal Wear);201.47
 AUG | Akihabara Accept (Field-Tested);73.88
 AUG | Akihabara Accept (Well-Worn);46.35
@@ -150,26 +150,26 @@ AUG | Torque (Well-Worn);0.66
 AUG | Torque (Field-Tested);0.59
 AUG | Wings (Minimal Wear);0.63
 AUG | Wings (Factory New);0.61
-Autograph Capsule Cloud9 G2A |  ();0.47
-Autograph Capsule Counter Logic Gaming |  ();0.38
-Autograph Capsule Flipsid3 Tactics |  ();0.50
-Autograph Capsule Fnatic |  ();0.43
-Autograph Capsule Group A (Foil) |  ();1.73
-Autograph Capsule Group B (Foil) |  ();2.07
-Autograph Capsule Group C (Foil) |  ();1.71
-Autograph Capsule Group D (Foil) |  ();2.11
-Autograph Capsule Luminosity Gaming |  ();0.39
-Autograph Capsule mousesports |  ();0.44
-Autograph Capsule Natus Vincere |  ();0.47
-Autograph Capsule Ninjas in Pyjamas |  ();0.42
-Autograph Capsule Renegades |  ();0.40
-Autograph Capsule Team eBettle |  ();0.39
-Autograph Capsule Team EnVyUs |  ();0.50
-Autograph Capsule Team Immunity |  ();0.50
-Autograph Capsule Team Kinguin |  ();0.50
-Autograph Capsule Team SoloMid |  ();0.35
-Autograph Capsule Titan |  ();0.43
-Autograph Capsule Virtus.Pro |  ();0.57
+Autograph Capsule Cloud9 G2A;0.47
+Autograph Capsule Counter Logic Gaming;0.38
+Autograph Capsule Flipsid3 Tactics;0.50
+Autograph Capsule Fnatic;0.43
+Autograph Capsule Group A (Foil);1.73
+Autograph Capsule Group B (Foil);2.07
+Autograph Capsule Group C (Foil);1.71
+Autograph Capsule Group D (Foil);2.11
+Autograph Capsule Luminosity Gaming;0.39
+Autograph Capsule mousesports;0.44
+Autograph Capsule Natus Vincere;0.47
+Autograph Capsule Ninjas in Pyjamas;0.42
+Autograph Capsule Renegades;0.40
+Autograph Capsule Team eBettle;0.39
+Autograph Capsule Team EnVyUs;0.50
+Autograph Capsule Team Immunity;0.50
+Autograph Capsule Team Kinguin;0.50
+Autograph Capsule Team SoloMid;0.35
+Autograph Capsule Titan;0.43
+Autograph Capsule Virtus.Pro;0.57
 AWP | Asiimov (Field-Tested);41.31
 AWP | Asiimov (Well-Worn);34.88
 AWP | Asiimov (Battle-Scarred);25.02
@@ -308,7 +308,7 @@ Bayonet | Urban Masked (Minimal Wear);101.51
 Bayonet | Urban Masked (Well-Worn);77.09
 Bayonet | Urban Masked (Battle-Scarred);72.98
 Bayonet | Urban Masked (Field-Tested);78.12
-Bayonet | Vanilla ();153.20
+Bayonet | Vanilla;153.20
 Butterfly Knife | Blue Steel (Factory New);219.97
 Butterfly Knife | Blue Steel (Minimal Wear);162.16
 Butterfly Knife | Blue Steel (Well-Worn);135.15
@@ -363,18 +363,18 @@ Butterfly Knife | Urban Masked (Minimal Wear);114.22
 Butterfly Knife | Urban Masked (Battle-Scarred);83.77
 Butterfly Knife | Urban Masked (Well-Worn);88.02
 Butterfly Knife | Urban Masked (Field-Tested);88.98
-Butterfly Knife | Vanilla ();148.60
-Chroma 2 Case |  ();0.15
-Chroma 2 Case Key |  ();2.74
-Chroma Case |  ();0.03
-Chroma Case Key |  ();2.74
-Community Sticker Capsule 1 |  ();0.85
-Community Sticker Capsule 1 Key |  ();1.08
-CS:GO Capsule Key |  ();1.11
-CS:GO Case Key |  ();2.52
-CS:GO Weapon Case |  ();5.28
-CS:GO Weapon Case 2 |  ();0.83
-CS:GO Weapon Case 3 |  ();0.19
+Butterfly Knife | Vanilla;148.60
+Chroma 2 Case;0.15
+Chroma 2 Case Key;2.74
+Chroma Case;0.03
+Chroma Case Key;2.74
+Community Sticker Capsule 1;0.85
+Community Sticker Capsule 1 Key;1.08
+CS:GO Capsule Key;1.11
+CS:GO Case Key;2.52
+CS:GO Weapon Case;5.28
+CS:GO Weapon Case 2;0.83
+CS:GO Weapon Case 3;0.19
 CZ75-Auto | Army Sheen (Factory New);0.19
 CZ75-Auto | Army Sheen (Minimal Wear);0.07
 CZ75-Auto | Army Sheen (Field-Tested);0.05
@@ -523,15 +523,15 @@ Desert Eagle | Urban Rubble (Battle-Scarred);0.18
 Desert Eagle | Urban Rubble (Well-Worn);0.15
 Desert Eagle | Urban Rubble (Minimal Wear);0.13
 Desert Eagle | Urban Rubble (Field-Tested);0.10
-DreamHack 2013 Package |  ();33.36
-DreamHack 2014 Cache Package |  ();18.02
-DreamHack 2014 Cobblestone Package |  ();253.09
-DreamHack 2014 Dust II Package |  ();9.21
-DreamHack 2014 Inferno Package |  ();10.29
-DreamHack 2014 Legends (Holo/Foil) |  ();3.13
-DreamHack 2014 Mirage Package |  ();8.95
-DreamHack 2014 Nuke Package |  ();21.75
-DreamHack 2014 Overpass Package |  ();21.35
+DreamHack 2013 Package;33.36
+DreamHack 2014 Cache Package;18.02
+DreamHack 2014 Cobblestone Package;253.09
+DreamHack 2014 Dust II Package;9.21
+DreamHack 2014 Inferno Package;10.29
+DreamHack 2014 Legends (Holo/Foil);3.13
+DreamHack 2014 Mirage Package;8.95
+DreamHack 2014 Nuke Package;21.75
+DreamHack 2014 Overpass Package;21.35
 Dual Berettas | Anodized Navy (Minimal Wear);0.67
 Dual Berettas | Anodized Navy (Factory New);0.21
 Dual Berettas | Black Limba (Factory New);4.91
@@ -596,43 +596,43 @@ Dual Berettas | Urban Shock (Battle-Scarred);0.44
 Dual Berettas | Urban Shock (Well-Worn);0.36
 Dual Berettas | Urban Shock (Minimal Wear);0.35
 Dual Berettas | Urban Shock (Field-Tested);0.32
-EMS Katowice 2014 Challengers |  ();112.51
-EMS Katowice 2014 Legends |  ();81.05
-EMS One 2014 Package |  ();69.49
-Enfu Sticker Capsule |  ();1.43
-ESL One Cologne 2014 Cache Package |  ();23.62
-ESL One Cologne 2014 Challengers |  ();1.28
-ESL One Cologne 2014 Cobblestone Package |  ();103.54
-ESL One Cologne 2014 Dust II Package |  ();9.78
-ESL One Cologne 2014 Inferno Package |  ();11.72
-ESL One Cologne 2014 Legends |  ();1.06
-ESL One Cologne 2014 Mirage Package |  ();15.33
-ESL One Cologne 2014 Nuke Package |  ();27.24
-ESL One Cologne 2014 Overpass Package |  ();50.11
-ESL One Cologne 2015 Cache Souvenir Package |  ();6.93
-ESL One Cologne 2015 Challengers (Foil) |  ();1.62
-ESL One Cologne 2015 Cobblestone Souvenir Package |  ();30.97
-ESL One Cologne 2015 Dust II Souvenir Package |  ();2.49
-ESL One Cologne 2015 Inferno Souvenir Package |  ();2.20
-ESL One Cologne 2015 Legends (Foil) |  ();1.48
-ESL One Cologne 2015 Mirage Souvenir Package |  ();2.47
-ESL One Cologne 2015 Overpass Souvenir Package |  ();10.94
-ESL One Cologne 2015 Train Souvenir Package |  ();2.69
-ESL One Katowice 2015 Cache Package |  ();9.46
-ESL One Katowice 2015 Challengers (Holo/Foil) |  ();7.11
-ESL One Katowice 2015 Cobblestone Package |  ();44.72
-ESL One Katowice 2015 Dust II Package |  ();5.55
-ESL One Katowice 2015 Inferno Package |  ();5.17
-ESL One Katowice 2015 Legends (Holo/Foil) |  ();4.59
-ESL One Katowice 2015 Mirage Package |  ();6.27
-ESL One Katowice 2015 Nuke Package |  ();14.82
-ESL One Katowice 2015 Overpass Package |  ();21.87
-eSports 2013 Case |  ();6.03
-eSports 2013 Winter Case |  ();0.11
-eSports 2014 Summer Case |  ();0.10
-eSports Key |  ();2.73
-Falchion Case |  ();0.12
-Falchion Case Key |  ();2.70
+EMS Katowice 2014 Challengers;112.51
+EMS Katowice 2014 Legends;81.05
+EMS One 2014 Package;69.49
+Enfu Sticker Capsule;1.43
+ESL One Cologne 2014 Cache Package;23.62
+ESL One Cologne 2014 Challengers;1.28
+ESL One Cologne 2014 Cobblestone Package;103.54
+ESL One Cologne 2014 Dust II Package;9.78
+ESL One Cologne 2014 Inferno Package;11.72
+ESL One Cologne 2014 Legends;1.06
+ESL One Cologne 2014 Mirage Package;15.33
+ESL One Cologne 2014 Nuke Package;27.24
+ESL One Cologne 2014 Overpass Package;50.11
+ESL One Cologne 2015 Cache Souvenir Package;6.93
+ESL One Cologne 2015 Challengers (Foil);1.62
+ESL One Cologne 2015 Cobblestone Souvenir Package;30.97
+ESL One Cologne 2015 Dust II Souvenir Package;2.49
+ESL One Cologne 2015 Inferno Souvenir Package;2.20
+ESL One Cologne 2015 Legends (Foil);1.48
+ESL One Cologne 2015 Mirage Souvenir Package;2.47
+ESL One Cologne 2015 Overpass Souvenir Package;10.94
+ESL One Cologne 2015 Train Souvenir Package;2.69
+ESL One Katowice 2015 Cache Package;9.46
+ESL One Katowice 2015 Challengers (Holo/Foil);7.11
+ESL One Katowice 2015 Cobblestone Package;44.72
+ESL One Katowice 2015 Dust II Package;5.55
+ESL One Katowice 2015 Inferno Package;5.17
+ESL One Katowice 2015 Legends (Holo/Foil);4.59
+ESL One Katowice 2015 Mirage Package;6.27
+ESL One Katowice 2015 Nuke Package;14.82
+ESL One Katowice 2015 Overpass Package;21.87
+eSports 2013 Case;6.03
+eSports 2013 Winter Case;0.11
+eSports 2014 Summer Case;0.10
+eSports Key;2.73
+Falchion Case;0.12
+Falchion Case Key;2.70
 Falchion Knife | Blue Steel (Factory New);145.65
 Falchion Knife | Blue Steel (Minimal Wear);97.97
 Falchion Knife | Blue Steel (Well-Worn);83.88
@@ -687,7 +687,7 @@ Falchion Knife | Urban Masked (Minimal Wear);69.99
 Falchion Knife | Urban Masked (Well-Worn);55.06
 Falchion Knife | Urban Masked (Battle-Scarred);52.35
 Falchion Knife | Urban Masked (Field-Tested);54.27
-Falchion Knife | Vanilla ();85.96
+Falchion Knife | Vanilla;85.96
 FAMAS | Afterimage (Well-Worn);5.02
 FAMAS | Afterimage (Factory New);6.59
 FAMAS | Afterimage (Minimal Wear);4.00
@@ -891,7 +891,7 @@ Flip Knife | Urban Masked (Minimal Wear);73.54
 Flip Knife | Urban Masked (Well-Worn);57.83
 Flip Knife | Urban Masked (Field-Tested);57.60
 Flip Knife | Urban Masked (Battle-Scarred);52.77
-Flip Knife | Vanilla ();68.87
+Flip Knife | Vanilla;68.87
 G3SG1 | Arctic Camo (Factory New);15.03
 G3SG1 | Arctic Camo (Minimal Wear);1.60
 G3SG1 | Arctic Camo (Well-Worn);0.80
@@ -1022,7 +1022,7 @@ Galil AR | Winter Forest (Minimal Wear);1.38
 Galil AR | Winter Forest (Well-Worn);0.66
 Galil AR | Winter Forest (Battle-Scarred);0.59
 Galil AR | Winter Forest (Field-Tested);0.55
-Gift Package |  ();16.75
+Gift Package;16.75
 Glock-18 | Blue Fissure (Factory New);4.66
 Glock-18 | Blue Fissure (Minimal Wear);0.68
 Glock-18 | Blue Fissure (Well-Worn);0.67
@@ -1161,8 +1161,8 @@ Gut Knife | Urban Masked (Well-Worn);51.38
 Gut Knife | Urban Masked (Field-Tested);48.12
 Gut Knife | Urban Masked (Battle-Scarred);46.24
 Gut Knife | Urban Masked (Factory New);87.99
-Gut Knife | Vanilla ();60.76
-Huntsman Case Key |  ();2.76
+Gut Knife | Vanilla;60.76
+Huntsman Case Key;2.76
 Huntsman Knife | Blue Steel (Factory New);166.73
 Huntsman Knife | Blue Steel (Minimal Wear);124.60
 Huntsman Knife | Blue Steel (Field-Tested);107.81
@@ -1218,8 +1218,8 @@ Huntsman Knife | Urban Masked (Minimal Wear);89.81
 Huntsman Knife | Urban Masked (Well-Worn);64.39
 Huntsman Knife | Urban Masked (Battle-Scarred);62.15
 Huntsman Knife | Urban Masked (Field-Tested);64.43
-Huntsman Knife | Vanilla ();120.63
-Huntsman Weapon Case |  ();0.35
+Huntsman Knife | Vanilla;120.63
+Huntsman Weapon Case;0.35
 Karambit | Blue Steel (Minimal Wear);301.79
 Karambit | Blue Steel (Field-Tested);260.30
 Karambit | Blue Steel (Well-Worn);245.63
@@ -1293,7 +1293,7 @@ Karambit | Urban Masked (Field-Tested);136.87
 Karambit | Urban Masked (Well-Worn);132.25
 Karambit | Urban Masked (Battle-Scarred);128.68
 Karambit | Urban Masked (Factory New);391.25
-Karambit | Vanilla ();246.43
+Karambit | Vanilla;246.43
 M249 | Blizzard Marbleized (Factory New);15.99
 M249 | Blizzard Marbleized (Minimal Wear);1.37
 M249 | Blizzard Marbleized (Well-Worn);0.75
@@ -1547,7 +1547,7 @@ M9 Bayonet | Urban Masked (Minimal Wear);121.70
 M9 Bayonet | Urban Masked (Battle-Scarred);92.71
 M9 Bayonet | Urban Masked (Field-Tested);85.17
 M9 Bayonet | Urban Masked (Well-Worn);82.90
-M9 Bayonet | Vanilla ();165.64
+M9 Bayonet | Vanilla;165.64
 MAC-10 | Amber Fade (Well-Worn);8.05
 MAC-10 | Amber Fade (Factory New);2.23
 MAC-10 | Amber Fade (Field-Tested);0.92
@@ -1806,22 +1806,22 @@ MP9 | Storm (Minimal Wear);0.04
 MP9 | Storm (Well-Worn);0.03
 MP9 | Storm (Battle-Scarred);0.03
 MP9 | Storm (Field-Tested);0.03
-Music Kit | Austin Wintory, Desert Fire ();4.07
-Music Kit | Damjan Mravunac, The Talos Principle ();5.76
-Music Kit | Daniel Sadowski, Crimson Assault ();3.82
-Music Kit | Daniel Sadowski, Total Domination ();4.58
-Music Kit | Dren, Death's Head Demolition ();2.76
-Music Kit | Feed Me, High Noon ();4.39
-Music Kit | Mateo Messina, For No Mankind ();3.21
-Music Kit | Matt Lange, IsoRhythm ();2.91
-Music Kit | Midnight Riders, All I Want for Christmas ();27.07
-Music Kit | Noisia, Sharpened ();3.13
-Music Kit | Robert Allaire, Insurgency ();2.91
-Music Kit | Sasha, LNOE ();3.04
-Music Kit | Sean Murray, A*D*8 ();2.65
-Music Kit | Skog, Metal ();3.42
-Music Kit | Various Artists, Hotline Miami ();3.67
-Name Tag |  ();2.21
+Music Kit | Austin Wintory, Desert Fire;4.07
+Music Kit | Damjan Mravunac, The Talos Principle;5.76
+Music Kit | Daniel Sadowski, Crimson Assault;3.82
+Music Kit | Daniel Sadowski, Total Domination;4.58
+Music Kit | Dren, Death's Head Demolition;2.76
+Music Kit | Feed Me, High Noon;4.39
+Music Kit | Mateo Messina, For No Mankind;3.21
+Music Kit | Matt Lange, IsoRhythm;2.91
+Music Kit | Midnight Riders, All I Want for Christmas;27.07
+Music Kit | Noisia, Sharpened;3.13
+Music Kit | Robert Allaire, Insurgency;2.91
+Music Kit | Sasha, LNOE;3.04
+Music Kit | Sean Murray, A*D*8;2.65
+Music Kit | Skog, Metal;3.42
+Music Kit | Various Artists, Hotline Miami;3.67
+Name Tag;2.21
 Negev | Anodized Navy (Minimal Wear);47.13
 Negev | Anodized Navy (Factory New);37.08
 Negev | Army Sheen (Factory New);0.03
@@ -1940,19 +1940,19 @@ Nova | Walnut (Minimal Wear);0.21
 Nova | Walnut (Well-Worn);0.26
 Nova | Walnut (Battle-Scarred);0.39
 Nova | Walnut (Field-Tested);0.09
-Operation Bloodhound Access Pass |  ();3.04
-Operation Bravo Case |  ();7.74
-Operation Bravo Pass |  ();28.38
-Operation Breakout All Access Pass |  ();4.40
-Operation Breakout Case Key |  ();2.75
-Operation Breakout Weapon Case |  ();0.03
-Operation Payback Pass |  ();44.92
-Operation Phoenix Case Key |  ();2.75
-Operation Phoenix Pass |  ();10.12
-Operation Phoenix Weapon Case |  ();0.03
-Operation Vanguard Access Pass |  ();21.87
-Operation Vanguard Case Key |  ();2.69
-Operation Vanguard Weapon Case |  ();0.09
+Operation Bloodhound Access Pass;3.04
+Operation Bravo Case;7.74
+Operation Bravo Pass;28.38
+Operation Breakout All Access Pass;4.40
+Operation Breakout Case Key;2.75
+Operation Breakout Weapon Case;0.03
+Operation Payback Pass;44.92
+Operation Phoenix Case Key;2.75
+Operation Phoenix Pass;10.12
+Operation Phoenix Weapon Case;0.03
+Operation Vanguard Access Pass;21.87
+Operation Vanguard Case Key;2.69
+Operation Vanguard Weapon Case;0.09
 P2000 | Amber Fade (Factory New);0.59
 P2000 | Amber Fade (Well-Worn);0.37
 P2000 | Amber Fade (Minimal Wear);0.29
@@ -2194,7 +2194,7 @@ P90 | Virus (Minimal Wear);0.87
 P90 | Virus (Well-Worn);0.56
 P90 | Virus (Field-Tested);0.43
 P90 | Virus (Battle-Scarred);0.44
-Pallet of Presents |  ();40.39
+Pallet of Presents;40.39
 PP-Bizon | Antique (Factory New);1.19
 PP-Bizon | Antique (Battle-Scarred);0.99
 PP-Bizon | Antique (Well-Worn);0.65
@@ -4490,479 +4490,479 @@ StatTrak™ XM1014 | Tranquility (Well-Worn);7.67
 StatTrak™ XM1014 | Tranquility (Battle-Scarred);8.23
 StatTrak™ XM1014 | Tranquility (Field-Tested);7.01
 Sticker | 3DMAX (Holo);37.35
-Sticker | 3DMAX ();13.16
+Sticker | 3DMAX;13.16
 Sticker | 3DMAX (Foil);7.50
 Sticker | 3DMAX (Holo);2.39
-Sticker | 3DMAX ();1.40
+Sticker | 3DMAX;1.40
 Sticker | Aces High (Holo);1.63
-Sticker | Aces High ();0.75
-Sticker | allu ();0.28
-Sticker | allu (Foil) ();1.31
-Sticker | apEX ();0.24
-Sticker | apEX (Foil) ();0.81
-Sticker | Awp Country ();1.16
-Sticker | AZR ();0.37
-Sticker | AZR (Foil) ();0.66
-Sticker | B1ad3 ();0.42
-Sticker | B1ad3 (Foil) ();0.52
-Sticker | Baaa-ckstabber! ();3.48
-Sticker | Backstab ();0.86
-Sticker | Banana ();0.90
+Sticker | Aces High;0.75
+Sticker | allu;0.28
+Sticker | allu (Foil);1.31
+Sticker | apEX;0.24
+Sticker | apEX (Foil);0.81
+Sticker | Awp Country;1.16
+Sticker | AZR;0.37
+Sticker | AZR (Foil);0.66
+Sticker | B1ad3;0.42
+Sticker | B1ad3 (Foil);0.52
+Sticker | Baaa-ckstabber!;3.48
+Sticker | Backstab;0.86
+Sticker | Banana;0.90
 Sticker | Bash (Holo);1.99
 Sticker | Bish (Holo);1.73
-Sticker | Black Dog ();0.93
-Sticker | Blitzkrieg ();11.62
-Sticker | Blood Boiler ();6.30
-Sticker | boltz ();0.32
-Sticker | boltz (Foil) ();0.43
-Sticker | Bomb Code ();0.72
-Sticker | Bomb Doge ();2.34
+Sticker | Black Dog;0.93
+Sticker | Blitzkrieg;11.62
+Sticker | Blood Boiler;6.30
+Sticker | boltz;0.32
+Sticker | boltz (Foil);0.43
+Sticker | Bomb Code;0.72
+Sticker | Bomb Doge;2.34
 Sticker | Bomb Squad (Foil);14.21
 Sticker | Bombsquad (Foil);1.92
-Sticker | Bombsquad ();0.83
-Sticker | bondik ();0.44
-Sticker | bondik (Foil) ();0.54
+Sticker | Bombsquad;0.83
+Sticker | bondik;0.44
+Sticker | bondik (Foil);0.54
 Sticker | Bosh (Holo);1.60
-Sticker | Bossy Burger ();7.96
-Sticker | Bravado Gaming ();1.37
-Sticker | Burn Them All ();0.72
-Sticker | byali ();0.32
-Sticker | byali (Foil) ();1.28
-Sticker | cajunb ();0.28
-Sticker | cajunb (Foil) ();0.92
-Sticker | Cat Call ();4.65
-Sticker | Cerberus ();0.84
-Sticker | Chabo ();1.70
-Sticker | Chi Bomb ();1.16
-Sticker | Chicken Lover ();0.57
-Sticker | Chicken Strike ();4.71
-Sticker | chrisJ ();0.64
-Sticker | chrisJ (Foil) ();1.76
+Sticker | Bossy Burger;7.96
+Sticker | Bravado Gaming;1.37
+Sticker | Burn Them All;0.72
+Sticker | byali;0.32
+Sticker | byali (Foil);1.28
+Sticker | cajunb;0.28
+Sticker | cajunb (Foil);0.92
+Sticker | Cat Call;4.65
+Sticker | Cerberus;0.84
+Sticker | Chabo;1.70
+Sticker | Chi Bomb;1.16
+Sticker | Chicken Lover;0.57
+Sticker | Chicken Strike;4.71
+Sticker | chrisJ;0.64
+Sticker | chrisJ (Foil);1.76
 Sticker | Clan-Mystik (Holo);46.04
-Sticker | Clan-Mystik ();12.45
+Sticker | Clan-Mystik;12.45
 Sticker | Cloud9 (Foil);6.93
 Sticker | Cloud9 (Holo);5.06
 Sticker | Cloud9 (Holo);4.38
-Sticker | Cloud9 ();2.07
-Sticker | Cloud9 ();1.19
+Sticker | Cloud9;2.07
+Sticker | Cloud9;1.19
 Sticker | Cloud9 G2A (Foil);27.41
 Sticker | Cloud9 G2A (Holo);7.41
-Sticker | Cloud9 G2A ();1.90
-Sticker | Cloud9 G2A ();0.31
-Sticker | Cloud9 G2A (Foil) ();2.80
-Sticker | coldzera ();0.33
-Sticker | coldzera (Foil) ();0.43
+Sticker | Cloud9 G2A;1.90
+Sticker | Cloud9 G2A;0.31
+Sticker | Cloud9 G2A (Foil);2.80
+Sticker | coldzera;0.33
+Sticker | coldzera (Foil);0.43
 Sticker | compLexity Gaming (Holo);51.85
-Sticker | compLexity Gaming ();23.48
+Sticker | compLexity Gaming;23.48
 Sticker | Copenhagen Wolves (Holo);1.48
-Sticker | Copenhagen Wolves ();0.96
-Sticker | Copenhagen Wolves ();0.44
+Sticker | Copenhagen Wolves;0.96
+Sticker | Copenhagen Wolves;0.44
 Sticker | Counter Logic Gaming (Foil);11.14
 Sticker | Counter Logic Gaming (Holo);2.97
-Sticker | Counter Logic Gaming ();0.87
-Sticker | Counter Logic Gaming ();0.32
-Sticker | Counter Logic Gaming (Foil) ();0.85
+Sticker | Counter Logic Gaming;0.87
+Sticker | Counter Logic Gaming;0.32
+Sticker | Counter Logic Gaming (Foil);0.85
 Sticker | Crown (Foil);22.99
-Sticker | CS On The Mind ();5.01
-Sticker | CT in Banana ();9.55
+Sticker | CS On The Mind;5.01
+Sticker | CT in Banana;9.55
 Sticker | dAT team (Holo);1.39
-Sticker | dAT team ();0.43
-Sticker | DavCost ();0.39
-Sticker | DavCost (Foil) ();0.47
-Sticker | Death Comes ();1.16
-Sticker | Delicious Tears ();1.14
-Sticker | denis ();0.45
-Sticker | denis (Foil) ();0.97
-Sticker | dennis ();0.25
-Sticker | dennis (Foil) ();0.62
-Sticker | device ();0.37
-Sticker | device (Foil) ();1.83
-Sticker | Dinked ();1.14
-Sticker | Don't Worry, I'm Pro ();1.14
-Sticker | Doomed ();1.14
-Sticker | Doru The Fox ();4.51
+Sticker | dAT team;0.43
+Sticker | DavCost;0.39
+Sticker | DavCost (Foil);0.47
+Sticker | Death Comes;1.16
+Sticker | Delicious Tears;1.14
+Sticker | denis;0.45
+Sticker | denis (Foil);0.97
+Sticker | dennis;0.25
+Sticker | dennis (Foil);0.62
+Sticker | device;0.37
+Sticker | device (Foil);1.83
+Sticker | Dinked;1.14
+Sticker | Don't Worry, I'm Pro;1.14
+Sticker | Doomed;1.14
+Sticker | Doru The Fox;4.51
 Sticker | DreamHack Winter 2014 (Foil);4.32
-Sticker | DreamHack Winter 2014 ();1.07
-Sticker | Drug War Veteran ();1.34
-Sticker | dupreeh ();0.28
-Sticker | dupreeh (Foil) ();1.03
-Sticker | Easy Peasy ();1.24
-Sticker | Eco Rush ();1.15
-Sticker | Edward ();0.39
-Sticker | Edward (Foil) ();0.78
-Sticker | emagine ();0.45
-Sticker | emagine (Foil) ();0.42
+Sticker | DreamHack Winter 2014;1.07
+Sticker | Drug War Veteran;1.34
+Sticker | dupreeh;0.28
+Sticker | dupreeh (Foil);1.03
+Sticker | Easy Peasy;1.24
+Sticker | Eco Rush;1.15
+Sticker | Edward;0.39
+Sticker | Edward (Foil);0.78
+Sticker | emagine;0.45
+Sticker | emagine (Foil);0.42
 Sticker | Epsilon eSports (Holo);1.33
-Sticker | Epsilon eSports ();0.41
-Sticker | ESC Gaming ();0.97
-Sticker | ESL ();0.41
-Sticker | ESL (Foil) ();0.84
+Sticker | Epsilon eSports;0.41
+Sticker | ESC Gaming;0.97
+Sticker | ESL;0.41
+Sticker | ESL (Foil);0.84
 Sticker | ESL One (Foil);4.61
-Sticker | ESL One ();1.10
-Sticker | ESL One Cologne 2014 (Blue) ();1.63
-Sticker | ESL One Cologne 2014 (Red) ();8.89
+Sticker | ESL One;1.10
+Sticker | ESL One Cologne 2014 (Blue);1.63
+Sticker | ESL One Cologne 2014 (Red);8.89
 Sticker | ESL Skull (Foil);29.19
 Sticker | ESL Wolf (Foil);36.26
-Sticker | Ex6TenZ ();0.29
-Sticker | Ex6TenZ (Foil) ();0.58
-Sticker | f0rest ();0.46
-Sticker | f0rest (Foil) ();5.88
-Sticker | FalleN ();0.61
-Sticker | FalleN (Foil) ();0.88
+Sticker | Ex6TenZ;0.29
+Sticker | Ex6TenZ (Foil);0.58
+Sticker | f0rest;0.46
+Sticker | f0rest (Foil);5.88
+Sticker | FalleN;0.61
+Sticker | FalleN (Foil);0.88
 Sticker | Fearsome (Holo);1.61
-Sticker | Fearsome ();0.90
-Sticker | fer ();0.38
-Sticker | fer (Foil) ();0.51
-Sticker | Fight like a Girl ();8.65
+Sticker | Fearsome;0.90
+Sticker | fer;0.38
+Sticker | fer (Foil);0.51
+Sticker | Fight like a Girl;8.65
 Sticker | Firestarter (Holo);5.71
-Sticker | flamie ();0.30
-Sticker | flamie (Foil) ();0.69
+Sticker | flamie;0.30
+Sticker | flamie (Foil);0.69
 Sticker | Flammable (Foil);12.51
-Sticker | Flashbang ();5.60
-Sticker | Flickshot ();1.15
+Sticker | Flashbang;5.60
+Sticker | Flickshot;1.15
 Sticker | Flipsid3 Tactics (Foil);12.61
 Sticker | Flipsid3 Tactics (Holo);3.33
-Sticker | Flipsid3 Tactics ();1.96
-Sticker | Flipsid3 Tactics ();0.97
-Sticker | Flipsid3 Tactics ();0.42
-Sticker | Flipsid3 Tactics (Foil) ();1.13
-Sticker | flusha ();0.29
-Sticker | flusha (Foil) ();1.63
+Sticker | Flipsid3 Tactics;1.96
+Sticker | Flipsid3 Tactics;0.97
+Sticker | Flipsid3 Tactics;0.42
+Sticker | Flipsid3 Tactics (Foil);1.13
+Sticker | flusha;0.29
+Sticker | flusha (Foil);1.63
 Sticker | Fnatic (Holo);118.64
-Sticker | Fnatic ();36.79
+Sticker | Fnatic;36.79
 Sticker | Fnatic (Foil);12.02
 Sticker | Fnatic (Foil);5.36
 Sticker | Fnatic (Holo);4.83
 Sticker | Fnatic (Holo);3.82
 Sticker | Fnatic (Holo);2.31
-Sticker | Fnatic ();1.13
-Sticker | Fnatic ();0.96
-Sticker | Fnatic ();0.89
-Sticker | Fnatic ();0.32
-Sticker | Fnatic (Foil) ();1.90
-Sticker | FNS ();0.36
-Sticker | FNS (Foil) ();0.48
-Sticker | fox ();0.26
-Sticker | fox (Foil) ();0.61
-Sticker | freakazoid ();0.33
-Sticker | freakazoid (Foil) ();1.73
-Sticker | friberg ();0.38
-Sticker | friberg (Foil) ();2.33
-Sticker | Furlan ();0.41
-Sticker | Furlan (Foil) ();0.39
-Sticker | GeT_RiGhT ();0.63
-Sticker | GeT_RiGhT (Foil) ();5.62
-Sticker | gob b ();0.40
-Sticker | gob b (Foil) ();0.87
-Sticker | Good Game ();0.80
-Sticker | Good Luck ();0.62
-Sticker | GruBy ();0.43
-Sticker | GruBy (Foil) ();0.51
-Sticker | GuardiaN ();0.70
-Sticker | GuardiaN (Foil) ();1.98
-Sticker | Hamster Hawk ();1.17
-Sticker | Happy ();0.26
-Sticker | Happy (Foil) ();1.21
+Sticker | Fnatic;1.13
+Sticker | Fnatic;0.96
+Sticker | Fnatic;0.89
+Sticker | Fnatic;0.32
+Sticker | Fnatic (Foil);1.90
+Sticker | FNS;0.36
+Sticker | FNS (Foil);0.48
+Sticker | fox;0.26
+Sticker | fox (Foil);0.61
+Sticker | freakazoid;0.33
+Sticker | freakazoid (Foil);1.73
+Sticker | friberg;0.38
+Sticker | friberg (Foil);2.33
+Sticker | Furlan;0.41
+Sticker | Furlan (Foil);0.39
+Sticker | GeT_RiGhT;0.63
+Sticker | GeT_RiGhT (Foil);5.62
+Sticker | gob b;0.40
+Sticker | gob b (Foil);0.87
+Sticker | Good Game;0.80
+Sticker | Good Luck;0.62
+Sticker | GruBy;0.43
+Sticker | GruBy (Foil);0.51
+Sticker | GuardiaN;0.70
+Sticker | GuardiaN (Foil);1.98
+Sticker | Hamster Hawk;1.17
+Sticker | Happy;0.26
+Sticker | Happy (Foil);1.21
 Sticker | Harp of War (Holo);15.74
-Sticker | Have Fun ();0.59
-Sticker | Havoc ();0.45
-Sticker | Havoc (Foil) ();0.79
-Sticker | hazed ();0.36
-Sticker | hazed (Foil) ();0.56
+Sticker | Have Fun;0.59
+Sticker | Havoc;0.45
+Sticker | Havoc (Foil);0.79
+Sticker | hazed;0.36
+Sticker | hazed (Foil);0.56
 Sticker | Headhunter (Foil);18.64
-Sticker | Headless Chicken ();4.73
-Sticker | Headshot Guarantee ();1.18
+Sticker | Headless Chicken;4.73
+Sticker | Headshot Guarantee;1.18
 Sticker | HellRaisers (Holo);97.66
-Sticker | HellRaisers ();14.20
+Sticker | HellRaisers;14.20
 Sticker | HellRaisers (Foil);5.65
 Sticker | HellRaisers (Holo);2.32
-Sticker | HellRaisers ();1.57
-Sticker | HellRaisers ();1.65
+Sticker | HellRaisers;1.57
+Sticker | HellRaisers;1.65
 Sticker | HellRaisers (Holo);1.32
-Sticker | HellRaisers ();0.51
-Sticker | Ho Ho Ho ();5.48
-Sticker | Hostage Rescue ();2.69
-Sticker | Howling Dawn ();97.07
-Sticker | Hyper ();0.45
-Sticker | Hyper (Foil) ();0.46
-Sticker | I Conquered ();0.70
-Sticker | iBUYPOWER ();102.20
+Sticker | HellRaisers;0.51
+Sticker | Ho Ho Ho;5.48
+Sticker | Hostage Rescue;2.69
+Sticker | Howling Dawn;97.07
+Sticker | Hyper;0.45
+Sticker | Hyper (Foil);0.46
+Sticker | I Conquered;0.70
+Sticker | iBUYPOWER;102.20
 Sticker | iBUYPOWER (Holo);6.80
-Sticker | iBUYPOWER ();4.48
-Sticker | iBUYPOWER ();1.17
+Sticker | iBUYPOWER;4.48
+Sticker | iBUYPOWER;1.17
 Sticker | iBUYPOWER (Holo);395.87
-Sticker | James ();0.99
-Sticker | James (Foil) ();1.20
-Sticker | jdm64 ();0.37
-Sticker | jdm64 (Foil) ();0.63
-Sticker | jks ();0.45
-Sticker | jks (Foil) ();0.91
-Sticker | Just Trolling ();1.13
-Sticker | JW ();0.39
-Sticker | JW (Foil) ();2.77
-Sticker | karrigan ();0.28
-Sticker | karrigan (Foil) ();0.96
-Sticker | Kawaii Killer CT ();1.22
-Sticker | Kawaii Killer Terrorist ();1.22
-Sticker | kennyS ();1.03
-Sticker | kennyS (Foil) ();9.99
+Sticker | James;0.99
+Sticker | James (Foil);1.20
+Sticker | jdm64;0.37
+Sticker | jdm64 (Foil);0.63
+Sticker | jks;0.45
+Sticker | jks (Foil);0.91
+Sticker | Just Trolling;1.13
+Sticker | JW;0.39
+Sticker | JW (Foil);2.77
+Sticker | karrigan;0.28
+Sticker | karrigan (Foil);0.96
+Sticker | Kawaii Killer CT;1.22
+Sticker | Kawaii Killer Terrorist;1.22
+Sticker | kennyS;1.03
+Sticker | kennyS (Foil);9.99
 Sticker | Keyd Stars (Foil);2.80
 Sticker | Keyd Stars (Holo);1.90
-Sticker | Keyd Stars ();0.66
-Sticker | King on the Field ();22.76
-Sticker | kioShiMa ();0.24
-Sticker | kioShiMa (Foil) ();0.82
-Sticker | Knife Club ();1.07
-Sticker | KRIMZ ();0.26
-Sticker | KRIMZ (Foil) ();1.05
+Sticker | Keyd Stars;0.66
+Sticker | King on the Field;22.76
+Sticker | kioShiMa;0.24
+Sticker | kioShiMa (Foil);0.82
+Sticker | Knife Club;1.07
+Sticker | KRIMZ;0.26
+Sticker | KRIMZ (Foil);1.05
 Sticker | Let's Roll-oll (Holo);1.02
-Sticker | Let's Roll-oll ();0.52
+Sticker | Let's Roll-oll;0.52
 Sticker | LGB eSports (Holo);127.03
-Sticker | LGB eSports ();26.72
+Sticker | LGB eSports;26.72
 Sticker | LGB eSports (Foil);24.83
 Sticker | LGB eSports (Holo);5.65
-Sticker | LGB eSports ();2.32
-Sticker | Llama Cannon ();0.79
+Sticker | LGB eSports;2.32
+Sticker | Llama Cannon;0.79
 Sticker | London Conspiracy (Holo);1.89
-Sticker | London Conspiracy ();0.53
+Sticker | London Conspiracy;0.53
 Sticker | Luck Skill (Foil);2.31
-Sticker | Luck Skill ();0.72
+Sticker | Luck Skill;0.72
 Sticker | Lucky 13 (Foil);2.99
-Sticker | Lucky 13 ();0.71
+Sticker | Lucky 13;0.71
 Sticker | Lucky Cat (Foil);16.40
-Sticker | Luminosity Gaming ();0.30
-Sticker | Luminosity Gaming (Foil) ();0.95
-Sticker | Maikelele ();0.32
-Sticker | Maikelele (Foil) ();1.22
-Sticker | Maniac ();0.31
-Sticker | Maniac (Foil) ();0.63
-Sticker | markeloff ();0.82
-Sticker | markeloff (Foil) ();0.99
-Sticker | Massive Pear ();5.50
-Sticker | Metal ();0.62
+Sticker | Luminosity Gaming;0.30
+Sticker | Luminosity Gaming (Foil);0.95
+Sticker | Maikelele;0.32
+Sticker | Maikelele (Foil);1.22
+Sticker | Maniac;0.31
+Sticker | Maniac (Foil);0.63
+Sticker | markeloff;0.82
+Sticker | markeloff (Foil);0.99
+Sticker | Massive Pear;5.50
+Sticker | Metal;0.62
 Sticker | mousesports (Holo);66.23
-Sticker | mousesports ();23.86
-Sticker | mousesports ();0.32
-Sticker | mousesports (Foil) ();1.68
+Sticker | mousesports;23.86
+Sticker | mousesports;0.32
+Sticker | mousesports (Foil);1.68
 Sticker | MTS GameGod Wolf (Holo);1.39
-Sticker | MTS GameGod Wolf ();0.48
-Sticker | My Little Friend ();4.25
-Sticker | My Other Awp ();1.12
-Sticker | myXMG ();1.00
-Sticker | n0thing ();0.42
-Sticker | n0thing (Foil) ();2.26
+Sticker | MTS GameGod Wolf;0.48
+Sticker | My Little Friend;4.25
+Sticker | My Other Awp;1.12
+Sticker | myXMG;1.00
+Sticker | n0thing;0.42
+Sticker | n0thing (Foil);2.26
 Sticker | Natus Vincere (Holo);166.98
-Sticker | Natus Vincere ();28.62
+Sticker | Natus Vincere;28.62
 Sticker | Natus Vincere (Foil);5.09
 Sticker | Natus Vincere (Holo);3.89
 Sticker | Natus Vincere (Holo);2.56
 Sticker | Natus Vincere (Foil);2.56
 Sticker | Natus Vincere (Holo);2.13
-Sticker | Natus Vincere ();0.90
-Sticker | Natus Vincere ();0.89
-Sticker | Natus Vincere ();0.74
-Sticker | Natus Vincere ();0.32
-Sticker | Natus Vincere (Foil) ();0.86
-Sticker | NBK- ();0.26
-Sticker | NBK- (Foil) ();1.32
-Sticker | Nelu the Bear ();4.43
-Sticker | NEO ();0.40
-Sticker | NEO (Foil) ();1.97
+Sticker | Natus Vincere;0.90
+Sticker | Natus Vincere;0.89
+Sticker | Natus Vincere;0.74
+Sticker | Natus Vincere;0.32
+Sticker | Natus Vincere (Foil);0.86
+Sticker | NBK-;0.26
+Sticker | NBK- (Foil);1.32
+Sticker | Nelu the Bear;4.43
+Sticker | NEO;0.40
+Sticker | NEO (Foil);1.97
 Sticker | New Sheriff (Foil);9.71
-Sticker | nex ();0.46
-Sticker | nex (Foil) ();1.28
-Sticker | Nice Shot ();1.06
-Sticker | Ninja Defuse ();1.12
+Sticker | nex;0.46
+Sticker | nex (Foil);1.28
+Sticker | Nice Shot;1.06
+Sticker | Ninja Defuse;1.12
 Sticker | Ninjas in Pyjamas (Holo);73.69
-Sticker | Ninjas in Pyjamas ();29.41
+Sticker | Ninjas in Pyjamas;29.41
 Sticker | Ninjas in Pyjamas (Foil);7.89
 Sticker | Ninjas in Pyjamas (Foil);3.82
 Sticker | Ninjas in Pyjamas (Holo);2.68
 Sticker | Ninjas in Pyjamas (Holo);2.06
 Sticker | Ninjas in Pyjamas (Holo);2.01
-Sticker | Ninjas in Pyjamas ();0.96
-Sticker | Ninjas in Pyjamas ();0.56
-Sticker | Ninjas in Pyjamas ();0.31
-Sticker | Ninjas in Pyjamas  ();0.63
-Sticker | Ninjas in Pyjamas (Foil) ();1.10
-Sticker | olofmeister ();0.56
-Sticker | olofmeister (Foil) ();5.53
-Sticker | One Shot One Kill ();1.16
-Sticker | Pandamonium ();5.06
-Sticker | pashaBiceps ();1.01
-Sticker | pashaBiceps (Foil) ();6.99
-Sticker | peet ();0.42
-Sticker | peet (Foil) ();0.40
+Sticker | Ninjas in Pyjamas;0.96
+Sticker | Ninjas in Pyjamas;0.56
+Sticker | Ninjas in Pyjamas;0.31
+Sticker | Ninjas in Pyjamas ;0.63
+Sticker | Ninjas in Pyjamas (Foil);1.10
+Sticker | olofmeister;0.56
+Sticker | olofmeister (Foil);5.53
+Sticker | One Shot One Kill;1.16
+Sticker | Pandamonium;5.06
+Sticker | pashaBiceps;1.01
+Sticker | pashaBiceps (Foil);6.99
+Sticker | peet;0.42
+Sticker | peet (Foil);0.40
 Sticker | PENTA Sports (Foil);2.13
 Sticker | PENTA Sports (Holo);1.04
-Sticker | PENTA Sports ();0.91
-Sticker | PENTA Sports  ();0.69
+Sticker | PENTA Sports;0.91
+Sticker | PENTA Sports ;0.69
 Sticker | Phoenix (Foil);5.50
-Sticker | Piece Of Cake ();3.47
-Sticker | Pigeon Master ();3.80
-Sticker | Planetkey Dynamics ();1.00
-Sticker | Pocket BBQ ();0.60
-Sticker | pronax ();0.25
-Sticker | pronax (Foil) ();0.83
-Sticker | Pros Don't Fake ();1.12
-Sticker | Queen Of Pain ();1.16
-Sticker | rain ();0.26
-Sticker | rain (Foil) ();1.04
-Sticker | rallen ();0.39
-Sticker | rallen (Foil) ();0.41
+Sticker | Piece Of Cake;3.47
+Sticker | Pigeon Master;3.80
+Sticker | Planetkey Dynamics;1.00
+Sticker | Pocket BBQ;0.60
+Sticker | pronax;0.25
+Sticker | pronax (Foil);0.83
+Sticker | Pros Don't Fake;1.12
+Sticker | Queen Of Pain;1.16
+Sticker | rain;0.26
+Sticker | rain (Foil);1.04
+Sticker | rallen;0.39
+Sticker | rallen (Foil);0.41
 Sticker | Reason Gaming (Holo);148.25
-Sticker | Reason Gaming ();16.65
+Sticker | Reason Gaming;16.65
 Sticker | Rekt (Holo);4.08
-Sticker | reltuC ();0.30
-Sticker | reltuC (Foil) ();0.47
-Sticker | Renegades ();0.29
-Sticker | Renegades (Foil) ();1.12
-Sticker | Rickeh ();0.42
-Sticker | Rickeh (Foil) ();0.43
-Sticker | Rising Skull ();1.08
-Sticker | Robo ();9.13
-Sticker | RpK ();0.27
-Sticker | RpK (Foil) ();0.54
-Sticker | Salute! ();0.93
-Sticker | SAS Chicken ();4.74
-Sticker | ScreaM ();1.02
-Sticker | ScreaM (Foil) ();4.39
-Sticker | seang@res ();0.27
-Sticker | seang@res (Foil) ();0.95
-Sticker | Seek &amp; Destroy ();0.72
-Sticker | seized ();0.30
-Sticker | seized (Foil) ();0.62
-Sticker | Shave Master ();1.06
-Sticker | Shooting Star Return ();4.92
-Sticker | shox ();0.64
-Sticker | shox (Foil) ();1.94
-Sticker | shroud ();0.71
-Sticker | shroud (Foil) ();4.86
+Sticker | reltuC;0.30
+Sticker | reltuC (Foil);0.47
+Sticker | Renegades;0.29
+Sticker | Renegades (Foil);1.12
+Sticker | Rickeh;0.42
+Sticker | Rickeh (Foil);0.43
+Sticker | Rising Skull;1.08
+Sticker | Robo;9.13
+Sticker | RpK;0.27
+Sticker | RpK (Foil);0.54
+Sticker | Salute!;0.93
+Sticker | SAS Chicken;4.74
+Sticker | ScreaM;1.02
+Sticker | ScreaM (Foil);4.39
+Sticker | seang@res;0.27
+Sticker | seang@res (Foil);0.95
+Sticker | Seek &amp; Destroy;0.72
+Sticker | seized;0.30
+Sticker | seized (Foil);0.62
+Sticker | Shave Master;1.06
+Sticker | Shooting Star Return;4.92
+Sticker | shox;0.64
+Sticker | shox (Foil);1.94
+Sticker | shroud;0.71
+Sticker | shroud (Foil);4.86
 Sticker | Silent Ninja (Foil);3.75
-Sticker | Silent Ninja ();1.11
-Sticker | Skadoodle ();0.78
-Sticker | Skadoodle (Foil) ();4.34
-Sticker | Skull Lil Boney ();0.81
-Sticker | Skull Troop ();0.71
-Sticker | Skulltorgeist ();1.13
-Sticker | SmithZz ();0.28
-Sticker | SmithZz (Foil) ();0.58
-Sticker | Snax ();0.36
-Sticker | Snax (Foil) ();1.57
-Sticker | Sneaky Beaky Like ();2.30
-Sticker | Snyper ();0.43
-Sticker | Snyper (Foil) ();0.49
-Sticker | Spiidi ();0.43
-Sticker | Spiidi (Foil) ();0.89
-Sticker | SPUNJ ();0.48
-Sticker | SPUNJ (Foil) ();1.05
-Sticker | Stay Frosty ();6.67
-Sticker | steel ();0.31
-Sticker | steel (Foil) ();0.41
+Sticker | Silent Ninja;1.11
+Sticker | Skadoodle;0.78
+Sticker | Skadoodle (Foil);4.34
+Sticker | Skull Lil Boney;0.81
+Sticker | Skull Troop;0.71
+Sticker | Skulltorgeist;1.13
+Sticker | SmithZz;0.28
+Sticker | SmithZz (Foil);0.58
+Sticker | Snax;0.36
+Sticker | Snax (Foil);1.57
+Sticker | Sneaky Beaky Like;2.30
+Sticker | Snyper;0.43
+Sticker | Snyper (Foil);0.49
+Sticker | Spiidi;0.43
+Sticker | Spiidi (Foil);0.89
+Sticker | SPUNJ;0.48
+Sticker | SPUNJ (Foil);1.05
+Sticker | Stay Frosty;6.67
+Sticker | steel;0.31
+Sticker | steel (Foil);0.41
 Sticker | Stupid Banana (Foil);1.88
 Sticker | Swag (Foil);12.74
-Sticker | T On Cat ();5.60
-Sticker | T-Rekt ();6.19
-Sticker | tarik ();0.49
-Sticker | tarik (Foil) ();1.03
-Sticker | TaZ ();0.32
-Sticker | TaZ (Foil) ();1.45
+Sticker | T On Cat;5.60
+Sticker | T-Rekt;6.19
+Sticker | tarik;0.49
+Sticker | tarik (Foil);1.03
+Sticker | TaZ;0.32
+Sticker | TaZ (Foil);1.45
 Sticker | Team Dignitas (Holo);98.93
-Sticker | Team Dignitas ();11.90
+Sticker | Team Dignitas;11.90
 Sticker | Team Dignitas (Holo);3.62
 Sticker | Team Dignitas (Foil);2.67
 Sticker | Team Dignitas (Holo);1.94
-Sticker | Team Dignitas ();0.73
-Sticker | Team Dignitas ();0.46
-Sticker | Team eBettle ();0.30
-Sticker | Team eBettle (Foil) ();0.46
+Sticker | Team Dignitas;0.73
+Sticker | Team Dignitas;0.46
+Sticker | Team eBettle;0.30
+Sticker | Team eBettle (Foil);0.46
 Sticker | Team EnVyUs (Foil);9.19
 Sticker | Team EnVyUs (Holo);3.82
-Sticker | Team EnVyUs ();0.99
-Sticker | Team EnVyUs ();0.28
-Sticker | Team EnVyUs (Foil) ();1.95
-Sticker | Team Immunity ();0.32
-Sticker | Team Immunity (Foil) ();0.55
-Sticker | Team Kinguin ();0.35
-Sticker | Team Kinguin (Foil) ();5.54
+Sticker | Team EnVyUs;0.99
+Sticker | Team EnVyUs;0.28
+Sticker | Team EnVyUs (Foil);1.95
+Sticker | Team Immunity;0.32
+Sticker | Team Immunity (Foil);0.55
+Sticker | Team Kinguin;0.35
+Sticker | Team Kinguin (Foil);5.54
 Sticker | Team LDLC.com (Holo);91.20
-Sticker | Team LDLC.com ();12.33
+Sticker | Team LDLC.com;12.33
 Sticker | Team LDLC.com (Holo);1.25
-Sticker | Team LDLC.com ();0.55
-Sticker | Team LDLC.com ();0.37
-Sticker | Team SoloMid ();0.28
-Sticker | Team SoloMid (Foil) ();1.19
+Sticker | Team LDLC.com;0.55
+Sticker | Team LDLC.com;0.37
+Sticker | Team SoloMid;0.28
+Sticker | Team SoloMid (Foil);1.19
 Sticker | Teamwork (Holo);2.50
-Sticker | Terrorized ();6.46
-Sticker | The Guru ();1.04
-Sticker | The Samurai ();1.07
-Sticker | The Spartan ();1.04
-Sticker | The Zombie ();1.04
-Sticker | Thug Life ();1.19
-Sticker | Till Death Do Us Part ();6.45
-Sticker | Titan ();59.02
+Sticker | Terrorized;6.46
+Sticker | The Guru;1.04
+Sticker | The Samurai;1.07
+Sticker | The Spartan;1.04
+Sticker | The Zombie;1.04
+Sticker | Thug Life;1.19
+Sticker | Till Death Do Us Part;6.45
+Sticker | Titan;59.02
 Sticker | Titan (Foil);12.42
 Sticker | Titan (Holo);6.63
 Sticker | Titan (Holo);2.19
-Sticker | Titan ();0.68
-Sticker | Titan ();0.69
-Sticker | Titan ();0.37
+Sticker | Titan;0.68
+Sticker | Titan;0.69
+Sticker | Titan;0.37
 Sticker | Titan (Holo);403.87
-Sticker | Titan (Foil) ();1.84
-Sticker | To B or not to B ();0.82
-Sticker | Trick Or Threat ();4.73
-Sticker | Trick Or Treat ();4.81
+Sticker | Titan (Foil);1.84
+Sticker | To B or not to B;0.82
+Sticker | Trick Or Threat;4.73
+Sticker | Trick Or Treat;4.81
 Sticker | TSM Kinguin (Foil);5.81
 Sticker | TSM Kinguin (Holo);2.32
-Sticker | TSM Kinguin ();1.07
+Sticker | TSM Kinguin;1.07
 Sticker | Unicorn (Holo);2.76
-Sticker | Unicorn ();2.16
-Sticker | USTILO ();0.40
-Sticker | USTILO (Foil) ();0.41
+Sticker | Unicorn;2.16
+Sticker | USTILO;0.40
+Sticker | USTILO (Foil);0.41
 Sticker | Vigilance (Holo);1.26
-Sticker | Vigilance ();0.65
+Sticker | Vigilance;0.65
 Sticker | Virtus.Pro (Holo);109.18
-Sticker | Virtus.Pro ();29.92
+Sticker | Virtus.Pro;29.92
 Sticker | Virtus.pro (Foil);8.47
 Sticker | Virtus.pro (Holo);3.78
 Sticker | Virtus.Pro (Foil);4.15
 Sticker | Virtus.Pro (Holo);3.39
 Sticker | Virtus.Pro (Holo);1.90
-Sticker | Virtus.Pro ();1.14
-Sticker | Virtus.pro ();0.93
-Sticker | Virtus.Pro ();0.70
-Sticker | Virtus.Pro ();0.35
-Sticker | Virtus.Pro (Foil) ();1.60
+Sticker | Virtus.Pro;1.14
+Sticker | Virtus.pro;0.93
+Sticker | Virtus.Pro;0.70
+Sticker | Virtus.Pro;0.35
+Sticker | Virtus.Pro (Foil);1.60
 Sticker | Vox Eminor (Holo);75.12
-Sticker | Vox Eminor ();11.35
+Sticker | Vox Eminor;11.35
 Sticker | Vox Eminor (Foil);3.63
 Sticker | Vox Eminor (Holo);2.75
 Sticker | Vox Eminor (Holo);1.16
-Sticker | Vox Eminor ();0.44
-Sticker | Vox Eminor  ();0.70
-Sticker | Wanna Fight ();5.51
-Sticker | War Penguin ();6.14
-Sticker | Warowl ();5.01
-Sticker | Welcome to the Clutch ();0.93
-Sticker | Windy Walking Club ();5.98
-Sticker | Winged Defuser ();22.60
-Sticker | Witch ();8.50
-Sticker | Witchcraft ();11.18
-Sticker | Work For Ammo ();4.25
-Sticker | WorldEdit ();0.48
-Sticker | WorldEdit (Foil) ();0.61
-Sticker | Xizt ();0.26
-Sticker | Xizt (Foil) ();0.93
-Sticker | Xyp9x ();0.28
-Sticker | Xyp9x (Foil) ();0.75
-Sticker | yam ();0.39
-Sticker | yam (Foil) ();0.65
-Sticker | Zeus ();0.50
-Sticker | Zeus (Foil) ();1.01
-Sticker | Zombie Lover ();5.73
-Sticker Capsule |  ();0.10
-Sticker Capsule 2 |  ();0.23
-Swap Tool |  ();0.11
+Sticker | Vox Eminor;0.44
+Sticker | Vox Eminor ;0.70
+Sticker | Wanna Fight;5.51
+Sticker | War Penguin;6.14
+Sticker | Warowl;5.01
+Sticker | Welcome to the Clutch;0.93
+Sticker | Windy Walking Club;5.98
+Sticker | Winged Defuser;22.60
+Sticker | Witch;8.50
+Sticker | Witchcraft;11.18
+Sticker | Work For Ammo;4.25
+Sticker | WorldEdit;0.48
+Sticker | WorldEdit (Foil);0.61
+Sticker | Xizt;0.26
+Sticker | Xizt (Foil);0.93
+Sticker | Xyp9x;0.28
+Sticker | Xyp9x (Foil);0.75
+Sticker | yam;0.39
+Sticker | yam (Foil);0.65
+Sticker | Zeus;0.50
+Sticker | Zeus (Foil);1.01
+Sticker | Zombie Lover;5.73
+Sticker Capsule;0.10
+Sticker Capsule 2;0.23
+Swap Tool;0.11
 Tec-9 | Army Mesh (Factory New);0.04
 Tec-9 | Army Mesh (Well-Worn);0.03
 Tec-9 | Army Mesh (Battle-Scarred);0.03
@@ -5161,8 +5161,8 @@ USP-S | Torque (Minimal Wear);0.25
 USP-S | Torque (Battle-Scarred);0.19
 USP-S | Torque (Well-Worn);0.18
 USP-S | Torque (Field-Tested);0.13
-Winter Offensive Case Key |  ();2.65
-Winter Offensive Weapon Case |  ();0.86
+Winter Offensive Case Key;2.65
+Winter Offensive Weapon Case;0.86
 XM1014 | Blaze Orange (Factory New);30.60
 XM1014 | Blaze Orange (Battle-Scarred);2.15
 XM1014 | Blaze Orange (Minimal Wear);3.78
@@ -5237,4 +5237,3 @@ XM1014 | VariCamo Blue (Minimal Wear);2.31
 XM1014 | VariCamo Blue (Well-Worn);1.76
 XM1014 | VariCamo Blue (Field-Tested);1.75
 XM1014 | VariCamo Blue (Battle-Scarred);1.68
-

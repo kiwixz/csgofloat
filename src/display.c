@@ -25,7 +25,7 @@
 #include "display.h"
 #include "account.h"
 #include "inventory.h"
-#include "market.h"
+#include "price.h"
 #include "schema.h"
 #include "shared.h"
 
@@ -130,7 +130,7 @@ static void print_color(float f) // from 0.0f to 100.0f
   print_color_raw(f * f * f / 2500 + 50);
 }
 
-static void print_base(const char *name, const char *price, const Item *item)
+static void print_base(const char *name, float price, const Item *item)
 {
   int len;
 
@@ -183,10 +183,10 @@ static void print_base(const char *name, const char *price, const Item *item)
   for ( ; len > 0; --len)
     printf(" ");
 
-  if (price && price[0])
+  if (price >= 0.0f)
     {
-      print_color_raw(-4000 / (atof(price + 1) + 37) + 109); // not linear
-      printf("%7s", price);
+      print_color_raw(-4000 / (price + 37) + 109); // not linear
+      printf("$%6.2f", price);
     }
   else
     printf("       ");
@@ -221,7 +221,8 @@ int display_inventory(const Item *inv, int len, int detailed,
   alt = 0;
   for (i = 0; i < len; ++i)
     {
-      char *name, *price;
+      float price;
+      char  *name;
 
       if (onlyfloat && (inv[i].f < 0.0))
         continue;
@@ -254,14 +255,9 @@ int display_inventory(const Item *inv, int len, int detailed,
         }
 
       if (dispprice)
-        {
-          price = market_get(name, inv + i);
-
-          if (!price)
-            return 0;
-        }
+        price = price_get(name);
       else
-        price = NULL;
+        price = -1.0f;
 
       if (ansiec)
         {
@@ -343,14 +339,8 @@ int display_inventory(const Item *inv, int len, int detailed,
 
       free(name);
 
-      if (dispprice)
-        free(price);
-
       alt = !alt;
     }
-
-  // if (ansiec)
-  // printf("\x1b[0m");
 
   return i;
 }

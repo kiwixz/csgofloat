@@ -60,7 +60,7 @@ $(addprefix $(DIR)/,%.o): src/%.c
 
 steamanalyst: steamanalyst.html
 	@echo -e "\x1b[32mParsing $<...\x1b[0m"
-	@grep -o '<tr role="row" class="\w*">.*</tr>' steamanalyst.html | sed -nr 's/<tr role="row"[^<]*<td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>[^<]*<\/td><td[^>]*>([^<]*|<span[^<]*<\/span>)<\/td><td[^>]*>[^<]*<\/td><\/tr>/\1 | \2 (\3);\4\n/pg' > steamanalyst
+	@grep -o '<tr role="row" class="\w*">.*</tr>' steamanalyst.html | sed -nr 's/<tr role="row"[^<]*<td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>[^<]*<\/td><td[^>]*>([^<]*|<span[^<]*<\/span>)<\/td><td[^>]*>[^<]*<\/td><\/tr>/\1 | \2 (\3);\4\n/pg' | sed 's/ ();/;/g' | sed 's/ | ;/;/g' > steamanalyst
 
 .PHONY: clean
 

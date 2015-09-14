@@ -48,6 +48,7 @@ a          | Enable ANSI escape codes (mainly to colorize)
 d          | Show names of sticked stickers
 f          | Hide items without float
 k key      | Use a specific Steam WebAPI key
+m          | Display current market prices instead of cached ones from SteamAnalyst (only makes sense with -p)
 p          | Display price of item on market (if possible)
 s _string_ | Search for items whose names contain the string (case insensitive)
 u          | Update downloadable files (_schema.txt_)

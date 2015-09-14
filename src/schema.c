@@ -117,15 +117,19 @@ static int parse_names(MapItem * *map, int *maplen, char letter,
       ptr = strstr(ptr + 1, "\n\t\t\"") + 4;
       (*map)[i].index = atoi(ptr);
 
-      ptr = strstr(ptr, namec) + nameclen;
+      ptr = strstr(ptr, namec);
       if (!ptr)
         {
           ERROR("Failed to parse skin name");
           return 0;
         }
 
-      while (*ptr != letter)
-        ++ptr;
+      ptr = strchr(ptr + nameclen, letter);
+      if (!ptr)
+        {
+          ERROR("Failed to find skin name");
+          return 0;
+        }
 
       c = ptr + 1;
       for (len = 1; *c != '"'; ++len)
@@ -261,8 +265,8 @@ int schema_update(const char *key)
   return 1;
 }
 
-static void extract_name(const char *namec, const char *list,
-                         char *name, int *len)
+static int extract_name(const char *namec, const char *list,
+                        char *name, int *len)
 {
   char *ptr;
 
@@ -272,9 +276,14 @@ static void extract_name(const char *namec, const char *list,
       int i;
 
       for (i = 0; i < 2; ++i)
-        do
-          ++ptr;
-        while (*ptr != '"');
+        {
+          ptr = strchr(ptr + 1, '"');
+          if (!ptr)
+            {
+              ERROR("Failed to extract name");
+              return 0;
+            }
+        }
 
       for ( ; ptr[1] != '"'; ++*len)
         name[*len] = *(++ptr);
@@ -286,6 +295,8 @@ static void extract_name(const char *namec, const char *list,
       strcat(name, "#");
       strcat(name, namec);
     }
+
+  return 1;
 }
 
 char *schema_name_sticker(int index)
@@ -310,7 +321,8 @@ char *schema_name_sticker(int index)
       return NULL;
     }
 
-  extract_name(stickermap[i].name, stickernames, name, &len);
+  if (!extract_name(stickermap[i].name, stickernames, name, &len))
+    return NULL;
 
   return name;
 }
@@ -372,10 +384,11 @@ char *schema_name(const Item *item)
       return NULL;
     }
 
-  if(skinmap[i].name[5] == 'k') // "Paintkit" to "PaintKit"
+  if (skinmap[i].name[5] == 'k') // "Paintkit" to "PaintKit"
     skinmap[i].name[5] = 'K';
 
-  extract_name(skinmap[i].name, skinnames, name, &len);
+  if (!extract_name(skinmap[i].name, skinnames, name, &len))
+    return NULL;
 
   if ((item->skin >= DOFFSET) &&
       (item->skin < DOFFSET + DPHASESLEN))

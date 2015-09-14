@@ -17,11 +17,14 @@
  * along with csgofloat. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MARKET_H
-#define MARKET_H
+#ifndef PRICE_H
+#define PRICE_H
 
 #include "inventory.h"
 
-char *market_get(const char *id, const Item *item);
+int  price_read();
+void price_clean();
+
+float price_get(const char *id);
 
 #endif

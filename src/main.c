@@ -25,6 +25,7 @@
 #include "display.h"
 #include "ezcurl.h"
 #include "inventory.h"
+#include "price.h"
 #include "schema.h"
 #include "shared.h"
 
@@ -37,6 +38,7 @@ static int usage()
   printf("  -d          Show names of sticked stickers\n");
   printf("  -f          Hide items without float\n");
   printf("  -k key      Use a specific Steam WebAPI key\n");
+  printf("  -m          Display current market prices instead of cached ones\n");
   printf("  -p          Display price of item on market (if possible)\n");
   printf("  -s string   Search for items (case insensitive)\n");
   printf("  -u          Update downloadable files\n");
@@ -68,15 +70,15 @@ static int check_key(const char *key)
 int main(int argc, char *argv[])
 {
   char    c;
-  int     i, invlen, detailed, onlyfloat, price, update;
+  int     i, invlen, detailed, onlyfloat, market, price, update;
   Item    *inv;
   char    *filter, key[KEYLEN + 1];
   Account acc = {0};
 
-  ansiec = detailed = onlyfloat = price = update = 0;
+  ansiec = detailed = onlyfloat = market = price = update = 0;
   filter = NULL;
   key[0] = '\0';
-  while ((c = getopt(argc, argv, "adfk:ps:u")) != -1)
+  while ((c = getopt(argc, argv, "adfk:mps:u")) != -1)
     switch (c)
       {
         case 'a':
@@ -102,6 +104,12 @@ int main(int argc, char *argv[])
             if (check_key(optarg))
               memcpy(key, optarg, KEYLEN + 1);
 
+            break;
+          }
+
+        case 'm':
+          {
+            market = 1;
             break;
           }
 
@@ -165,6 +173,9 @@ int main(int argc, char *argv[])
       schema_update(key);
     }
 
+  if (price && !market)
+    price_read();
+
   INFO("Loading profile...");
   if (!account_get(key, argv[optind], &acc))
     return EXIT_FAILURE;
@@ -187,6 +198,7 @@ int main(int argc, char *argv[])
 
   ezcurl_clean();
   schema_clean();
+  price_clean();
 
   for (i = 0; i < invlen; ++i)
     if (inv[i].name)
