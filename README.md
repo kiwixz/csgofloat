@@ -20,6 +20,12 @@ Finally, you also need a [Steam WebAPI key](http://steamcommunity.com/dev/apikey
 
 ## How to test ?
 
+### Update files
+
+If you have a CS:GO installation under hand, you might want to set _CSGOPATH_ variable in the Makefile, so *csgo_english.txt* and *items_game.txt* will be updated automatically.
+
+To update SteamAnalyst cache, you need to go on [Price List](http://csgo.steamanalyst.com/list) and download the source of the page **once the list loaded**, to _steamanalyst.html_ in root of this repository.
+
 ### Compile
 
 There is a Makefile so you can compile it with only one command:
@@ -27,8 +33,6 @@ There is a Makefile so you can compile it with only one command:
 ```
 make all
 ```
-
-_NOTE: If you have a CS:GO installation under hand, you might want to set **CSGOPATH** variable in the Makefile._
 
 ### Run it
 

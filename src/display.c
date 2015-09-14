@@ -196,8 +196,12 @@ static void print_base(const char *name, float price, const Item *item)
 
   if (price >= 0.0f)
     {
-      print_color_raw(-4000 / (price + 37) + 109); // not linear
-      printf("$%6.2f", price);
+      print_color_raw(-4000 / (price + 40) + 100); // not linear
+
+      if (price >= 1000.0f)
+        printf("$%-6.0f", price);
+      else
+        printf("$%-6.2f", price);
     }
   else
     printf("       ");

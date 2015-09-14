@@ -179,10 +179,10 @@ AWP | BOOM (Field-Tested);14.92
 AWP | Corticera (Factory New);10.47
 AWP | Corticera (Minimal Wear);5.50
 AWP | Corticera (Field-Tested);4.99
-AWP | Dragon Lore (Minimal Wear);1,216.25
+AWP | Dragon Lore (Minimal Wear);1216.25
 AWP | Dragon Lore (Well-Worn);621.25
 AWP | Dragon Lore (Field-Tested);818.75
-AWP | Dragon Lore (Factory New);1,873.75
+AWP | Dragon Lore (Factory New);1873.75
 AWP | Dragon Lore (Battle-Scarred);531.25
 AWP | Electric Hive (Factory New);11.49
 AWP | Electric Hive (Well-Worn);9.33
@@ -199,7 +199,7 @@ AWP | Lightning Strike (Minimal Wear);44.39
 AWP | Lightning Strike (Factory New);38.44
 AWP | Man-o'-war (Minimal Wear);12.52
 AWP | Man-o'-war (Field-Tested);11.65
-AWP | Medusa (Factory New);1,437.50
+AWP | Medusa (Factory New);1437.50
 AWP | Medusa (Battle-Scarred);358.75
 AWP | Medusa (Well-Worn);430.00
 AWP | Medusa (Minimal Wear);521.25
@@ -254,7 +254,7 @@ Bayonet | Crimson Web (Minimal Wear);235.50
 Bayonet | Crimson Web (Field-Tested);118.38
 Bayonet | Crimson Web (Well-Worn);120.71
 Bayonet | Crimson Web (Battle-Scarred);102.30
-Bayonet | Crimson Web (Factory New);2,470.00
+Bayonet | Crimson Web (Factory New);2470.00
 Bayonet | Damascus Steel (Factory New);190.58
 Bayonet | Damascus Steel (Minimal Wear);174.25
 Bayonet | Damascus Steel (Well-Worn);143.06
@@ -1239,14 +1239,14 @@ Karambit | Crimson Web (Field-Tested);319.71
 Karambit | Crimson Web (Well-Worn);291.52
 Karambit | Crimson Web (Battle-Scarred);209.03
 Karambit | Crimson Web (Minimal Wear);580.00
-Karambit | Crimson Web (Factory New);2,863.75
+Karambit | Crimson Web (Factory New);2863.75
 Karambit | Damascus Steel (Minimal Wear);355.64
 Karambit | Damascus Steel (Field-Tested);300.61
 Karambit | Damascus Steel (Well-Worn);298.40
 Karambit | Damascus Steel (Battle-Scarred);263.60
 Karambit | Damascus Steel (Factory New);340.00
 Karambit | Doppler (Minimal Wear);393.75
-Karambit | Doppler (Factory New);1,402.50
+Karambit | Doppler (Factory New);1402.50
 Karambit | Fade (Minimal Wear);461.25
 Karambit | Fade (Factory New);620.00
 Karambit | Forest DDPAT (Minimal Wear);168.17
@@ -1260,7 +1260,7 @@ Karambit | Night (Minimal Wear);321.39
 Karambit | Night (Field-Tested);216.76
 Karambit | Night (Well-Worn);210.47
 Karambit | Night (Battle-Scarred);183.44
-Karambit | Night (Factory New);1,195.00
+Karambit | Night (Factory New);1195.00
 Karambit | Rust Coat (Well-Worn);212.38
 Karambit | Rust Coat (Battle-Scarred);185.48
 Karambit | Safari Mesh (Factory New);195.49
@@ -1275,7 +1275,7 @@ Karambit | Scorched (Well-Worn);131.80
 Karambit | Scorched (Battle-Scarred);121.18
 Karambit | Slaughter (Minimal Wear);325.00
 Karambit | Slaughter (Field-Tested);303.75
-Karambit | Slaughter (Factory New);1,630.00
+Karambit | Slaughter (Factory New);1630.00
 Karambit | Stained (Factory New);289.24
 Karambit | Stained (Minimal Wear);230.66
 Karambit | Stained (Field-Tested);212.87
@@ -1287,7 +1287,7 @@ Karambit | Ultraviolet (Minimal Wear);306.08
 Karambit | Ultraviolet (Field-Tested);222.83
 Karambit | Ultraviolet (Well-Worn);215.43
 Karambit | Ultraviolet (Battle-Scarred);179.24
-Karambit | Ultraviolet (Factory New);1,227.50
+Karambit | Ultraviolet (Factory New);1227.50
 Karambit | Urban Masked (Minimal Wear);190.04
 Karambit | Urban Masked (Field-Tested);136.87
 Karambit | Urban Masked (Well-Worn);132.25
@@ -1493,7 +1493,7 @@ M9 Bayonet | Crimson Web (Field-Tested);176.55
 M9 Bayonet | Crimson Web (Well-Worn);157.20
 M9 Bayonet | Crimson Web (Battle-Scarred);128.81
 M9 Bayonet | Crimson Web (Minimal Wear);461.25
-M9 Bayonet | Crimson Web (Factory New);3,940.00
+M9 Bayonet | Crimson Web (Factory New);3940.00
 M9 Bayonet | Damascus Steel (Factory New);240.97
 M9 Bayonet | Damascus Steel (Minimal Wear);210.67
 M9 Bayonet | Damascus Steel (Field-Tested);179.43
@@ -1514,7 +1514,7 @@ M9 Bayonet | Night (Minimal Wear);244.27
 M9 Bayonet | Night (Field-Tested);133.47
 M9 Bayonet | Night (Well-Worn);118.61
 M9 Bayonet | Night (Battle-Scarred);104.84
-M9 Bayonet | Night (Factory New);1,275.00
+M9 Bayonet | Night (Factory New);1275.00
 M9 Bayonet | Rust Coat (Well-Worn);158.86
 M9 Bayonet | Rust Coat (Battle-Scarred);118.45
 M9 Bayonet | Safari Mesh (Factory New);145.23
@@ -2668,7 +2668,7 @@ Souvenir M4A1-S | Boreal Forest (Minimal Wear);42.41
 Souvenir M4A1-S | Boreal Forest (Battle-Scarred);18.64
 Souvenir M4A1-S | Boreal Forest (Well-Worn);26.23
 Souvenir M4A1-S | Boreal Forest (Field-Tested);16.04
-Souvenir M4A1-S | Knight (Factory New);1,000.00
+Souvenir M4A1-S | Knight (Factory New);1000.00
 Souvenir M4A1-S | Master Piece (Well-Worn);397.50
 Souvenir M4A1-S | Master Piece (Battle-Scarred);329.47
 Souvenir M4A1-S | Master Piece (Field-Tested);388.47
@@ -3178,9 +3178,9 @@ StatTrak™ AK-47 | Elite Build (Well-Worn);2.89
 StatTrak™ AK-47 | Elite Build (Battle-Scarred);2.65
 StatTrak™ AK-47 | Fire Serpent (Battle-Scarred);303.75
 StatTrak™ AK-47 | Fire Serpent (Well-Worn);477.50
-StatTrak™ AK-47 | Fire Serpent (Minimal Wear);1,056.25
+StatTrak™ AK-47 | Fire Serpent (Minimal Wear);1056.25
 StatTrak™ AK-47 | Fire Serpent (Field-Tested);568.75
-StatTrak™ AK-47 | Fire Serpent (Factory New);5,550.00
+StatTrak™ AK-47 | Fire Serpent (Factory New);5550.00
 StatTrak™ AK-47 | Jaguar (Factory New);347.86
 StatTrak™ AK-47 | Jaguar (Minimal Wear);97.01
 StatTrak™ AK-47 | Jaguar (Field-Tested);66.28
@@ -3290,7 +3290,7 @@ StatTrak™ Bayonet | Night (Battle-Scarred);88.80
 StatTrak™ Bayonet | Night (Minimal Wear);248.51
 StatTrak™ Bayonet | Night (Well-Worn);112.38
 StatTrak™ Bayonet | Night (Field-Tested);122.69
-StatTrak™ Bayonet | Night (Factory New);3,500.00
+StatTrak™ Bayonet | Night (Factory New);3500.00
 StatTrak™ Bayonet | Rust Coat (Well-Worn);797.50
 StatTrak™ Bayonet | Rust Coat (Battle-Scarred);143.55
 StatTrak™ Bayonet | Safari Mesh (Minimal Wear);100.84
@@ -3301,7 +3301,7 @@ StatTrak™ Bayonet | Scorched (Minimal Wear);136.07
 StatTrak™ Bayonet | Scorched (Battle-Scarred);100.65
 StatTrak™ Bayonet | Scorched (Field-Tested);95.18
 StatTrak™ Bayonet | Scorched (Well-Worn);91.00
-StatTrak™ Bayonet | Scorched (Factory New);1,837.50
+StatTrak™ Bayonet | Scorched (Factory New);1837.50
 StatTrak™ Bayonet | Slaughter (Minimal Wear);312.50
 StatTrak™ Bayonet | Slaughter (Field-Tested);218.71
 StatTrak™ Bayonet | Slaughter (Factory New);461.25
@@ -3310,7 +3310,7 @@ StatTrak™ Bayonet | Stained (Minimal Wear);151.44
 StatTrak™ Bayonet | Stained (Battle-Scarred);117.86
 StatTrak™ Bayonet | Stained (Field-Tested);131.27
 StatTrak™ Bayonet | Stained (Well-Worn);116.57
-StatTrak™ Bayonet | Tiger Tooth (Minimal Wear);1,000.00
+StatTrak™ Bayonet | Tiger Tooth (Minimal Wear);1000.00
 StatTrak™ Bayonet | Tiger Tooth (Factory New);570.00
 StatTrak™ Bayonet | Ultraviolet (Minimal Wear);225.90
 StatTrak™ Bayonet | Ultraviolet (Well-Worn);164.01
@@ -3320,7 +3320,7 @@ StatTrak™ Bayonet | Urban Masked (Well-Worn);88.60
 StatTrak™ Bayonet | Urban Masked (Minimal Wear);138.69
 StatTrak™ Bayonet | Urban Masked (Battle-Scarred);83.34
 StatTrak™ Bayonet | Urban Masked (Field-Tested);89.04
-StatTrak™ Bayonet | Urban Masked (Factory New);1,000.00
+StatTrak™ Bayonet | Urban Masked (Factory New);1000.00
 StatTrak™ Bayonet | Vanilla (Vanilla);211.12
 StatTrak™ Butterfly Knife | Blue Steel (Minimal Wear);226.39
 StatTrak™ Butterfly Knife | Blue Steel (Well-Worn);198.35
@@ -3358,7 +3358,7 @@ StatTrak™ Butterfly Knife | Scorched (Minimal Wear);164.38
 StatTrak™ Butterfly Knife | Scorched (Well-Worn);108.42
 StatTrak™ Butterfly Knife | Scorched (Field-Tested);109.35
 StatTrak™ Butterfly Knife | Scorched (Battle-Scarred);97.83
-StatTrak™ Butterfly Knife | Scorched (Factory New);1,127.50
+StatTrak™ Butterfly Knife | Scorched (Factory New);1127.50
 StatTrak™ Butterfly Knife | Slaughter (Minimal Wear);353.75
 StatTrak™ Butterfly Knife | Slaughter (Field-Tested);285.80
 StatTrak™ Butterfly Knife | Slaughter (Factory New);456.25
@@ -3818,7 +3818,7 @@ StatTrak™ Huntsman Knife | Night (Minimal Wear);270.30
 StatTrak™ Huntsman Knife | Night (Well-Worn);114.52
 StatTrak™ Huntsman Knife | Night (Field-Tested);117.88
 StatTrak™ Huntsman Knife | Night (Battle-Scarred);102.49
-StatTrak™ Huntsman Knife | Night (Factory New);3,010.00
+StatTrak™ Huntsman Knife | Night (Factory New);3010.00
 StatTrak™ Huntsman Knife | Safari Mesh (Minimal Wear);97.03
 StatTrak™ Huntsman Knife | Safari Mesh (Well-Worn);73.39
 StatTrak™ Huntsman Knife | Safari Mesh (Battle-Scarred);74.65
@@ -3854,7 +3854,7 @@ StatTrak™ Karambit | Boreal Forest (Factory New);600.00
 StatTrak™ Karambit | Case Hardened (Well-Worn);365.40
 StatTrak™ Karambit | Case Hardened (Battle-Scarred);324.74
 StatTrak™ Karambit | Case Hardened (Field-Tested);377.50
-StatTrak™ Karambit | Case Hardened (Factory New);1,265.00
+StatTrak™ Karambit | Case Hardened (Factory New);1265.00
 StatTrak™ Karambit | Case Hardened (Minimal Wear);431.25
 StatTrak™ Karambit | Crimson Web (Field-Tested);365.00
 StatTrak™ Karambit | Crimson Web (Well-Worn);352.50
@@ -3865,14 +3865,14 @@ StatTrak™ Karambit | Damascus Steel (Minimal Wear);441.25
 StatTrak™ Karambit | Damascus Steel (Factory New);612.50
 StatTrak™ Karambit | Damascus Steel (Battle-Scarred);300.00
 StatTrak™ Karambit | Doppler (Minimal Wear);415.00
-StatTrak™ Karambit | Doppler (Factory New);2,098.75
+StatTrak™ Karambit | Doppler (Factory New);2098.75
 StatTrak™ Karambit | Fade (Minimal Wear);695.00
-StatTrak™ Karambit | Fade (Factory New);1,561.25
+StatTrak™ Karambit | Fade (Factory New);1561.25
 StatTrak™ Karambit | Forest DDPAT (Minimal Wear);217.08
 StatTrak™ Karambit | Forest DDPAT (Well-Worn);163.91
 StatTrak™ Karambit | Forest DDPAT (Field-Tested);161.65
 StatTrak™ Karambit | Forest DDPAT (Battle-Scarred);147.53
-StatTrak™ Karambit | Marble Fade (Factory New);1,140.00
+StatTrak™ Karambit | Marble Fade (Factory New);1140.00
 StatTrak™ Karambit | Night (Well-Worn);213.57
 StatTrak™ Karambit | Night (Field-Tested);295.12
 StatTrak™ Karambit | Night (Battle-Scarred);216.98
@@ -3977,7 +3977,7 @@ StatTrak™ M4A4 | Griffin (Minimal Wear);4.35
 StatTrak™ M4A4 | Griffin (Field-Tested);2.40
 StatTrak™ M4A4 | Griffin (Battle-Scarred);2.38
 StatTrak™ M4A4 | Howl (Minimal Wear);812.50
-StatTrak™ M4A4 | Howl (Factory New);1,392.50
+StatTrak™ M4A4 | Howl (Factory New);1392.50
 StatTrak™ M4A4 | Howl (Field-Tested);637.50
 StatTrak™ M4A4 | X-Ray (Factory New);28.28
 StatTrak™ M4A4 | X-Ray (Minimal Wear);16.33
@@ -4008,21 +4008,21 @@ StatTrak™ M9 Bayonet | Case Hardened (Factory New);746.25
 StatTrak™ M9 Bayonet | Crimson Web (Well-Worn);223.15
 StatTrak™ M9 Bayonet | Crimson Web (Field-Tested);241.14
 StatTrak™ M9 Bayonet | Crimson Web (Battle-Scarred);151.56
-StatTrak™ M9 Bayonet | Crimson Web (Factory New);5,900.00
-StatTrak™ M9 Bayonet | Crimson Web (Minimal Wear);1,058.75
+StatTrak™ M9 Bayonet | Crimson Web (Factory New);5900.00
+StatTrak™ M9 Bayonet | Crimson Web (Minimal Wear);1058.75
 StatTrak™ M9 Bayonet | Damascus Steel (Well-Worn);226.88
 StatTrak™ M9 Bayonet | Damascus Steel (Minimal Wear);308.00
 StatTrak™ M9 Bayonet | Damascus Steel (Field-Tested);237.17
 StatTrak™ M9 Bayonet | Damascus Steel (Factory New);478.75
 StatTrak™ M9 Bayonet | Doppler (Minimal Wear);795.00
-StatTrak™ M9 Bayonet | Doppler (Factory New);1,141.25
+StatTrak™ M9 Bayonet | Doppler (Factory New);1141.25
 StatTrak™ M9 Bayonet | Fade (Factory New);527.50
 StatTrak™ M9 Bayonet | Fade (Minimal Wear);458.75
 StatTrak™ M9 Bayonet | Forest DDPAT (Minimal Wear);167.61
 StatTrak™ M9 Bayonet | Forest DDPAT (Battle-Scarred);96.72
 StatTrak™ M9 Bayonet | Forest DDPAT (Well-Worn);103.06
 StatTrak™ M9 Bayonet | Forest DDPAT (Field-Tested);115.15
-StatTrak™ M9 Bayonet | Marble Fade (Factory New);1,011.25
+StatTrak™ M9 Bayonet | Marble Fade (Factory New);1011.25
 StatTrak™ M9 Bayonet | Night (Minimal Wear);358.75
 StatTrak™ M9 Bayonet | Night (Field-Tested);170.97
 StatTrak™ M9 Bayonet | Night (Well-Worn);164.18
@@ -5237,3 +5237,4 @@ XM1014 | VariCamo Blue (Minimal Wear);2.31
 XM1014 | VariCamo Blue (Well-Worn);1.76
 XM1014 | VariCamo Blue (Field-Tested);1.75
 XM1014 | VariCamo Blue (Battle-Scarred);1.68
+
