@@ -35,7 +35,9 @@
 #define PERCENTDEC 2
 #define TERMINALWIDTH 160
 
-static const int DRAGONKING = 400, // skins and weapons
+static const int DOFFSET = 415, // patterns
+                 DPHASESLEN = 7,
+                 DRAGONKING = 400, // skins and weapons
                  MFAF = 16;
 
 static const int DATEBUF = 32,
@@ -45,6 +47,15 @@ static const int DATEBUF = 32,
                  COLOR_NOF[] = {125, 125, 125},
                  COLOR_OFF[] = {137, 137, 137},
                  COLOR_ONLINE[] = {87, 203, 222};
+static const char *DPHASES[] = {
+  "Ruby",
+  "Sapphire",
+  "Black Pearl",
+  "Phase 1",
+  "Phase 2",
+  "Phase 3",
+  "Phase 4"
+};
 
 void display_account(const Account *acc)
 {
@@ -231,6 +242,18 @@ int display_inventory(const Item *inv, int len, int detailed,
       if (!name)
         return 0;
 
+      if (dispprice)
+        price = price_get(name);
+      else
+        price = -1.0f;
+
+      if ((inv[i].skin >= DOFFSET) &&
+          (inv[i].skin < DOFFSET + DPHASESLEN))
+        {
+          strcat(name, " ");
+          strcat(name, DPHASES[inv[i].skin - DOFFSET]);
+        }
+
       if (filter)
         {
           int  j, namelen;
@@ -253,11 +276,6 @@ int display_inventory(const Item *inv, int len, int detailed,
 
           free(lname);
         }
-
-      if (dispprice)
-        price = price_get(name);
-      else
-        price = -1.0f;
 
       if (ansiec)
         {

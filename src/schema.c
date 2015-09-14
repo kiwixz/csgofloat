@@ -40,21 +40,10 @@ typedef struct
   char *name;
 } MapItem;
 
-static const int DOFFSET = 415,
-                 DPHASESLEN = 7,
-                 NAMEBUF = 512,
+static const int NAMEBUF = 512,
                  STICKERDEF = 1209;
 static const char URL[] =
-  "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?key=%s&language=en",
-                  *DPHASES[] = {
-  "Ruby",
-  "Sapphire",
-  "Black Pearl",
-  "Phase 1",
-  "Phase 2",
-  "Phase 3",
-  "Phase 4"
-};
+  "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?key=%s&language=en";
 
 static MapItem *defmap, *skinmap, *stickermap;
 static int     defmaplen, skinmaplen, stickermaplen;
@@ -389,13 +378,6 @@ char *schema_name(const Item *item)
 
   if (!extract_name(skinmap[i].name, skinnames, name, &len))
     return NULL;
-
-  if ((item->skin >= DOFFSET) &&
-      (item->skin < DOFFSET + DPHASESLEN))
-    {
-      strcat(name, " ");
-      strcat(name, DPHASES[item->skin - DOFFSET]);
-    }
 
   strcat(name, " (");
   strcat(name, QUALITIES[item->quality]);
