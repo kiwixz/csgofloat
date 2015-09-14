@@ -35,6 +35,7 @@ PATHNAME=$(addprefix $(DIR)/,$(NAME))
 all: copy $(NAME)
 
 copy:
+	@-[ -f "steamanalyst.html" ] && grep -o '<tr role="row" class="\w*">.*</tr>' steamanalyst.html | sed -nr 's/<tr role="row"[^<]*<td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>[^<]*<\/td><td[^>]*>([^<]*|<span[^<]*<\/span>)<\/td><td[^>]*>[^<]*<\/td><\/tr>/\1 | \2 (\3);\4\n/pg' > steamanalyst
 	@-cp -f "$(CSGOPATH)/scripts/items/items_game.txt" ./ || echo -e "\x1b[31;1mFailed to update required CS:GO files\x1b[0m"
 	@-[ -f "$(CSGOPATH)/resource/csgo_english.txt" ] && iconv -f UTF16LE -t UTF8 "$(CSGOPATH)/resource/csgo_english.txt" | sed s/Paintkit/PaintKit/g > csgo_english.txt
 
