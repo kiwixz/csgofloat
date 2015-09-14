@@ -32,11 +32,11 @@ SRC=$(wildcard src/*.c)
 OBJ=$(addprefix $(DIR)/,$(notdir $(SRC:.c=.o)))
 PATHNAME=$(addprefix $(DIR)/,$(NAME))
 
-all: copy $(NAME)
+all: $(NAME) copy steamanalyst
 
 copy:
-	@-[ -f "steamanalyst.html" ] && grep -o '<tr role="row" class="\w*">.*</tr>' steamanalyst.html | sed -nr 's/<tr role="row"[^<]*<td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>[^<]*<\/td><td[^>]*>([^<]*|<span[^<]*<\/span>)<\/td><td[^>]*>[^<]*<\/td><\/tr>/\1 | \2 (\3);\4\n/pg' > steamanalyst
-	@-cp -f "$(CSGOPATH)/scripts/items/items_game.txt" ./ || echo -e "\x1b[31;1mFailed to update required CS:GO files\x1b[0m"
+	@echo -e "\x1b[32mCopying CS:GO files...\x1b[0m"
+	@-cp -f "$(CSGOPATH)/scripts/items/items_game.txt" ./ || echo -e "\x1b[31;1mFailed to copy required CS:GO files\x1b[0m"
 	@-[ -f "$(CSGOPATH)/resource/csgo_english.txt" ] && iconv -f UTF16LE -t UTF8 "$(CSGOPATH)/resource/csgo_english.txt" | sed s/Paintkit/PaintKit/g > csgo_english.txt
 
 run: all
@@ -57,6 +57,10 @@ $(NAME): $(OBJ)
 $(addprefix $(DIR)/,%.o): src/%.c
 	@echo -e "\x1b[32mCompilation of $<...\x1b[0m"
 	@$(CC) -c -o $@ $< $(CFLAGS)
+
+steamanalyst: steamanalyst.html
+	@echo -e "\x1b[32mParsing $<...\x1b[0m"
+	@grep -o '<tr role="row" class="\w*">.*</tr>' steamanalyst.html | sed -nr 's/<tr role="row"[^<]*<td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>([^<]*)<\/td><td[^<]*<\/td><td[^>]*>([^<]*)<\/td><td[^>]*>[^<]*<\/td><td[^>]*>([^<]*|<span[^<]*<\/span>)<\/td><td[^>]*>[^<]*<\/td><\/tr>/\1 | \2 (\3);\4\n/pg' > steamanalyst
 
 .PHONY: clean
 
