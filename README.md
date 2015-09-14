@@ -64,7 +64,7 @@ u          | Update downloadable files (_schema.txt_)
 - Skin name (if Doppler, phase will be given)
 - Custom name of item
 - If not, date when item will be tradable (local time)
-- Price on market (if option _p_ is given)
+- Price (if option _p_ is given)
 - Stickers, denoted by a pipe when present
 - Wear float value
 - Wear condition
