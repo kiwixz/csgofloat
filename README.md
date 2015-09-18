@@ -4,7 +4,7 @@ Feel free to contact me by email.
 
 ## Description
 
-This is a simple software to check wear float of CS:GO items. It uses APIs from Steam.
+At first, this is a simple software to check wear float of CS:GO items. This is now my Swiss army knife as a trader. It uses SteamPowered APIs.
 
 ![](https://raw.githubusercontent.com/kiwixz/csgofloat/master/screenshot.png "What it looks like")
 
