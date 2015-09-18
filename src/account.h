@@ -27,7 +27,7 @@ typedef struct
   char *name, *id;
 } Account;
 
-const char *STATES[7];
+const char *const STATES[7];
 
 int account_get(const char *key, const char *id, Account *acc);
 

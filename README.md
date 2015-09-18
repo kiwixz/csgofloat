@@ -68,6 +68,7 @@ u          | Update downloadable files (_schema.txt_)
 - Wear condition
 - Wear condition against exterior quality
 
+Conditions are calculated considering range of possible wear float.
 If option _d_ is given, a second line will give name of stickers.
 
 ### Colors

@@ -47,7 +47,7 @@ static const int DATEBUF = 32,
                  COLOR_NOF[] = {125, 125, 125},
                  COLOR_OFF[] = {137, 137, 137},
                  COLOR_ONLINE[] = {87, 203, 222};
-static const char *DPHASES[] = {
+static const char *const DPHASES[] = {
   "Ruby",
   "Sapphire",
   "Black Pearl",
@@ -236,13 +236,14 @@ int display_inventory(const Item *inv, int len, int detailed,
   alt = 0;
   for (i = 0; i < len; ++i)
     {
-      float price;
-      char  *name;
+      const Limits *lim;
+      float        price;
+      char         *name;
 
       if (onlyfloat && (inv[i].f < 0.0))
         continue;
 
-      name = schema_name(inv + i);
+      name = schema_name(inv + i, &lim);
       if (!name)
         return 0;
 
@@ -291,11 +292,15 @@ int display_inventory(const Item *inv, int len, int detailed,
 
       if (inv[i].skin && (inv[i].f >= 0.0))
         {
-          double pf, qpf;
+          double minf, maxf, pf, qpf;
 
-          pf = 100 * (1 - inv[i].f);
-          qpf = 100 * (1 - (inv[i].f - FSTEPS[inv[i].quality + 1])
-                       / (FSTEPS[inv[i].quality] - FSTEPS[inv[i].quality + 1]));
+          minf = lim->min > FSTEPS[inv[i].quality + 1] ?
+            lim->min : FSTEPS[inv[i].quality + 1];
+          maxf = lim->max < FSTEPS[inv[i].quality] ?
+            lim->max : FSTEPS[inv[i].quality];
+
+          pf = 100 * (1 - (inv[i].f - lim->min) / (lim->max - lim->min));
+          qpf = 100 * (1 - (inv[i].f - minf) / (maxf - minf));
 
           if (ansiec)
             printf("\x1b[38;2;0;%d;%dm",

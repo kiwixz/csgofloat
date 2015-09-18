@@ -26,7 +26,7 @@
 #include "inventory.h"
 #include "shared.h"
 
-const char *QUALITIES[] = {
+const char *const QUALITIES[] = {
   "Battle-Scarred",
   "Well-Worn",
   "Field-Tested",
@@ -40,17 +40,26 @@ typedef struct
   char *name;
 } MapItem;
 
+typedef struct
+{
+  int    index;
+  Limits lim;
+  char   *name;
+} SkinMapItem;
+
 static const int NAMEBUF = 512,
                  STICKERDEF = 1209;
 static const char URL[] =
   "http://api.steampowered.com/IEconItems_730/GetSchema/v0002/?key=%s&language=en";
 
-static MapItem *defmap, *skinmap, *stickermap;
-static int     defmaplen, skinmaplen, stickermaplen;
-static char    *namesfile, *skinnames, *stickernames;
+static MapItem     *defmap, *stickermap;
+static SkinMapItem *skinmap;
+static int         defmaplen, skinmaplen, stickermaplen;
+static char        *namesfile, *skinnames, *stickernames;
 
-static char *find_limits(char *strfile, const char *start,
-                         const char *first, const char *end) // not verbose !
+static const char *find_limits(char *strfile, const char *start,
+                               const char *first)
+// no error output
 {
   char *str, *ptr;
 
@@ -62,7 +71,7 @@ static char *find_limits(char *strfile, const char *start,
   if (!str)
     return NULL;
 
-  ptr = strstr(str, end);
+  ptr = strstr(str, "\n\t}");
   if (!ptr)
     return NULL;
 
@@ -71,20 +80,65 @@ static char *find_limits(char *strfile, const char *start,
   return str;
 }
 
-static int parse_names(MapItem * *map, int *maplen, char letter,
-                       const char *start, const char *first,
-                       const char *end, const char *namec)
+static char *read_property(const char * *ptr, const char *prop, char first)
 {
-  int  i, nameclen;
-  char *strfile, *str, *ptr;
+  const char *c;
+  int        len;
+  char       *str;
 
-  nameclen = strlen(namec);
+  *ptr = strstr(*ptr, prop);
+  if (!*ptr)
+    {
+      ERROR("Failed to parse property '%s' name", prop);
+      return NULL;
+    }
+
+  *ptr = strchr(*ptr + strlen(prop), first);
+  if (!*ptr)
+    {
+      ERROR("Failed to parse property '%s' value", prop);
+      return NULL;
+    }
+
+  c = *ptr + 1;
+  for (len = 1; *c != '"'; ++len)
+    ++c;
+
+  SMALLOC(str, len + 1, 0);
+  memcpy(str, *ptr, len);
+  str[len] = '\0';
+
+  return str;
+}
+
+static double read_property_f(const char * *ptr, const char *nextptr,
+                              const char *prop, double ifnot)
+{
+  *ptr = strstr(*ptr, prop);
+  if ((*ptr > nextptr) || !*ptr)
+    return ifnot;
+
+  *ptr = strchr(*ptr + strlen(prop), '.');
+  if (!*ptr)
+    {
+      ERROR("Failed to parse property '%s' value", prop);
+      return ifnot;
+    }
+
+  return atof(*ptr - 1);
+}
+
+static int parse_skinmap()
+{
+  const char *str, *ptr, *nextptr;
+  int        i;
+  char       *strfile;
 
   strfile = read_file("items_game.txt");
   if (!strfile)
     return 0;
 
-  str = find_limits(strfile, start, first, end);
+  str = find_limits(strfile, "\n\t\"paint_kits\"", "\n\t\t\"2\"");
   if (!str)
     {
       ERROR("Failed to parse names of skins");
@@ -92,42 +146,66 @@ static int parse_names(MapItem * *map, int *maplen, char letter,
     }
 
   ptr = str;
-  for (*maplen = -1; ptr; ++*maplen)
+  for (skinmaplen = -1; ptr; ++skinmaplen)
     ptr = strstr(ptr + 1, "\n\t\t\"");
 
-  SMALLOC(*map, *maplen * sizeof(MapItem), 0);
+  SMALLOC(skinmap, skinmaplen * sizeof(SkinMapItem), 0);
+
+  nextptr = strstr(str + 1, "\n\t\t\"") + 4;
+  for (i = 0; i < skinmaplen; ++i)
+    {
+      ptr = nextptr;
+      skinmap[i].index = atoi(ptr);
+
+      skinmap[i].name = read_property(&ptr, "\"description_tag\"", 'P');
+      if (!skinmap[i].name)
+        return 0;
+
+      nextptr = strstr(ptr + 1, "\n\t\t\"") + 4;
+
+      skinmap[i].lim.min = read_property_f(&ptr, nextptr,
+                                           "\"wear_remap_min\"", 0.0);
+      skinmap[i].lim.max = read_property_f(&ptr, nextptr,
+                                           "\"wear_remap_max\"", 1.0);
+    }
+
+  free(strfile);
+
+  return 1;
+}
+
+static int parse_stickermap()
+{
+  const char *str, *ptr;
+  int        i;
+  char       *strfile;
+
+  strfile = read_file("items_game.txt");
+  if (!strfile)
+    return 0;
+
+  str = find_limits(strfile, "\n\t\"sticker_kits\"", "\n\t\t\"1\"");
+  if (!str)
+    {
+      ERROR("Failed to parse names of stickers");
+      return 0;
+    }
 
   ptr = str;
-  for (i = 0; i < *maplen; ++i)
+  for (stickermaplen = -1; ptr; ++stickermaplen)
+    ptr = strstr(ptr + 1, "\n\t\t\"");
+
+  SMALLOC(stickermap, stickermaplen * sizeof(MapItem), 0);
+
+  ptr = str;
+  for (i = 0; i < stickermaplen; ++i)
     {
-      int  len;
-      char *c;
-
       ptr = strstr(ptr + 1, "\n\t\t\"") + 4;
-      (*map)[i].index = atoi(ptr);
+      stickermap[i].index = atoi(ptr);
 
-      ptr = strstr(ptr, namec);
-      if (!ptr)
-        {
-          ERROR("Failed to parse skin name");
-          return 0;
-        }
-
-      ptr = strchr(ptr + nameclen, letter);
-      if (!ptr)
-        {
-          ERROR("Failed to find skin name");
-          return 0;
-        }
-
-      c = ptr + 1;
-      for (len = 1; *c != '"'; ++len)
-        ++c;
-
-      SMALLOC((*map)[i].name, len + 1, 0);
-
-      memcpy((*map)[i].name, ptr, len);
-      (*map)[i].name[len] = '\0';
+      stickermap[i].name = read_property(&ptr, "\"item_name\"", 'S');
+      if (!stickermap[i].name)
+        return 0;
     }
 
   free(strfile);
@@ -189,10 +267,7 @@ int schema_parse()
         }
     }
 
-  if (!parse_names(&skinmap, &skinmaplen, 'P', "\n\t\"paint_kits\"",
-                   "\n\t\t\"2\"", "\n\t}", "\n\t\t\t\"description_tag\"")
-      || !parse_names(&stickermap, &stickermaplen, 'S', "\n\t\"sticker_kits\"",
-                      "\n\t\t\"1\"", "\n\t}", "\n\t\t\t\"item_name\""))
+  if (!parse_skinmap() || !parse_stickermap())
     return 0;
 
   namesfile = read_file("csgo_english.txt");
@@ -316,7 +391,8 @@ char *schema_name_sticker(int index)
   return name;
 }
 
-char *schema_name(const Item *item)
+char *schema_name(const Item *item, const Limits * *lim)
+// if lim not NULL, it'll point to wear limits of the skin (if found)
 {
   int  i, len;
   char *name;
@@ -373,8 +449,8 @@ char *schema_name(const Item *item)
       return NULL;
     }
 
-  if (skinmap[i].name[5] == 'k') // "Paintkit" to "PaintKit"
-    skinmap[i].name[5] = 'K';
+  if (lim)
+    *lim = &skinmap[i].lim;
 
   if (!extract_name(skinmap[i].name, skinnames, name, &len))
     return NULL;

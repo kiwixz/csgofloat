@@ -26,7 +26,7 @@
 #include "ezcurl.h"
 #include "shared.h"
 
-const char *STATES[] = {
+const char *const STATES[] = {
   "Offline",
   "Online",
   "Busy",

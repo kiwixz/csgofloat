@@ -37,6 +37,7 @@ all: $(NAME) copy steamanalyst
 copy:
 	@echo -e "\x1b[32mCopying CS:GO files...\x1b[0m"
 	@-cp -f "$(CSGOPATH)/scripts/items/items_game.txt" ./ || echo -e "\x1b[31;1mFailed to copy required CS:GO files\x1b[0m"
+	@-sed -i s/Paintkit/PaintKit/g items_game.txt
 	@-[ -f "$(CSGOPATH)/resource/csgo_english.txt" ] && iconv -f UTF16LE -t UTF8 "$(CSGOPATH)/resource/csgo_english.txt" | sed s/Paintkit/PaintKit/g > csgo_english.txt
 
 run: all
